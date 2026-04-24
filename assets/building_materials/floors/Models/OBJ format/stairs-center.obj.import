@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ckbdrefufpnmj"
+path="res://.godot/imported/stairs-center.obj-f39b71e9a1f3d78328ababfaa7b3a2df.mesh"
+
+[deps]
+
+files=["res://.godot/imported/stairs-center.obj-f39b71e9a1f3d78328ababfaa7b3a2df.mesh"]
+
+source_file="res://assets/building_materials/floors/Models/OBJ format/stairs-center.obj"
+dest_files=["res://.godot/imported/stairs-center.obj-f39b71e9a1f3d78328ababfaa7b3a2df.mesh", "res://.godot/imported/stairs-center.obj-f39b71e9a1f3d78328ababfaa7b3a2df.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

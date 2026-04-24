@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c50jflf0ks4sw"
+path="res://.godot/imported/stairs-open.obj-9c11cb809219dc273ba70c63e5a95fcf.mesh"
+
+[deps]
+
+files=["res://.godot/imported/stairs-open.obj-9c11cb809219dc273ba70c63e5a95fcf.mesh"]
+
+source_file="res://Models/OBJ format/stairs-open.obj"
+dest_files=["res://.godot/imported/stairs-open.obj-9c11cb809219dc273ba70c63e5a95fcf.mesh", "res://.godot/imported/stairs-open.obj-9c11cb809219dc273ba70c63e5a95fcf.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
