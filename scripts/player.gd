@@ -1,0 +1,97 @@
+extends CharacterBody3D
+
+@onready var camera: Camera3D = $head/Camera3D
+@onready var head: Node3D = $head
+@onready var collsion_shape: CollisionShape3D = $CollisionShape3D
+@onready var hand_marker: Marker3D = $head/hand_marker
+
+const MOUSE_SENSITIVITY = 0.4
+const GRAVITY = 10
+const JUMMP_SPEED = 4.0
+const SPEED = 4.0
+const ACCEL = 9.0
+
+var currentvel = Vector3.ZERO
+var velocity_y = 0
+
+const BOB_FREQ = 2
+const BOB_AMP = 0.86
+var t_bob = 0.0
+
+var grid_size = 0.25
+var ghost_block: Node3D = null
+var objects = []
+var current_object_index = 0
+
+func _ready():
+	objects.append(preload("res://scenes/build/floor.tscn"))
+	objects.append(preload("res://scenes/build/wall.tscn"))
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+func building(delta):
+	var snap_pos: Vector3 = snap_to_grid(hand_marker.global_position, grid_size)
+	ghost_block.global_position = lerp(ghost_block.global_position, snap_pos, 0.1)
+	pass
+	
+func snap_to_grid(position: Vector3, grid_snap: float) -> Vector3:
+	var x = round(position.x / grid_snap) * grid_snap
+	var y = round(position.y / grid_snap) * grid_snap
+	var z = round(position.z / grid_snap) * grid_snap
+	return Vector3(x, y, z)
+	
+func spawn_ghost_block():
+	ghost_block = objects[current_object_index].instantiate()
+	get_parent().add_child(ghost_block)
+	ghost_block.global_position = self.global_position
+	ghost_block.global_position.y -= 1.0
+	
+func _physics_process(delta):
+	if Input.is_action_just_pressed("build_mode"):
+		if ghost_block:
+			ghost_block.destroy()
+		else:
+			spawn_ghost_block()
+		
+	if ghost_block:
+		building(delta)
+		
+	movement(delta)
+	
+func movement(delta):
+	t_bob += delta * velocity.length() * float(is_on_floor())
+	camera.position = headbob(t_bob)
+	
+	var horizontal_velocity = Input.get_vector("left", "right", "forward", "backward").normalized() * SPEED
+	velocity = horizontal_velocity.x * global_transform.basis.x + horizontal_velocity.y * global_transform.basis.z
+	
+	currentvel = currentvel.lerp(velocity, ACCEL * delta)
+	velocity.x = currentvel.x
+	velocity.z = currentvel.z
+	
+	if is_on_floor():
+		if Input.is_action_just_pressed("jump"):
+			velocity_y = JUMMP_SPEED
+			
+		else:
+			velocity_y = 0
+	else:
+		if is_on_ceiling():
+			velocity_y = -0.01
+		velocity_y -= GRAVITY * delta
+	
+	velocity.y = velocity_y
+	move_and_slide()
+	
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		head.rotate_x(deg_to_rad(event.relative.y * -MOUSE_SENSITIVITY))
+		head.rotation_degrees.x = clamp(head.rotation_degrees.x, -90, 60)
+		self.rotate_y(deg_to_rad(event.relative.x * -MOUSE_SENSITIVITY))
+	
+func headbob(speed) -> Vector3:
+	var pos = Vector3.ZERO
+	pos.y = sin(speed * BOB_FREQ) * BOB_AMP
+	pos.x = cos(speed * BOB_FREQ / 2) * BOB_AMP
+	return pos
+	 
+	

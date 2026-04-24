@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://iwhajbkuourg"]
+
+[ext_resource type="PackedScene" uid="uid://dugb1wgu6tbi3" path="res://assets/scenery_materials/road.glb" id="1_evydr"]
+
+[node name="road2" unique_id=1302971374 instance=ExtResource("1_evydr")]

@@ -2,6 +2,7 @@
 
 [ext_resource type="Material" uid="uid://gk2aqkm080t7" path="res://assets/materials/ground_material.tres" id="1_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://da0h7curvje77" path="res://assets/background/sky.jpg" id="2_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://dhoaosvsh21gy" path="res://scenes/player.tscn" id="3_4wyf3"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_k0juu"]
 panorama = ExtResource("2_4wyf3")
@@ -13,25 +14,29 @@ sky_material = SubResource("PanoramaSkyMaterial_k0juu")
 background_mode = 2
 sky = SubResource("Sky_71j4m")
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_4wyf3"]
+size = Vector2(150, 150)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k0juu"]
+size = Vector3(150, 1.15, 150)
+
 [node name="world" type="Node3D" unique_id=637718164]
 
 [node name="map" type="Node3D" parent="." unique_id=2034221838]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="map" unique_id=1263041934]
-material_override = ExtResource("1_rwgxs")
-size = Vector3(100, 1, 100)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="map" unique_id=408477982]
 environment = SubResource("Environment_qfnet")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="map" unique_id=1642784328]
 
-[node name="player" type="CharacterBody3D" parent="map" unique_id=78974502]
+[node name="player" parent="map" unique_id=1723024259 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73925376, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="map/player" unique_id=1783105207]
+[node name="ground" type="StaticBody3D" parent="map" unique_id=389158569]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="map/player" unique_id=560767922]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="map/ground" unique_id=816155620]
+mesh = SubResource("PlaneMesh_4wyf3")
+surface_material_override/0 = ExtResource("1_rwgxs")
 
-[node name="head" type="Node3D" parent="map/player" unique_id=18846636]
-
-[node name="Camera3D" type="Camera3D" parent="map/player/head" unique_id=928715575]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="map/ground" unique_id=2129356819]
+shape = SubResource("BoxShape3D_k0juu")
