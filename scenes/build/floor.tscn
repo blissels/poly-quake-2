@@ -44,10 +44,68 @@ shadow_mesh = SubResource("ArrayMesh_4sjte")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jl2up"]
 points = PackedVector3Array(-1, 0, -1, -1, 0.1, -1, 1, 0, -1, -1, 0, 1, -1, 0.1, 1, 1, 0.1, -1, 1, 0, 1, 1, 0.1, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_4sjte"]
+size = Vector3(2.0002747, 0.04486084, 1.8882217)
+
+[sub_resource type="Animation" id="Animation_4sjte"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("model:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.8, 0.8, 0.8)]
+}
+
+[sub_resource type="Animation" id="Animation_gbmi3"]
+resource_name = "destroy"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("model:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.2, 1.2, 1.2), Vector3(0.1, 0.1, 0.1)]
+}
+
+[sub_resource type="Animation" id="Animation_p1115"]
+resource_name = "place"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("model:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.8, 0.8, 0.8), Vector3(1.2, 1.2, 1.2), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_njso6"]
+_data = {
+&"RESET": SubResource("Animation_4sjte"),
+&"destroy": SubResource("Animation_gbmi3"),
+&"place": SubResource("Animation_p1115")
+}
+
 [node name="Floor" type="StaticBody3D" unique_id=169987710 groups=["Objects"]]
 script = ExtResource("1_4sjte")
 
 [node name="model" type="MeshInstance3D" parent="." unique_id=1979341404]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 mesh = SubResource("ArrayMesh_gbmi3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=318623255]
@@ -56,10 +114,15 @@ disabled = true
 
 [node name="clippingHitBox" type="Area3D" parent="." unique_id=1302000949]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="clippingHitBox" unique_id=1310265913]
-shape = SubResource("ConvexPolygonShape3D_jl2up")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="clippingHitBox" unique_id=508139146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6293945e-05, 0.07461548, -0.0017356873)
+shape = SubResource("BoxShape3D_4sjte")
 
 [node name="floatingHitBox" type="Area3D" parent="." unique_id=1672435488]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floatingHitBox" unique_id=1220987811]
 shape = SubResource("ConvexPolygonShape3D_jl2up")
+
+[node name="animation" type="AnimationPlayer" parent="." unique_id=1749829148]
+libraries/ = SubResource("AnimationLibrary_njso6")
+speed_scale = 0.2

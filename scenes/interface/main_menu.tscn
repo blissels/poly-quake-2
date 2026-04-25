@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://3mcjqf8a5fsl"]
+
+[ext_resource type="Script" uid="uid://dc5fcqnahor4x" path="res://scripts/main_menu.gd" id="1_ylig1"]
+[ext_resource type="FontFile" uid="uid://4vik1q7ws6ls" path="res://assets/font/Heyam.ttf" id="2_bvgs0"]
+[ext_resource type="Texture2D" uid="uid://dthxad4kogyky" path="res://assets/background/backgroundLego.png" id="2_dy7ct"]
+[ext_resource type="FontFile" uid="uid://diqwofc7mut43" path="res://assets/font/Lilita_One/LilitaOne-Regular.ttf" id="4_0k4wn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0ahwo"]
+texture = ExtResource("2_dy7ct")
+modulate_color = Color(0.8732984, 0.8732984, 0.8732984, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ylig1"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 13
+corner_radius_top_right = 13
+corner_radius_bottom_right = 13
+corner_radius_bottom_left = 13
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvgs0"]
+bg_color = Color(0.7581918, 0.7581918, 0.7581917, 1)
+corner_radius_top_left = 13
+corner_radius_top_right = 13
+corner_radius_bottom_right = 13
+corner_radius_bottom_left = 13
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b5nk6"]
+bg_color = Color(0.7581918, 0.7581918, 0.7581917, 1)
+corner_radius_top_left = 13
+corner_radius_top_right = 13
+corner_radius_bottom_right = 13
+corner_radius_bottom_left = 13
+shadow_size = 2
+
+[node name="MainMenu" type="Control" unique_id=2136396622]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ylig1")
+
+[node name="Panel" type="Panel" parent="." unique_id=852256484]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_0ahwo")
+
+[node name="Label" type="Label" parent="." unique_id=1339047086]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -369.0
+offset_top = 122.0
+offset_right = 369.0
+offset_bottom = 247.5
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_bvgs0")
+theme_override_font_sizes/font_size = 100
+text = "The Great Wobble"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=419885978]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = 82.0
+offset_right = 140.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="startBtn" type="Button" parent="VBoxContainer" unique_id=495267879]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_0k4wn")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_ylig1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bvgs0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b5nk6")
+text = "Start Game"
+
+[node name="optionBtn" type="Button" parent="VBoxContainer" unique_id=386395952]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_0k4wn")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_ylig1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bvgs0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b5nk6")
+text = "Options"
+
+[connection signal="pressed" from="VBoxContainer/startBtn" to="." method="_on_start_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/optionBtn" to="." method="_on_option_btn_pressed"]

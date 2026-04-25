@@ -44,21 +44,48 @@ shadow_mesh = SubResource("ArrayMesh_26ui7")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_f03kc"]
 points = PackedVector3Array(0.05000002, 2.4, 1, -0.05000002, 2.4, 1, 0.04999023, 0, 1, 0.05000002, 2.4, -1, -0.05000002, 2.4, -1, -0.05000002, 0, 1, 0.04999023, 0, -1, -0.05000002, 0, -1)
 
-[node name="Floor" type="StaticBody3D" unique_id=169987710 groups=["Objects"]]
+[sub_resource type="BoxShape3D" id="BoxShape3D_xbnmd"]
+size = Vector3(0.05218506, 1.886322, 1.8431396)
+
+[sub_resource type="Animation" id="Animation_4sjte"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_gbmi3"]
+resource_name = "destroy"
+length = 0.2
+
+[sub_resource type="Animation" id="Animation_p1115"]
+resource_name = "place"
+length = 0.2
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_njso6"]
+_data = {
+&"RESET": SubResource("Animation_4sjte"),
+&"destroy": SubResource("Animation_gbmi3"),
+&"place": SubResource("Animation_p1115")
+}
+
+[node name="wall" type="StaticBody3D" unique_id=169987710 groups=["Objects"]]
 script = ExtResource("1_xbnmd")
 
-[node name="model" type="MeshInstance3D" parent="." unique_id=2102476905 groups=["Objects"]]
+[node name="model" type="MeshInstance3D" parent="." unique_id=16777522]
 mesh = SubResource("ArrayMesh_xbnmd")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1262433018]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=581013690]
 shape = SubResource("ConvexPolygonShape3D_f03kc")
 
 [node name="clippingHitBox" type="Area3D" parent="." unique_id=1302000949]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="clippingHitBox" unique_id=1867435536]
-shape = SubResource("ConvexPolygonShape3D_f03kc")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="clippingHitBox" unique_id=1992326452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0043029785, 1.1449232, 0.004255295)
+shape = SubResource("BoxShape3D_xbnmd")
 
 [node name="floatingHitBox" type="Area3D" parent="." unique_id=1672435488]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="floatingHitBox" unique_id=256264434]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floatingHitBox" unique_id=561207525]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_f03kc")
+
+[node name="animation" type="AnimationPlayer" parent="." unique_id=1749829148]
+libraries/ = SubResource("AnimationLibrary_njso6")
+speed_scale = 0.2

@@ -5,6 +5,7 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vyb7"]
 
 [node name="player" type="CharacterBody3D" unique_id=1723024259]
+collision_layer = 2
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1592203879]
@@ -17,3 +18,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.582939, -0.37604713)
 
 [node name="hand_marker" type="Marker3D" parent="head" unique_id=523969549]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2.5)
+
+[node name="raycast" type="RayCast3D" parent="head" unique_id=551432155]
+target_position = Vector3(0, 0, -2.5)

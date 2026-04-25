@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var head: Node3D = $head
 @onready var collsion_shape: CollisionShape3D = $CollisionShape3D
 @onready var hand_marker: Marker3D = $head/hand_marker
+@onready var raycast: RayCast3D = $head/raycast
 
 const MOUSE_SENSITIVITY = 0.4
 const GRAVITY = 10
@@ -15,13 +16,16 @@ var currentvel = Vector3.ZERO
 var velocity_y = 0
 
 const BOB_FREQ = 2
-const BOB_AMP = 0.86
+const BOB_AMP = 0.08
 var t_bob = 0.0
 
 var grid_size = 0.25
 var ghost_block: Node3D = null
 var objects = []
 var current_object_index = 0
+
+var new_rot = 0.0
+var rotation_complete = true
 
 func _ready():
 	objects.append(preload("res://scenes/build/floor.tscn"))
@@ -31,7 +35,24 @@ func _ready():
 func building(delta):
 	var snap_pos: Vector3 = snap_to_grid(hand_marker.global_position, grid_size)
 	ghost_block.global_position = lerp(ghost_block.global_position, snap_pos, 0.1)
-	pass
+	
+	if Input.is_action_just_pressed("rotate") and rotation_complete:
+		rotation_complete = false
+		new_rot = ghost_block.rotation.y
+		new_rot += deg_to_rad(90.0)
+		
+	if not rotation_complete:
+		ghost_block.rotation.y = lerp(ghost_block.rotation.y, new_rot, 0.1)
+		if ghost_block.rotation.y == new_rot:
+			rotation_complete = true
+		
+		
+	if Input.is_action_just_pressed("left_click") and ghost_block.can_place:
+		var block_instance = objects[current_object_index].instantiate()
+		get_parent().add_child(block_instance)
+		block_instance.place()
+		block_instance.global_transform.origin = snap_to_grid(ghost_block.global_transform.origin, grid_size)
+		block_instance.global_rotation = ghost_block.global_rotation
 	
 func snap_to_grid(position: Vector3, grid_snap: float) -> Vector3:
 	var x = round(position.x / grid_snap) * grid_snap
@@ -54,8 +75,25 @@ func _physics_process(delta):
 		
 	if ghost_block:
 		building(delta)
-		
+		if Input.is_action_just_pressed("next_item"):
+			object_change(1)
+		elif Input.is_action_just_pressed("previous_item"):
+			object_change(-1)
+	elif raycast.is_colliding():
+		if Input.is_action_just_pressed("right_click"):
+			if raycast.get_collider().is_in_group("Object"):
+				raycast.get_collider().destroy()
 	movement(delta)
+	
+func object_change(direction):
+	if ghost_block:
+		ghost_block.queue_free()
+		current_object_index += direction
+		if (current_object_index < 0):
+			current_object_index += objects.size()
+		elif current_object_index >= objects.size():
+			current_object_index -= objects.size()
+		spawn_ghost_block()
 	
 func movement(delta):
 	t_bob += delta * velocity.length() * float(is_on_floor())
