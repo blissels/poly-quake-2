@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dy005eoy2m8d7"]
+
+[node name="MainLevel" type="Control" unique_id=905977399]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=909932222]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Game Identity" type="VBoxContainer" parent="HBoxContainer" unique_id=827222991]
+layout_mode = 2
+alignment = 1
+
+[node name="MenuBar" type="MenuBar" parent="HBoxContainer/Game Identity" unique_id=2026395059]
+visible = false
+layout_mode = 2
+
+[node name="LevelGuide" type="VBoxContainer" parent="HBoxContainer" unique_id=552472291]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/LevelGuide" unique_id=1783349951]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Build Mode: B (ON/OFF)"
+horizontal_alignment = 2
+vertical_alignment = 1

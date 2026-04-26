@@ -20,4 +20,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.582939, -0.37604713)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2.5)
 
 [node name="raycast" type="RayCast3D" parent="head" unique_id=551432155]
-target_position = Vector3(0, 0, -2.5)
+target_position = Vector3(0, 0, -3)

@@ -27,6 +27,11 @@ var current_object_index = 0
 var new_rot = 0.0
 var rotation_complete = true
 
+# AI Generated {for toggle build_mode on/off}
+var in_build_mode: bool = false
+# AI Generated {for toggle destroy mode}
+var in_destroy_mode: bool = false
+
 func _ready():
 	objects.append(preload("res://scenes/build/floor.tscn"))
 	objects.append(preload("res://scenes/build/wall.tscn"))
@@ -68,10 +73,23 @@ func spawn_ghost_block():
 	
 func _physics_process(delta):
 	if Input.is_action_just_pressed("build_mode"):
-		if ghost_block:
-			ghost_block.destroy()
+		in_build_mode = !in_build_mode 
+		
+		if in_build_mode == false:
+			if ghost_block != null:
+				ghost_block.queue_free()
+				ghost_block = null
 		else:
 			spawn_ghost_block()
+			
+	# --- TOGGLE DESTROY MODE ---
+	elif Input.is_action_just_pressed("destroy_mode"):
+		in_destroy_mode = !in_destroy_mode
+		if in_destroy_mode:
+			in_build_mode = false # Matikan mode build kalau masuk hancur
+			if ghost_block != null:
+				ghost_block.queue_free()
+				ghost_block = null
 		
 	if ghost_block:
 		building(delta)
