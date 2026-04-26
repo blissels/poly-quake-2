@@ -12,6 +12,9 @@ func _ready() -> void:
 	build_timer.timeout.connect(_on_build_timer_timeout)
 	build_timer.start()
 	
+	EarthquakeManager.earthquake_ended.connect(_on_earthquake_ended)
+
+	
 func _process(_delta: float) -> void:
 	if is_building_phase:
 		_update_timer_display()
@@ -33,8 +36,9 @@ func _on_build_timer_timeout() -> void:
 	timer_label.modulate = Color.DARK_RED
 	
 	print("Fase Membangun selesai! Memulai Fase Gempa...")
-	start_earthquake_phase()
+	EarthquakeManager.start_earthquake()
 	
-func start_earthquake_phase() -> void:
-	pass
-	
+func _on_earthquake_ended(scale: float, survived: int) -> void:
+	timer_label.text     = "SR %.1f — %d blok selamat!" % [scale, survived]
+	timer_label.modulate = Color.WHITE  # ✅ reset warna
+	timer_label.visible  = true         # ✅ pastikan tidak ter-flash

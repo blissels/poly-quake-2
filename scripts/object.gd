@@ -36,5 +36,7 @@ func place():
 	model.transparency = 0.0
 	collision_shape.disabled = false
 	
+	add_to_group("placed_blocks")
+	
 func destroy():
 	animation.play("destroy")

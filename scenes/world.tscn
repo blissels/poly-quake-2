@@ -3,6 +3,7 @@
 [ext_resource type="Material" uid="uid://gk2aqkm080t7" path="res://assets/materials/ground_material.tres" id="1_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://da0h7curvje77" path="res://assets/background/sky.jpg" id="2_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://dhoaosvsh21gy" path="res://scenes/player.tscn" id="3_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://dy005eoy2m8d7" path="res://scenes/interface/main_level.tscn" id="4_k0juu"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_k0juu"]
 panorama = ExtResource("2_4wyf3")
@@ -40,3 +41,5 @@ surface_material_override/0 = ExtResource("1_rwgxs")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/ground" unique_id=2005793198]
 shape = SubResource("ConvexPolygonShape3D_4wyf3")
+
+[node name="MainLevel" parent="map" unique_id=29119180 instance=ExtResource("4_k0juu")]

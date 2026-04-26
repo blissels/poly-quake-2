@@ -49,7 +49,7 @@ layout_mode = 2
 size_flags_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ig700")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 50
 text = " Timer: "
 vertical_alignment = 1
 
@@ -65,7 +65,7 @@ theme_override_colors/font_color = Color(0.8980392, 0.19215687, 0.3019608, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_ig700")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxLine_ig700")
 text = "Guideline"
 horizontal_alignment = 1
@@ -76,8 +76,10 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ig700")
-theme_override_font_sizes/font_size = 15
-text = "Build Mode: B (ON/OFF)
-Previous Item: Q
-Next Item: E"
+theme_override_font_sizes/font_size = 35
+text = "Build Mode : B (ON/OFF)
+Previous Item  : Q
+Next Item   : E
+Rotate Item	 : R
+"
 horizontal_alignment = 3

@@ -101,7 +101,7 @@ _data = {
 &"place": SubResource("Animation_p1115")
 }
 
-[node name="Floor" type="StaticBody3D" unique_id=169987710 groups=["Objects"]]
+[node name="Floor" type="StaticBody3D" unique_id=1568450155 groups=["Objects"]]
 script = ExtResource("1_4sjte")
 
 [node name="model" type="MeshInstance3D" parent="." unique_id=1979341404]

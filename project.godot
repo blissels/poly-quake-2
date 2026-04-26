@@ -14,6 +14,10 @@ config/name="PolyQuake 2"
 run/main_scene="uid://bpfqyhjyogrts"
 config/features=PackedStringArray("4.6", "Mobile")
 
+[autoload]
+
+EarthquakeManager="*uid://ccejkjaptgwu8"
+
 [display]
 
 window/size/mode=2

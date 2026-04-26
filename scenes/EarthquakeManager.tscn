@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bxbipx7jmpjm6"]
+
+[ext_resource type="Script" uid="uid://ccejkjaptgwu8" path="res://scripts/earthquake_manager.gd" id="1_q1hna"]
+
+[node name="EarthquakeManager" type="Node3D" unique_id=340660618]
+script = ExtResource("1_q1hna")
