@@ -73,6 +73,7 @@ mesh = SubResource("ArrayMesh_xbnmd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=581013690]
 shape = SubResource("ConvexPolygonShape3D_f03kc")
+disabled = true
 
 [node name="clippingHitBox" type="Area3D" parent="." unique_id=1302000949]
 
