@@ -1,6 +1,13 @@
 [gd_scene format=3 uid="uid://dy005eoy2m8d7"]
 
-[node name="MainLevel" type="Control" unique_id=905977399]
+[ext_resource type="Script" uid="uid://bogslaxn0f8ak" path="res://scripts/game_identity.gd" id="1_sgxla"]
+[ext_resource type="FontFile" uid="uid://4vik1q7ws6ls" path="res://assets/font/Heyam.ttf" id="2_ig700"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ig700"]
+color = Color(0.8980392, 0.19215687, 0.3019608, 1)
+vertical = true
+
+[node name="MainLevel" type="Control" unique_id=29119180]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,21 +25,59 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
 
-[node name="Game Identity" type="VBoxContainer" parent="HBoxContainer" unique_id=827222991]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=2073032970]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="Game Identity" type="VBoxContainer" parent="HBoxContainer/MarginContainer" unique_id=827222991]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+script = ExtResource("1_sgxla")
+
+[node name="BuildTimer" type="Timer" parent="HBoxContainer/MarginContainer/Game Identity" unique_id=2077111423]
+wait_time = 60.0
+one_shot = true
+
+[node name="TimerLabel" type="Label" parent="HBoxContainer/MarginContainer/Game Identity" unique_id=1843947115]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ig700")
+theme_override_font_sizes/font_size = 25
+text = " Timer: "
+vertical_alignment = 1
+
+[node name="LevelGuide" type="VBoxContainer" parent="HBoxContainer/MarginContainer" unique_id=552472291]
+layout_mode = 2
+size_flags_horizontal = 8
 alignment = 1
 
-[node name="MenuBar" type="MenuBar" parent="HBoxContainer/Game Identity" unique_id=2026395059]
-visible = false
+[node name="GuideLabel" type="Label" parent="HBoxContainer/MarginContainer/LevelGuide" unique_id=366546332]
 layout_mode = 2
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0.8980392, 0.19215687, 0.3019608, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_ig700")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxLine_ig700")
+text = "Guideline"
+horizontal_alignment = 1
+vertical_alignment = 2
 
-[node name="LevelGuide" type="VBoxContainer" parent="HBoxContainer" unique_id=552472291]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="HBoxContainer/LevelGuide" unique_id=1783349951]
+[node name="GuideText" type="Label" parent="HBoxContainer/MarginContainer/LevelGuide" unique_id=1783349951]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Build Mode: B (ON/OFF)"
-horizontal_alignment = 2
-vertical_alignment = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ig700")
+theme_override_font_sizes/font_size = 15
+text = "Build Mode: B (ON/OFF)
+Previous Item: Q
+Next Item: E"
+horizontal_alignment = 3
