@@ -44,13 +44,18 @@ script = ExtResource("1_sgxla")
 wait_time = 60.0
 one_shot = true
 
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer/Game Identity" unique_id=1619249706]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ig700")
+theme_override_font_sizes/font_size = 50
+text = "Timer"
+
 [node name="TimerLabel" type="Label" parent="HBoxContainer/MarginContainer/Game Identity" unique_id=1843947115]
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_ig700")
-theme_override_font_sizes/font_size = 50
-text = " Timer: "
+theme_override_font_sizes/font_size = 35
 vertical_alignment = 1
 
 [node name="LevelGuide" type="VBoxContainer" parent="HBoxContainer/MarginContainer" unique_id=552472291]

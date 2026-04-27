@@ -21,7 +21,7 @@ func _process(_delta: float) -> void:
 		
 func _update_timer_display() -> void:
 	var sisa_waktu := ceili(build_timer.time_left) # Dibulatkan ke atas
-	timer_label.text = "Timer: %d" % sisa_waktu
+	timer_label.text = "%d" % sisa_waktu
 	
 	if sisa_waktu <= 10:
 		timer_label.modulate = Color.RED
@@ -32,7 +32,7 @@ func _update_timer_display() -> void:
 		
 func _on_build_timer_timeout() -> void:
 	is_building_phase = false
-	timer_label.text = "Timer: 0"
+	timer_label.text = "0"
 	timer_label.modulate = Color.DARK_RED
 	
 	print("Fase Membangun selesai! Memulai Fase Gempa...")
