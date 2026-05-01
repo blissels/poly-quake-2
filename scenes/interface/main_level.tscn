@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bogslaxn0f8ak" path="res://scripts/game_identity.gd" id="1_sgxla"]
 [ext_resource type="FontFile" uid="uid://4vik1q7ws6ls" path="res://assets/font/Heyam.ttf" id="2_ig700"]
+[ext_resource type="PackedScene" uid="uid://dky40vxtw6jfd" path="res://scenes/interface/pause_menu.tscn" id="3_ig700"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ig700"]
 color = Color(0.8980392, 0.19215687, 0.3019608, 1)
@@ -88,3 +89,6 @@ Next Item   : E
 Rotate Item	 : R
 "
 horizontal_alignment = 3
+
+[node name="PauseMenu" parent="HBoxContainer" unique_id=2128580778 groups=["pause_menu"] instance=ExtResource("3_ig700")]
+layout_mode = 2

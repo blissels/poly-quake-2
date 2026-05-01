@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dky40vxtw6jfd"]
+
+[ext_resource type="Script" uid="uid://dft1klkvjn3hx" path="res://scripts/pause_menu.gd" id="1_1rdxg"]
+
+[node name="PauseMenu" type="Control" unique_id=2128580778]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1rdxg")
+
+[node name="Control" type="PanelContainer" parent="." unique_id=1372500399]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=1481487329]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 50
+
+[node name="PauseMenu" type="Label" parent="Control/VBoxContainer" unique_id=103286350]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=290527263]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="ResumeBtn" type="Button" parent="Control/VBoxContainer/HBoxContainer" unique_id=2138311208]
+layout_mode = 2
+text = "Resume"
+
+[node name="MainMenuBtn" type="Button" parent="Control/VBoxContainer/HBoxContainer" unique_id=1363482852]
+layout_mode = 2
+text = "Main Menu"

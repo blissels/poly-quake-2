@@ -143,6 +143,14 @@ func _input(event: InputEvent) -> void:
 		head.rotate_x(deg_to_rad(event.relative.y * -MOUSE_SENSITIVITY))
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, -90, 60)
 		self.rotate_y(deg_to_rad(event.relative.x * -MOUSE_SENSITIVITY))
+		
+	if event.is_action_pressed("ui_cancel"):
+		var pause_menu = get_tree().get_first_node_in_group("pause_menu")
+		if pause_menu:
+			if get_tree().paused:
+				pause_menu.hide_pause()
+			else:
+				pause_menu.show_pause()
 	
 func headbob(speed) -> Vector3:
 	var pos = Vector3.ZERO
