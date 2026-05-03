@@ -42,7 +42,7 @@ alignment = 1
 script = ExtResource("1_sgxla")
 
 [node name="BuildTimer" type="Timer" parent="HBoxContainer/MarginContainer/Game Identity" unique_id=2077111423]
-wait_time = 60.0
+wait_time = 240.0
 one_shot = true
 
 [node name="Label" type="Label" parent="HBoxContainer/MarginContainer/Game Identity" unique_id=1619249706]

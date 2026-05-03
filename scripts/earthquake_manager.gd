@@ -1,6 +1,5 @@
 # AI GENERATED SCRIPT
 # res://scripts/earthquake_manager.gd
-# res://scripts/earthquake_manager.gd
 extends Node
 
 signal earthquake_ended(scale: float, blocks_survived: int)
