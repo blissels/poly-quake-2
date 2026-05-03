@@ -4,6 +4,13 @@ func _ready() -> void:
 	# Sembunyikan saat pertama load
 	visible = false
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause_game"):
+		if visible:
+			hide_pause()
+		else:
+			show_pause()
+
 func show_pause() -> void:
 	visible = true
 	get_tree().paused = true
