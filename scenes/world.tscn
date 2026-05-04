@@ -21,6 +21,8 @@ fog_density = 0.0001
 volumetric_fog_density = 0.948
 volumetric_fog_albedo = Color(0.3403393, 0.34033933, 0.3403393, 1)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_71j4m"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_4wyf3"]
 size = Vector2(150, 150)
 
@@ -40,6 +42,7 @@ environment = SubResource("Environment_qfnet")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73925376, 0)
 
 [node name="ground" type="StaticBody3D" parent="map" unique_id=389158569 groups=["Objects"]]
+physics_material_override = SubResource("PhysicsMaterial_71j4m")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="map/ground" unique_id=816155620]
 mesh = SubResource("PlaneMesh_4wyf3")
