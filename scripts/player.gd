@@ -48,9 +48,9 @@ func building(delta):
 		
 	if not rotation_complete:
 		ghost_block.rotation.y = lerp(ghost_block.rotation.y, new_rot, 0.1)
-		if ghost_block.rotation.y == new_rot:
+		if abs(ghost_block.rotation.y - new_rot) < 0.01:
+			ghost_block.rotation.y = new_rot # Paskan posisinya persis di target
 			rotation_complete = true
-		
 		
 	if Input.is_action_just_pressed("left_click") and ghost_block.can_place:
 		var block_instance = objects[current_object_index].instantiate()
