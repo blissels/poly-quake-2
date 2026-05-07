@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bwg4auysq6rvc"]
+
+[ext_resource type="PackedScene" uid="uid://cnw1t0bjl8mwc" path="res://scenes/build/wall/wall-doorway-square.tscn" id="1_83vdy"]
+[ext_resource type="PackedScene" uid="uid://cgfvc7sdy3rio" path="res://scenes/build/wall/wall-window-square-detailed.tscn" id="2_3gack"]
+[ext_resource type="PackedScene" uid="uid://dkkyirr4qhmfu" path="res://scenes/build/wall/wall-corner-column.tscn" id="3_fql8k"]
+
+[node name="Level01" type="Node3D" unique_id=1193087281]
+
+[node name="wall" parent="." unique_id=473685020 instance=ExtResource("1_83vdy")]
+
+[node name="wall2" parent="." unique_id=1340299597 instance=ExtResource("2_3gack")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="wall3" parent="." unique_id=57006394 instance=ExtResource("3_fql8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 0, 4)
+
+[node name="wall4" parent="." unique_id=562823982 instance=ExtResource("3_fql8k")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.95, 0, -2)

@@ -33,8 +33,8 @@ var in_build_mode: bool = false
 var in_destroy_mode: bool = false
 
 func _ready():
-	objects.append(preload("res://scenes/build/floor.tscn"))
-	objects.append(preload("res://scenes/build/wall.tscn"))
+	objects.append(preload("res://scenes/build/floor/floor.tscn"))
+	objects.append(preload("res://scenes/build/wall/wall.tscn"))
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func building(delta):

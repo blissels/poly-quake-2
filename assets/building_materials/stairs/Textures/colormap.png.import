@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cboxu6c4k4hym"
-path.s3tc="res://.godot/imported/colormap.png-acdbd4b7f2174fd34927ca787f19dca6.s3tc.ctex"
+uid="uid://o3icuy3jk8fw"
+path.s3tc="res://.godot/imported/colormap.png-29af80cf79026949b2dfa18c497afd53.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/building_materials/doors/Textures/colormap.png"
-dest_files=["res://.godot/imported/colormap.png-acdbd4b7f2174fd34927ca787f19dca6.s3tc.ctex"]
+source_file="res://assets/building_materials/stairs/Textures/colormap.png"
+dest_files=["res://.godot/imported/colormap.png-29af80cf79026949b2dfa18c497afd53.s3tc.ctex"]
 
 [params]
 

@@ -1,0 +1,89 @@
+[gd_scene format=4 uid="uid://d1qjqvm1sjhef"]
+
+[ext_resource type="Script" uid="uid://m7d15ij520lb" path="res://scripts/object.gd" id="1_g3e5o"]
+[ext_resource type="Texture2D" uid="uid://cboxu6c4k4hym" path="res://assets/building_materials/walls/Textures/colormap.png" id="2_hwv82"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e01u3"]
+resource_name = "colormap"
+cull_mode = 2
+albedo_texture = ExtResource("2_hwv82")
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_6ycu8"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2.1999998, 0.4, 2),
+"format": 34896613377,
+"index_count": 138,
+"index_data": PackedByteArray("CAAJAAoACwAKAAkADAALAAkADQAJAAgADAAJAA0ACgAOAAgACwAPAAoACAAOABAAEAALAAwADwALABAADwARAAoAEgAOAAoACgARABIAEgARAA8ADgASABAADwATABIAEgATABAAEAATAA8ADAAUABAAEAAUAAgAFQAUAAwAFgAIABQAFgAUABUACAAWAA0ADAAXABUAFwAMAA0AGAAWABUADQAWABgAFQAXABkAGQAXAA0AGQAaABUAFQAaABgAGAAaABkAGQAbABgAGAAbAA0ADQAbABkAAAABAAIAAgABAAMAAgAEAAAAAAAEAAUABQAEAAIABQAGAAAAAwAGAAUAAgAHAAUABQAHAAMAAwAHAAIA"),
+"lods": [1.0898342, PackedByteArray("AAABAAIAAgABAAMAAgAEAAAAAAAEAAUABQAEAAIABQAGAAAAAwAGAAUAAgAHAAUABQAHAAMAAwAHAAIA")],
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 28,
+"vertex_data": PackedByteArray("iq7/P///AACKrgAA//8AAAAAAAD//wAAiq4AAAAAAAAAAP8///8AAAAA/z8AAAAAiq7/PwAAAAAAAAAAAAAAANDF/1///wAA0MX/XwAAAADQxf//AAAAAFz0/78AAAAAuej/XwAAAACKrv9fAAAAANDF/////wAA////vwAAAABc9P+///8AAP////8AAAAA////////AAD///+///8AALno/1///wAAxfH/P///AACKrv9f//8AAMXx/z8AAAAAiq4AAP//AADF8QAAAAAAAMXxAAD//wAAiq4AAAAAAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_4xd6e"]
+resource_name = "roof-flat-side_roof-flat-side"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2.1999998, 0.4, 2),
+"attribute_data": PackedByteArray("/5cy0/+Xy+z/l8vs/5cy0/+Xy+z/l8vs/5fL7P+Xy+z/lzLT/5fL7P+Xy+z/lzLT/5fL7P+Xy+z/lzLT/5cy0/93MtP/dzLT/3cy0/93MtP/l2Xm/5dl5v+XZcb/l2XG/5dl5v+XZeb/l2Xm/5dl5v+XZcb/l2XG/5dlxv+XZcb/l2XG/5dlxv+XMtP/lzLT/5cy0/+XMtP/lzLT/5cy0/+XmPn/l5j5/5dl5v+XZeb/l5j5/5eY+f+XmPn/l5j5/5fL7P+Xy+z/l5j5/5eY+f+XZeb/l8vs/5fL7P+XZeb/l2Xm/5eY+f+XmPn/l8vs/5dl5v+XZeb/lzLT/5dlxv+XMtP/l2XG/5dlxv+XMtP/lzLT/5dlxv+XZeb/l2Xm/5dl5v+Xy+z/l5j5/5eY+f+XMtP/lzLT/5dl5v+XZeY="),
+"format": 34896613399,
+"index_count": 138,
+"index_data": PackedByteArray("FAAVABYAFgAXABQAGAAZABoAGgAbABgAHAAdAB4AHgAfABwAIAAhACIAIgAjACAAJAAlACYAJgAnACQAKAApACoAKgArACgALAAtAC4ALgAvACwAMAAxADIAMgAzADAANAA1ADYANgA3ADQAOAA5ADoAOgA7ADgAOwA8ADgAPAA9ADgAPAA+AD0APgA/AD0APgBAAD8AQABBAD8AQgBDAEQARQBCAEQARgBFAEQARABHAEYASABGAEcASABHAEkASgBIAEkASQBLAEoATABNAE4ATgBPAEwAAAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAA"),
+"lods": [1.0898342, PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAA")],
+"material": SubResource("StandardMaterial3D_e01u3"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 80,
+"vertex_data": PackedByteArray("iq7/P///AICKrgAA//8AgAAAAAD//wCAAAD/P///AIAAAAAA////v4quAAD///+/iq4AAAAA/78AAAAAAAD/vwAA/z8AAP//AAAAAAAA//+KrgAAAAD//4qu/z8AAP//AAAAAP///78AAAAAAAD/vwAA/z8AAP+/AAD/P////78AAP8/AAD//4qu/z8AAP//iq7/P/////8AAP8//////9DF/1////+/0MX/XwAA/7/Qxf//AAD/v9DF//////+/iq7/XwAA///Qxf9fAAD//9DF/1//////iq7/X//////Qxf//AAD///////8AAKrp////////qunQxf////////////////zF/////wAA/MX///+/AAD/v////7////+/XPT/v////7////+/////v////78AAP+/XPT/vwAA/7+KrgAA////v4quAAAAAP+/iq7/XwAA/7+Krv9f////v4quAAD///+/xfEAAP///7/F8QAAAAD/v4quAAAAAP+/xfH/P///fcLF8f8/AAB9wsXxAAAAAP+/xfEAAP///7+56P9fAABuycXx/z8AAH3CxfH/P///fcK56P9f//9uyYqu/18AAP//iq4AAAAA///F8QAAAAD//8Xx/z8AAP//uej/XwAA///Qxf9fAAD//1z0/78AAP//0MX//wAA//////+/AAD///////8AAP//////////AID///+///8AgFz0/7///wCA0MX/////AIDQxf9f//8AgLno/1///wCAiq7/X///AIDF8f8///8AgIquAAD//wCAxfEAAP//AIBc9P+///9sw1z0/78AAGzDuej/XwAAbMO56P9f//9sw/9/////f////3////9///8AAP9/AAD/fwAA/38AAP9//3////9/////f////3////9/////f////3////9/////f/+//3//v/9//7//f/+//3////9/////f////3////9//7//f/+//3//v/9//7//f/+/BDX2FQQ19hX/f/+//bn/HP25/xz/fwAA/38AAAAA/38AAP9/AAD/fwAA/3//f////3////9/////f///AAD/fwAA/38AAP9/AAD/fz6rnxU+q58V/38AAP9/AADNwmYhPqufFT6rnxXNwmYh/3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9////cZ0Yw3GdGMNxnRjDcZ0Yw")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_6ycu8")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7xl11"]
+points = PackedVector3Array(-1, 0, -1, -1, 0, 1, -1, 0.09996084, -1, 1.0776818, 0, -1, -1, 0.09996084, 1, 1.0776818, 0, 1, 0.6999607, 0.4, -1, 1.1999998, 0.29996085, -1, 0.6999607, 0.4, 1, 1.1999998, 0.29996085, 1, 1.1999998, 0.4, -1, 1.1999998, 0.4, 1)
+
+[sub_resource type="Animation" id="Animation_4sjte"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_gbmi3"]
+resource_name = "destroy"
+length = 0.2
+
+[sub_resource type="Animation" id="Animation_p1115"]
+resource_name = "place"
+length = 0.2
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_njso6"]
+_data = {
+&"RESET": SubResource("Animation_4sjte"),
+&"destroy": SubResource("Animation_gbmi3"),
+&"place": SubResource("Animation_p1115")
+}
+
+[node name="wall" type="StaticBody3D" unique_id=473685020 groups=["Objects"]]
+script = ExtResource("1_g3e5o")
+
+[node name="model" type="MeshInstance3D" parent="." unique_id=991662649]
+mesh = SubResource("ArrayMesh_4xd6e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1031128875]
+shape = SubResource("ConvexPolygonShape3D_7xl11")
+disabled = true
+
+[node name="clippingHitBox" type="Area3D" parent="." unique_id=1302000949]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="clippingHitBox" unique_id=1091409996]
+shape = SubResource("ConvexPolygonShape3D_7xl11")
+
+[node name="floatingHitBox" type="Area3D" parent="." unique_id=1672435488]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floatingHitBox" unique_id=177778920]
+shape = SubResource("ConvexPolygonShape3D_7xl11")
+
+[node name="animation" type="AnimationPlayer" parent="." unique_id=1749829148]
+libraries/ = SubResource("AnimationLibrary_njso6")
+speed_scale = 0.2
