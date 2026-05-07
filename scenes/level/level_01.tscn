@@ -3,16 +3,79 @@
 [ext_resource type="PackedScene" uid="uid://cnw1t0bjl8mwc" path="res://scenes/build/wall/wall-doorway-square.tscn" id="1_83vdy"]
 [ext_resource type="PackedScene" uid="uid://cgfvc7sdy3rio" path="res://scenes/build/wall/wall-window-square-detailed.tscn" id="2_3gack"]
 [ext_resource type="PackedScene" uid="uid://dkkyirr4qhmfu" path="res://scenes/build/wall/wall-corner-column.tscn" id="3_fql8k"]
+[ext_resource type="PackedScene" uid="uid://dokgcrehsvy7q" path="res://scenes/build/floor/floor.tscn" id="4_3gack"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fql8k"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_us4u7"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_onnr2"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_je4tg"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ojvqm"]
 
 [node name="Level01" type="Node3D" unique_id=1193087281]
 
-[node name="wall" parent="." unique_id=473685020 instance=ExtResource("1_83vdy")]
+[node name="wall_first" type="Node3D" parent="." unique_id=320532451]
 
-[node name="wall2" parent="." unique_id=1340299597 instance=ExtResource("2_3gack")]
+[node name="wall" parent="wall_first" unique_id=473685020 instance=ExtResource("1_83vdy")]
+physics_material_override = SubResource("PhysicsMaterial_fql8k")
+
+[node name="wall2" parent="wall_first" unique_id=1340299597 instance=ExtResource("2_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+physics_material_override = SubResource("PhysicsMaterial_us4u7")
 
-[node name="wall3" parent="." unique_id=57006394 instance=ExtResource("3_fql8k")]
+[node name="wall3" parent="wall_first" unique_id=57006394 instance=ExtResource("3_fql8k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 0, 4)
+physics_material_override = SubResource("PhysicsMaterial_onnr2")
 
-[node name="wall4" parent="." unique_id=562823982 instance=ExtResource("3_fql8k")]
+[node name="wall4" parent="wall_first" unique_id=562823982 instance=ExtResource("3_fql8k")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.95, 0, -2)
+physics_material_override = SubResource("PhysicsMaterial_je4tg")
+
+[node name="floor_first" type="Node3D" parent="." unique_id=98235986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.096279174, 0, -0.1)
+
+[node name="Floor" parent="floor_first" unique_id=1568450155 instance=ExtResource("4_3gack")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, -2)
+physics_material_override = SubResource("PhysicsMaterial_ojvqm")
+
+[node name="Floor2" parent="floor_first" unique_id=43729461 instance=ExtResource("4_3gack")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, -0.5000001)
+physics_material_override = SubResource("PhysicsMaterial_ojvqm")
+
+[node name="Floor3" parent="floor_first" unique_id=198455571 instance=ExtResource("4_3gack")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 1.1)
+physics_material_override = SubResource("PhysicsMaterial_ojvqm")
+
+[node name="Floor4" parent="floor_first" unique_id=2103577376 instance=ExtResource("4_3gack")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 2.7)
+physics_material_override = SubResource("PhysicsMaterial_ojvqm")
+
+[node name="Floor5" parent="floor_first" unique_id=1548045934 instance=ExtResource("4_3gack")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 4.2)
+physics_material_override = SubResource("PhysicsMaterial_ojvqm")
+
+[node name="floor_first2" type="Node3D" parent="." unique_id=671263387]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0, -0.1)
+
+[node name="Floor" parent="floor_first2" unique_id=254672865 instance=ExtResource("4_3gack")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, -2)
+physics_material_override = SubResource("PhysicsMaterial_ojvqm")
+
+[node name="Floor2" parent="floor_first2" unique_id=1377225600 instance=ExtResource("4_3gack")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, -0.5000001)
+physics_material_override = SubResource("PhysicsMaterial_ojvqm")
+
+[node name="Floor3" parent="floor_first2" unique_id=337230072 instance=ExtResource("4_3gack")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 1.1)
+physics_material_override = SubResource("PhysicsMaterial_ojvqm")
+
+[node name="Floor4" parent="floor_first2" unique_id=1159031369 instance=ExtResource("4_3gack")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 2.7)
+physics_material_override = SubResource("PhysicsMaterial_ojvqm")
+
+[node name="Floor5" parent="floor_first2" unique_id=197536225 instance=ExtResource("4_3gack")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 4.2)
+physics_material_override = SubResource("PhysicsMaterial_ojvqm")
