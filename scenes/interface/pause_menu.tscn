@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://diqwofc7mut43" path="res://assets/font/Lilita_One/LilitaOne-Regular.ttf" id="2_pqqti"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mj702"]
-bg_color = Color(0.32941177, 0.32941177, 0.32941177, 0.078431375)
+bg_color = Color(0.40832946, 0.40832946, 0.40832946, 0.078431375)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6wt7b"]
 

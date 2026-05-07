@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dhoaosvsh21gy" path="res://scenes/player.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://dy005eoy2m8d7" path="res://scenes/interface/main_level.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://dky40vxtw6jfd" path="res://scenes/interface/pause_menu.tscn" id="5_71j4m"]
+[ext_resource type="PackedScene" uid="uid://dnvhwl33llket" path="res://scenes/interface/trees.tscn" id="6_i7141"]
+[ext_resource type="AudioStream" uid="uid://chbinit88klva" path="res://assets/music/House In a Forest Loop.ogg" id="6_qfnet"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_k0juu"]
 panorama = ExtResource("2_4wyf3")
@@ -32,6 +34,8 @@ points = PackedVector3Array(-75, 0, -75, -75, 0, 75, 75, 0, -75, 75, 0, 75)
 [node name="world" type="Node3D" unique_id=637718164]
 
 [node name="map" type="Node3D" parent="." unique_id=2034221838]
+
+[node name="trees" parent="map" unique_id=272040058 instance=ExtResource("6_i7141")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="map" unique_id=408477982]
 environment = SubResource("Environment_qfnet")
@@ -78,3 +82,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -50,
 visible = false
 use_collision = true
 size = Vector3(100, 100, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=64976081]
+stream = ExtResource("6_qfnet")
+autoplay = true

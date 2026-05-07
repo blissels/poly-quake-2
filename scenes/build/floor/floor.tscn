@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://m7d15ij520lb" path="res://scripts/object.gd" id="1_4sjte"]
 [ext_resource type="Texture2D" uid="uid://cboxu6c4k4hym" path="res://assets/building_materials/walls/Textures/colormap.png" id="1_jl2up"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fv62b"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qtab2"]
 resource_name = "colormap"
 cull_mode = 2
@@ -101,7 +103,8 @@ _data = {
 &"place": SubResource("Animation_p1115")
 }
 
-[node name="Floor" type="StaticBody3D" unique_id=1568450155 groups=["Objects"]]
+[node name="floor" type="RigidBody3D" unique_id=1909858664 groups=["Objects"]]
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 script = ExtResource("1_4sjte")
 
 [node name="model" type="MeshInstance3D" parent="." unique_id=1979341404]
