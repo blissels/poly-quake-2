@@ -66,7 +66,7 @@ _data = {
 &"place": SubResource("Animation_p1115")
 }
 
-[node name="roof" type="RigidBody3D" unique_id=162321155 groups=["Objects"]]
+[node name="roof" type="StaticBody3D" unique_id=1777519893 groups=["Objects"]]
 physics_material_override = SubResource("PhysicsMaterial_4xd6e")
 script = ExtResource("1_g3e5o")
 

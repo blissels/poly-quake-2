@@ -66,7 +66,7 @@ _data = {
 &"place": SubResource("Animation_p1115")
 }
 
-[node name="wall" type="RigidBody3D" unique_id=2031106929 groups=["Objects"]]
+[node name="wall" type="StaticBody3D" unique_id=1997298800 groups=["Objects"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 0, 0)
 physics_material_override = SubResource("PhysicsMaterial_1dpu6")
 script = ExtResource("1_x3ddw")
