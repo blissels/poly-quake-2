@@ -118,16 +118,29 @@ func movement(delta):
 	camera.position = headbob(t_bob)
 	
 	var horizontal_velocity = Input.get_vector("left", "right", "forward", "backward").normalized() * SPEED
-	velocity = horizontal_velocity.x * global_transform.basis.x + horizontal_velocity.y * global_transform.basis.z
+	var wish_dir = horizontal_velocity.x * global_transform.basis.x + horizontal_velocity.y * global_transform.basis.z
 	
-	currentvel = currentvel.lerp(velocity, ACCEL * delta)
+	currentvel = currentvel.lerp(wish_dir, ACCEL * delta)
+	
+	var current_pos = global_position
+	var candidate_pos = current_pos + (currentvel * delta)
+	var map_rid = get_world_3d().navigation_map
+	
+	var closest_point = NavigationServer3D.map_get_closest_point(map_rid, candidate_pos)
+	
+	var candidate_pos_2d = Vector2(candidate_pos.x, candidate_pos.z)
+	var closest_point_2d = Vector2(closest_point.x, closest_point.z)
+	
+	if candidate_pos_2d.distance_to(closest_point_2d) > 0.2:
+		currentvel.x = 0
+		currentvel.z = 0
+	
 	velocity.x = currentvel.x
 	velocity.z = currentvel.z
 	
 	if is_on_floor():
 		if Input.is_action_just_pressed("jump"):
 			velocity_y = JUMMP_SPEED
-			
 		else:
 			velocity_y = 0
 	else:

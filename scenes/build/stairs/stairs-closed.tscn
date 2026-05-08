@@ -60,7 +60,7 @@ _data = {
 &"place": SubResource("Animation_p1115")
 }
 
-[node name="stairs" type="StaticBody3D" unique_id=1032734920 groups=["Objects"]]
+[node name="stairs" type="RigidBody3D" unique_id=1372072982 groups=["Objects"]]
 script = ExtResource("1_rw7mf")
 
 [node name="model" type="MeshInstance3D" parent="." unique_id=627839687]

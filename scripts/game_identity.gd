@@ -3,7 +3,7 @@ extends VBoxContainer
 @onready var build_timer: Timer = $BuildTimer
 @onready var timer_label: Label = $TimerLabel
 
-const BUILD_DURATION := 240.0
+const BUILD_DURATION := 30.0
 var is_building_phase := true
 
 func _ready() -> void:

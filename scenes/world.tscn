@@ -3,39 +3,55 @@
 [ext_resource type="Material" uid="uid://gk2aqkm080t7" path="res://assets/materials/ground_material.tres" id="1_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://da0h7curvje77" path="res://assets/background/sky.jpg" id="2_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://dhoaosvsh21gy" path="res://scenes/player.tscn" id="3_4wyf3"]
+[ext_resource type="Script" uid="uid://6afr4qmxwctg" path="res://scripts/ground.gd" id="4_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://dy005eoy2m8d7" path="res://scenes/interface/main_level.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://dky40vxtw6jfd" path="res://scenes/interface/pause_menu.tscn" id="5_71j4m"]
 [ext_resource type="PackedScene" uid="uid://dnvhwl33llket" path="res://scenes/interface/trees.tscn" id="6_i7141"]
 [ext_resource type="AudioStream" uid="uid://chbinit88klva" path="res://assets/music/House In a Forest Loop.ogg" id="6_qfnet"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_k0juu"]
+[sub_resource type="NavigationMesh" id="NavigationMesh_4mrxx"]
+vertices = PackedVector3Array(-49.5, 0.5, -49.5, -49.5, 0.5, 49.5, 49.5, 0.5, 49.5, 49.5, 0.5, -49.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4wyf3"]
+size = Vector2(100, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i7141"]
+size = Vector3(150, 0, 150)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_i7141"]
 panorama = ExtResource("2_4wyf3")
 
 [sub_resource type="Sky" id="Sky_71j4m"]
-sky_material = SubResource("PanoramaSkyMaterial_k0juu")
+sky_material = SubResource("PanoramaSkyMaterial_i7141")
 
 [sub_resource type="Environment" id="Environment_qfnet"]
 background_mode = 2
 sky = SubResource("Sky_71j4m")
 fog_enabled = true
-fog_light_color = Color(0.8462399, 0.86200094, 0.8865301, 1)
-fog_density = 0.0001
+fog_sky_affect = 0.333
 volumetric_fog_density = 0.948
 volumetric_fog_albedo = Color(0.3403393, 0.34033933, 0.3403393, 1)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_71j4m"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_4wyf3"]
-size = Vector2(150, 150)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4wyf3"]
-points = PackedVector3Array(-75, 0, -75, -75, 0, 75, 75, 0, -75, 75, 0, 75)
 
 [node name="world" type="Node3D" unique_id=637718164]
 
 [node name="map" type="Node3D" parent="." unique_id=2034221838]
 
 [node name="trees" parent="map" unique_id=272040058 instance=ExtResource("6_i7141")]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="map" unique_id=72415145]
+navigation_mesh = SubResource("NavigationMesh_4mrxx")
+
+[node name="ground" type="CharacterBody3D" parent="map/NavigationRegion3D" unique_id=418565016 groups=["Objects"]]
+script = ExtResource("4_4mrxx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="map/NavigationRegion3D/ground" unique_id=816155620]
+mesh = SubResource("PlaneMesh_4wyf3")
+surface_material_override/0 = ExtResource("1_rwgxs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="map/NavigationRegion3D/ground" unique_id=1453080041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7363892, 0, 0)
+shape = SubResource("BoxShape3D_i7141")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="map" unique_id=408477982]
 environment = SubResource("Environment_qfnet")
@@ -45,43 +61,9 @@ environment = SubResource("Environment_qfnet")
 [node name="player" parent="map" unique_id=1723024259 instance=ExtResource("3_4wyf3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73925376, 0)
 
-[node name="ground" type="StaticBody3D" parent="map" unique_id=389158569 groups=["Objects"]]
-physics_material_override = SubResource("PhysicsMaterial_71j4m")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="map/ground" unique_id=816155620]
-mesh = SubResource("PlaneMesh_4wyf3")
-surface_material_override/0 = ExtResource("1_rwgxs")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="map/ground" unique_id=2005793198]
-shape = SubResource("ConvexPolygonShape3D_4wyf3")
-
 [node name="MainLevel" parent="map" unique_id=29119180 instance=ExtResource("4_k0juu")]
 
 [node name="PauseMenu" parent="map" unique_id=2128580778 instance=ExtResource("5_71j4m")]
-
-[node name="Wall_Utara" type="CSGBox3D" parent="map" unique_id=196260625]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
-visible = false
-use_collision = true
-size = Vector3(100, 100, 1)
-
-[node name="Wall_Selatan" type="CSGBox3D" parent="map" unique_id=550782152]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
-visible = false
-use_collision = true
-size = Vector3(100, 100, 1)
-
-[node name="Wall_Timur" type="CSGBox3D" parent="map" unique_id=1563664988]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 50, 0, 0)
-visible = false
-use_collision = true
-size = Vector3(100, 100, 1)
-
-[node name="Wall_Barat" type="CSGBox3D" parent="map" unique_id=894868288]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -50, 0, 0)
-visible = false
-use_collision = true
-size = Vector3(100, 100, 1)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=64976081]
 stream = ExtResource("6_qfnet")
