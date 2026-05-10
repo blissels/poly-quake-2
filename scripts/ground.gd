@@ -34,7 +34,12 @@ func _physics_process(delta: float) -> void:
 			# Geser lantai menggunakan velocity agar berinteraksi dengan physics RigidBody di atasnya
 			var target_pos = _original_origin + Vector3(ox, 0, oz)
 			velocity = (target_pos - global_position) / delta
+			
+			velocity.y = 0 # Kunci kecepatan Y agar tidak turun tertindih blok
+			
 			move_and_slide()
+			
+			
 		else:
 			_shaking = false
 			global_position = _original_origin

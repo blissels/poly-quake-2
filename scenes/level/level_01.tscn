@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bwg4auysq6rvc"]
 
 [ext_resource type="PackedScene" uid="uid://cnw1t0bjl8mwc" path="res://scenes/build/wall/wall-doorway-square.tscn" id="1_83vdy"]
+[ext_resource type="Script" uid="uid://bow2nkwvh42x5" path="res://scripts/level_manager.gd" id="1_ojvqm"]
 [ext_resource type="PackedScene" uid="uid://cgfvc7sdy3rio" path="res://scenes/build/wall/wall-window-square-detailed.tscn" id="2_3gack"]
 [ext_resource type="PackedScene" uid="uid://c011ncqpqtm05" path="res://scenes/build/wall/wall.tscn" id="3_fql8k"]
 [ext_resource type="PackedScene" uid="uid://dokgcrehsvy7q" path="res://scenes/build/floor/floor.tscn" id="4_3gack"]
@@ -17,7 +18,11 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_onnr2"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ojvqm"]
+size = Vector3(1.5037842, 0.08239746, 1.4636507)
+
 [node name="Level01" type="Node3D" unique_id=1193087281]
+script = ExtResource("1_ojvqm")
 
 [node name="wall_first" type="Node3D" parent="." unique_id=320532451]
 
@@ -241,3 +246,47 @@ transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -3, 
 
 [node name="roof9" parent="roof" unique_id=1320489822 instance=ExtResource("8_w2b1m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 4.77, 2)
+
+[node name="sensor_lubang" type="Node3D" parent="." unique_id=1920164583]
+
+[node name="sensorlubang" type="Area3D" parent="sensor_lubang" unique_id=2022707425 groups=["sensor_lubang"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.8677175)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/sensorlubang" unique_id=1713815409]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0012048483, 1.1791992, 0.13581586)
+shape = SubResource("BoxShape3D_ojvqm")
+
+[node name="sensorlubang2" type="Area3D" parent="sensor_lubang" unique_id=853524209 groups=["sensor_lubang"]]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4.864481, 0, 4.998641)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/sensorlubang2" unique_id=1760473560]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0012048483, 1.1791992, 0.13581586)
+shape = SubResource("BoxShape3D_ojvqm")
+
+[node name="sensorlubang3" type="Area3D" parent="sensor_lubang" unique_id=1990984609 groups=["sensor_lubang"]]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.861825, 2.4089036, 4.998641)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/sensorlubang3" unique_id=515928039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0012048483, 1.1791992, 0.13581586)
+shape = SubResource("BoxShape3D_ojvqm")
+
+[node name="sensorlubang4" type="Area3D" parent="sensor_lubang" unique_id=667356260 groups=["sensor_lubang"]]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.861825, 2.4664814, -1.003073)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/sensorlubang4" unique_id=43606928]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0012048483, 1.1791992, 0.13581586)
+shape = SubResource("BoxShape3D_ojvqm")
+
+[node name="sensorlubang5" type="Area3D" parent="sensor_lubang" unique_id=1646098320 groups=["sensor_lubang"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.8677175)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/sensorlubang5" unique_id=1332049593]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.76594603, 0.038513184, -1.1520362)
+shape = SubResource("BoxShape3D_ojvqm")
+
+[node name="sensorlubang6" type="Area3D" parent="sensor_lubang" unique_id=1484189375 groups=["sensor_lubang"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.8677175)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/sensorlubang6" unique_id=253439077]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3679109, 0.038513184, -2.63081)
+shape = SubResource("BoxShape3D_ojvqm")

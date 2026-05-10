@@ -32,6 +32,17 @@ func _process(delta: float) -> void:
 		queue_free()
 
 func place():
+	# 1. CEK SENSOR OBJEKTIF (LUBANG)
+	var ui_node = get_tree().current_scene.find_child("ResultUI", true, false)
+	if clipping_hitbox:
+		for area in clipping_hitbox.get_overlapping_areas():
+			if area.is_in_group("sensor_lubang"):
+				if ui_node: 
+					ui_node.tambah_objektif() # Lapor ke UI bahwa lubang tertutup
+				area.queue_free() # Hapus sensor agar tidak dihitung ganda
+				break
+				
+	# 2. UBAH DARI GHOST MENJADI BLOK FISIK NYATA
 	is_ghost = false
 	animation.play("place")
 	
@@ -46,6 +57,20 @@ func place():
 	collision_shape.disabled = false
 	freeze = false # Blok sekarang bisa terpengaruh gravitasi dan gempa
 	
+	# 3. SISTEM SEMEN (MENGHUBUNGKAN BLOK BARU DENGAN BLOK LAIN)
+	var placed_blocks = get_tree().get_nodes_in_group("placed_blocks")
+	for block in placed_blocks:
+		if is_instance_valid(block) and block != self:
+			var dist = global_position.distance_to(block.global_position)
+			
+			if dist < 2.5: # Jarak dipendekkan jadi 2.5 agar tidak narik pintu
+				var joint = PinJoint3D.new()
+				get_parent().add_child(joint) # PENTING: Dipasang di parent!
+				joint.global_position = (global_position + block.global_position) / 2.0
+				joint.node_a = joint.get_path_to(self)
+				joint.node_b = joint.get_path_to(block)
+				
+	# 4. DAFTARKAN KE GRUP GEMPA
 	add_to_group("placed_blocks")
 
 func destroy():

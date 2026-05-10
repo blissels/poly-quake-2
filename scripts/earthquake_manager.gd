@@ -69,5 +69,10 @@ func _finish_earthquake() -> void:
 			if drop < FALL_THRESHOLD:
 				survived += 1
 
-	print("✅ Gempa fisik selesai! Selamat: %d / %d blok" % [survived, placed_blocks.size()])
+	print("✅ Gempa fisik selesai!")
 	emit_signal("earthquake_ended", earthquake_scale, survived)
+	
+	# --- [TAMBAHKAN KODE INI] PANGGIL UI SECARA PAKSA ---
+	var ui_node = get_tree().current_scene.find_child("ResultUI", true, false)
+	if ui_node and ui_node.has_method("show_result"):
+		ui_node.show_result(earthquake_scale, survived)

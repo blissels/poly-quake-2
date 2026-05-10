@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bthmx4hloa6k1"]
+
+[ext_resource type="Script" uid="uid://683amaf1en6a" path="res://scripts/result_ui.gd" id="1_rakuf"]
+[ext_resource type="FontFile" uid="uid://diqwofc7mut43" path="res://assets/font/Lilita_One/LilitaOne-Regular.ttf" id="2_oo6ls"]
+
+[node name="ResultUI" type="CanvasLayer" unique_id=127585451]
+visible = false
+script = ExtResource("1_rakuf")
+
+[node name="Panel" type="Panel" parent="." unique_id=1509135346]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=111580829]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -20.0
+offset_right = 92.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1201050879]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oo6ls")
+text = "HASIL EVALUASI GEMPA"
+horizontal_alignment = 1
+
+[node name="StarLabel" type="Label" parent="Panel/VBoxContainer" unique_id=996444362]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+
+[node name="MessageLabel" type="Label" parent="Panel/VBoxContainer" unique_id=676152410]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oo6ls")
+
+[node name="ObjektifLabel" type="Label" parent="Panel/VBoxContainer" unique_id=2116453409]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oo6ls")
+text = "Status perbaikan (0/6)"
+horizontal_alignment = 1
+
+[node name="RestartBtn" type="Label" parent="Panel/VBoxContainer" unique_id=994342279]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oo6ls")
+text = "RESTART"
+horizontal_alignment = 1
+vertical_alignment = 1

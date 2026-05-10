@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bpfqyhjyogrts"]
 
 [ext_resource type="Material" uid="uid://gk2aqkm080t7" path="res://assets/materials/ground_material.tres" id="1_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://bthmx4hloa6k1" path="res://scenes/interface/ResultUI.tscn" id="1_w7kh3"]
 [ext_resource type="Texture2D" uid="uid://da0h7curvje77" path="res://assets/background/sky.jpg" id="2_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://dhoaosvsh21gy" path="res://scenes/player.tscn" id="3_4wyf3"]
 [ext_resource type="Script" uid="uid://6afr4qmxwctg" path="res://scripts/ground.gd" id="4_4mrxx"]
@@ -8,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dky40vxtw6jfd" path="res://scenes/interface/pause_menu.tscn" id="5_71j4m"]
 [ext_resource type="PackedScene" uid="uid://dnvhwl33llket" path="res://scenes/interface/trees.tscn" id="6_i7141"]
 [ext_resource type="AudioStream" uid="uid://chbinit88klva" path="res://assets/music/House In a Forest Loop.ogg" id="6_qfnet"]
+[ext_resource type="PackedScene" uid="uid://bwg4auysq6rvc" path="res://scenes/level/level_01.tscn" id="9_e3hyu"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_4mrxx"]
 vertices = PackedVector3Array(-49.5, 0.5, -49.5, -49.5, 0.5, 49.5, 49.5, 0.5, 49.5, 49.5, 0.5, -49.5)
@@ -37,6 +39,8 @@ volumetric_fog_albedo = Color(0.3403393, 0.34033933, 0.3403393, 1)
 
 [node name="map" type="Node3D" parent="." unique_id=2034221838]
 
+[node name="ResultUI" parent="map" unique_id=1864086124 instance=ExtResource("1_w7kh3")]
+
 [node name="trees" parent="map" unique_id=272040058 instance=ExtResource("6_i7141")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="map" unique_id=72415145]
@@ -64,6 +68,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73925376, 0)
 [node name="MainLevel" parent="map" unique_id=29119180 instance=ExtResource("4_k0juu")]
 
 [node name="PauseMenu" parent="map" unique_id=2128580778 instance=ExtResource("5_71j4m")]
+
+[node name="Level01" parent="map" unique_id=1193087281 instance=ExtResource("9_e3hyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -2)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=64976081]
 stream = ExtResource("6_qfnet")
