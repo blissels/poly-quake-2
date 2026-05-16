@@ -4,7 +4,6 @@
 [ext_resource type="FontFile" uid="uid://diqwofc7mut43" path="res://assets/font/Lilita_One/LilitaOne-Regular.ttf" id="2_oo6ls"]
 
 [node name="ResultUI" type="CanvasLayer" unique_id=127585451]
-visible = false
 script = ExtResource("1_rakuf")
 
 [node name="Panel" type="Panel" parent="." unique_id=1509135346]
@@ -27,34 +26,46 @@ offset_right = 92.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 10
 
 [node name="TitleLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1201050879]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.22352941, 0.32156864, 1)
 theme_override_fonts/font = ExtResource("2_oo6ls")
+theme_override_font_sizes/font_size = 50
 text = "HASIL EVALUASI GEMPA"
 horizontal_alignment = 1
 
-[node name="StarLabel" type="Label" parent="Panel/VBoxContainer" unique_id=996444362]
+[node name="MessageContainer" type="VBoxContainer" parent="Panel/VBoxContainer" unique_id=1920317923]
+layout_mode = 2
+
+[node name="StarLabel" type="Label" parent="Panel/VBoxContainer/MessageContainer" unique_id=996444362]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oo6ls")
 theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="MessageLabel" type="Label" parent="Panel/VBoxContainer" unique_id=676152410]
+[node name="MessageLabel" type="Label" parent="Panel/VBoxContainer/MessageContainer" unique_id=676152410]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_oo6ls")
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="ObjektifLabel" type="Label" parent="Panel/VBoxContainer" unique_id=2116453409]
+[node name="ObjektifLabel" type="Label" parent="Panel/VBoxContainer/MessageContainer" unique_id=2116453409]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_oo6ls")
+theme_override_font_sizes/font_size = 35
 text = "Status perbaikan (0/6)"
 horizontal_alignment = 1
 
-[node name="RestartBtn" type="Label" parent="Panel/VBoxContainer" unique_id=994342279]
+[node name="RestartBtn" type="Button" parent="Panel/VBoxContainer" unique_id=1764599858]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_oo6ls")
+theme_override_font_sizes/font_size = 35
 text = "RESTART"
-horizontal_alignment = 1
-vertical_alignment = 1

@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://dy005eoy2m8d7" path="res://scenes/interface/main_level.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://dky40vxtw6jfd" path="res://scenes/interface/pause_menu.tscn" id="5_71j4m"]
 [ext_resource type="PackedScene" uid="uid://dnvhwl33llket" path="res://scenes/interface/trees.tscn" id="6_i7141"]
-[ext_resource type="AudioStream" uid="uid://chbinit88klva" path="res://assets/music/House In a Forest Loop.ogg" id="6_qfnet"]
 [ext_resource type="PackedScene" uid="uid://bwg4auysq6rvc" path="res://scenes/level/level_01.tscn" id="9_e3hyu"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_4mrxx"]
@@ -47,6 +46,10 @@ volumetric_fog_albedo = Color(0.3403393, 0.34033933, 0.3403393, 1)
 navigation_mesh = SubResource("NavigationMesh_4mrxx")
 
 [node name="ground" type="CharacterBody3D" parent="map/NavigationRegion3D" unique_id=418565016 groups=["Objects"]]
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
 script = ExtResource("4_4mrxx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="map/NavigationRegion3D/ground" unique_id=816155620]
@@ -63,7 +66,7 @@ environment = SubResource("Environment_qfnet")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="map" unique_id=1642784328]
 
 [node name="player" parent="map" unique_id=1723024259 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73925376, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.73925376, 0)
 
 [node name="MainLevel" parent="map" unique_id=29119180 instance=ExtResource("4_k0juu")]
 
@@ -73,5 +76,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73925376, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -2)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=64976081]
-stream = ExtResource("6_qfnet")
 autoplay = true

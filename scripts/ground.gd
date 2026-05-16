@@ -28,16 +28,16 @@ func _physics_process(delta: float) -> void:
 			var falloff := 1.0 - t # Gempa semakin lama semakin pelan
 			
 			var time_val = Time.get_ticks_msec() / 1000.0 * frequency
-			var ox = _noise.get_noise_2d(time_val, 0.0) * shake_intensity * falloff
-			var oz = _noise.get_noise_2d(time_val, 100.0) * shake_intensity * falloff
 			
-			# Geser lantai menggunakan velocity agar berinteraksi dengan physics RigidBody di atasnya
+			# Tambahkan * 0.05 di ujungnya agar guncangan tidak brutal
+			var ox = _noise.get_noise_2d(time_val, 0.0) * shake_intensity * falloff * 0.05
+			var oz = _noise.get_noise_2d(time_val, 100.0) * shake_intensity * falloff * 0.05
+			
 			var target_pos = _original_origin + Vector3(ox, 0, oz)
 			velocity = (target_pos - global_position) / delta
-			
-			velocity.y = 0 # Kunci kecepatan Y agar tidak turun tertindih blok
-			
+			velocity.y = 0 # Kunci sumbu Y
 			move_and_slide()
+			global_position.y = _original_origin.y
 			
 			
 		else:
