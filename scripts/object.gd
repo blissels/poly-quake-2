@@ -32,6 +32,7 @@ func _process(delta: float) -> void:
 		queue_free()
 
 func place():
+	SFXManager.play("place")
 	# 1. OBJEKTIF: Pengecekan Akurat Menggunakan Jarak!
 	var ui_node = get_tree().current_scene.find_child("ResultUI", true, false)
 	var sensors = get_tree().get_nodes_in_group("sensor_lubang")
@@ -71,4 +72,5 @@ func place():
 	add_to_group("placed_blocks")
 
 func destroy():
+	SFXManager.play("destroy")
 	animation.play("destroy")

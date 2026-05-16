@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.6", "Mobile")
 [autoload]
 
 EarthquakeManager="*uid://ccejkjaptgwu8"
+AudioManager="*uid://jb246rqs1v8c"
 
 [display]
 

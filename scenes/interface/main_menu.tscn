@@ -191,7 +191,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_bvgs0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_b5nk6")
 text = "Start Game"
 
-[node name="optionBtn" type="Button" parent="VBoxContainer" unique_id=386395952]
+[node name="OptionsMenu" type="Button" parent="VBoxContainer" unique_id=386395952]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -203,4 +203,4 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_b5nk6")
 text = "Options"
 
 [connection signal="pressed" from="VBoxContainer/startBtn" to="." method="_on_start_btn_pressed"]
-[connection signal="pressed" from="VBoxContainer/optionBtn" to="." method="_on_option_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsMenu" to="." method="_on_option_btn_pressed"]
