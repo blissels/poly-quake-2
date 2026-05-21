@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dc5fcqnahor4x" path="res://scripts/main_menu.gd" id="1_ylig1"]
 [ext_resource type="Texture2D" uid="uid://dthxad4kogyky" path="res://assets/background/backgroundLego.png" id="2_dy7ct"]
 [ext_resource type="FontFile" uid="uid://diqwofc7mut43" path="res://assets/font/Lilita_One/LilitaOne-Regular.ttf" id="4_0k4wn"]
+[ext_resource type="PackedScene" uid="uid://drhjtu47ke18c" path="res://scenes/interface/options_panel.tscn" id="4_ylig1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0ahwo"]
 texture = ExtResource("2_dy7ct")
@@ -173,12 +174,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -140.0
-offset_top = 82.0
+offset_top = 141.0
 offset_right = 140.0
 offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 
 [node name="startBtn" type="Button" parent="VBoxContainer" unique_id=495267879]
 layout_mode = 2
@@ -191,7 +192,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_bvgs0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_b5nk6")
 text = "Start Game"
 
-[node name="OptionsMenu" type="Button" parent="VBoxContainer" unique_id=386395952]
+[node name="OptionsMenu" type="Button" parent="VBoxContainer" unique_id=1224669628]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -201,6 +202,10 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ylig1")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_bvgs0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_b5nk6")
 text = "Options"
+
+[node name="OptionsPanel" parent="VBoxContainer" unique_id=1295594770 instance=ExtResource("4_ylig1")]
+visible = false
+layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/startBtn" to="." method="_on_start_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/OptionsMenu" to="." method="_on_option_btn_pressed"]

@@ -47,7 +47,7 @@ func show_result(scale: float, survived_blocks: int):
 	if total_blocks == 0: total_blocks = 1
 	var survival_rate : float = float(survived_blocks) / float(total_blocks)
 
-	message_label.text = "Gempa %.1f SR!\nBlok Selamat: %d dari %d" % [scale, survived_blocks, total_blocks]
+	message_label.text = "Gempa %.1f SR!" # \nBlok Selamat: %d dari %d" % [scale, survived_blocks, total_blocks]
 
 	if survival_rate >= 0.9:
 		star_label.text = "⭐⭐⭐  Sangat Kokoh!"

@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://d127t7m0647cw"]
+
+[ext_resource type="Script" uid="uid://g6aq60ycfd7r" path="res://scripts/mainmenu.gd" id="1_0eh3i"]
+[ext_resource type="FontFile" uid="uid://diqwofc7mut43" path="res://assets/font/Lilita_One/LilitaOne-Regular.ttf" id="2_cemiw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ahwo"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 13
+corner_radius_top_right = 13
+corner_radius_bottom_right = 13
+corner_radius_bottom_left = 13
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36rvq"]
+bg_color = Color(0.7581918, 0.7581918, 0.7581917, 1)
+corner_radius_top_left = 13
+corner_radius_top_right = 13
+corner_radius_bottom_right = 13
+corner_radius_bottom_left = 13
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02f7e"]
+bg_color = Color(0.7581918, 0.7581918, 0.7581917, 1)
+corner_radius_top_left = 13
+corner_radius_top_right = 13
+corner_radius_bottom_right = 13
+corner_radius_bottom_left = 13
+shadow_size = 2
+
+[node name="Mainmenu" type="Control" unique_id=2088484101]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0eh3i")
+
+[node name="Panel" type="Panel" parent="." unique_id=1688775048]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CinematicLayer" type="CanvasLayer" parent="." unique_id=138485547]
+layer = -1
+
+[node name="FadeRect" type="ColorRect" parent="CinematicLayer" unique_id=642989938]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1711700751]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=2038849774]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="CinematicCam" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1176638663]
+
+[node name="TitleLabel" type="Label" parent="." unique_id=321719058]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ButtonContainer" type="VBoxContainer" parent="." unique_id=1773565320]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="startBtn" type="Button" parent="ButtonContainer" unique_id=1326847282]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_cemiw")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_0ahwo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_36rvq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_02f7e")
+text = "Start Game"

@@ -2,7 +2,6 @@
 # Daftarkan sebagai Autoload dengan nama "SFXManager"
 extends Node
 
-# ✅ Isi path ini dengan file audio kamu nanti
 const SFX_PATHS := {
 	"place"    : "res://assets/music/Sounds/tap-a.ogg",
 	"destroy"  : "res://assets/music/Sounds/tap-a.ogg",
