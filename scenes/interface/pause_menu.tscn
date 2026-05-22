@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://dky40vxtw6jfd"]
 
-[ext_resource type="Script" uid="uid://dft1klkvjn3hx" path="res://scripts/pause_menu.gd" id="1_1rdxg"]
+[ext_resource type="Script" uid="uid://dft1klkvjn3hx" path="res://scripts/ui/pause_menu.gd" id="1_1rdxg"]
 [ext_resource type="FontFile" uid="uid://diqwofc7mut43" path="res://assets/font/Lilita_One/LilitaOne-Regular.ttf" id="2_pqqti"]
-[ext_resource type="PackedScene" uid="uid://drhjtu47ke18c" path="res://scenes/interface/options_panel.tscn" id="3_mj702"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mj702"]
 bg_color = Color(0.40832946, 0.40832946, 0.40832946, 0.078431375)
@@ -51,9 +50,6 @@ theme_override_fonts/font = ExtResource("2_pqqti")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6wt7b")
 text = "RESUME"
-
-[node name="OptionsPanel" parent="Control/VBoxContainer" unique_id=1295594770 instance=ExtResource("3_mj702")]
-layout_mode = 2
 
 [node name="MainMenuBtn" type="Button" parent="Control/VBoxContainer" unique_id=1363482852]
 layout_mode = 2

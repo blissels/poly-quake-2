@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://by833dslepgsa" path="res://scripts/ui/level_loader.gd" id="1_e3hyu"]
 [ext_resource type="Material" uid="uid://gk2aqkm080t7" path="res://assets/materials/ground_material.tres" id="1_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://da0h7curvje77" path="res://assets/background/sky.jpg" id="2_4wyf3"]
-[ext_resource type="PackedScene" uid="uid://de363nsk3y16u" path="res://scenes/interface/result_ui.tscn" id="2_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://dhoaosvsh21gy" path="res://scenes/player.tscn" id="3_4wyf3"]
 [ext_resource type="Script" uid="uid://6afr4qmxwctg" path="res://scripts/builds/ground.gd" id="4_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://dy005eoy2m8d7" path="res://scenes/interface/main_level.tscn" id="4_k0juu"]
@@ -57,8 +56,6 @@ loop = true
 
 [node name="level_loader" type="Node3D" parent="map" unique_id=1036206116]
 script = ExtResource("1_e3hyu")
-
-[node name="result_ui" parent="map" unique_id=127585451 instance=ExtResource("2_7r4gi")]
 
 [node name="trees" parent="map" unique_id=272040058 instance=ExtResource("6_i7141")]
 

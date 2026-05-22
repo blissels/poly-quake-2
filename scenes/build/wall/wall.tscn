@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://c011ncqpqtm05"]
 
-[ext_resource type="Script" uid="uid://m7d15ij520lb" path="res://scripts/object.gd" id="1_xbnmd"]
+[ext_resource type="Script" uid="uid://m7d15ij520lb" path="res://scripts/builds/object.gd" id="1_xbnmd"]
 [ext_resource type="Texture2D" uid="uid://cboxu6c4k4hym" path="res://assets/building_materials/walls/Textures/colormap.png" id="2_f03kc"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8iv3a"]

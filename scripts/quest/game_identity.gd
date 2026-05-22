@@ -3,17 +3,37 @@ extends VBoxContainer
 @onready var build_timer: Timer = $BuildTimer
 @onready var timer_label: Label = $TimerLabel
 
-const BUILD_DURATION := 30.0
+const BUILD_DURATION := 60.0
 var is_building_phase := true
 
 func _ready() -> void:
 	build_timer.wait_time = BUILD_DURATION
-	build_timer.one_shot = true
+	build_timer.one_shot  = true
 	build_timer.timeout.connect(_on_build_timer_timeout)
 	build_timer.start()
-	
 	EarthquakeManager.earthquake_ended.connect(_on_earthquake_ended)
 
+	# ✅ Sambungkan quest selesai → level transition
+	QuestManager.all_quests_done.connect(_on_all_quests_done)
+
+func _on_all_quests_done() -> void:
+	if GameState.current_level == "tutorial":
+		# Tutorial selesai → tampilkan pesan lalu pindah ke level_01
+		timer_label.text     = "✅ Tutorial Selesai!"
+		timer_label.modulate = Color.GREEN
+		build_timer.stop()
+		await get_tree().create_timer(2.5).timeout
+		_transition_to_level_01()
+	# Untuk level_01: biarkan timer jalan hingga gempa
+
+func _transition_to_level_01() -> void:
+	GameState.tutorial_done = true
+	GameState.go_to_level("level_01")
+	# Reset timer untuk level baru
+	is_building_phase     = true
+	timer_label.modulate  = Color.WHITE
+	build_timer.wait_time = BUILD_DURATION
+	build_timer.start()
 	
 func _process(_delta: float) -> void:
 	if is_building_phase:

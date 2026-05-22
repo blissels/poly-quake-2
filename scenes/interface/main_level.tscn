@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dy005eoy2m8d7"]
 
-[ext_resource type="Script" uid="uid://bogslaxn0f8ak" path="res://scripts/game_identity.gd" id="1_sgxla"]
+[ext_resource type="Script" uid="uid://bogslaxn0f8ak" path="res://scripts/quest/game_identity.gd" id="1_sgxla"]
+[ext_resource type="Script" uid="uid://dh2kd3pks1s0v" path="res://scripts/quest/quest_ui.gd" id="3_3ebi4"]
 [ext_resource type="FontFile" uid="uid://diqwofc7mut43" path="res://assets/font/Lilita_One/LilitaOne-Regular.ttf" id="3_ig700"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ig700"]
@@ -82,10 +83,45 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_ig700")
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 25
 text = "Build Mode : B (ON/OFF)
 Previous Item  : Q
 Next Item   : E
 Rotate Item	 : R
 "
 horizontal_alignment = 3
+
+[node name="QuestUI" type="VBoxContainer" parent="HBoxContainer/MarginContainer" unique_id=555426561]
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+script = ExtResource("3_3ebi4")
+
+[node name="QuestTitle" type="Label" parent="HBoxContainer/MarginContainer/QuestUI" unique_id=183592402]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ig700")
+theme_override_font_sizes/font_size = 25
+text = "📋 Objektif"
+vertical_alignment = 1
+
+[node name="QuestDesc" type="Label" parent="HBoxContainer/MarginContainer/QuestUI" unique_id=2026943110]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ig700")
+theme_override_font_sizes/font_size = 25
+text = "-"
+vertical_alignment = 1
+
+[node name="QuestProgress" type="Label" parent="HBoxContainer/MarginContainer/QuestUI" unique_id=1918207920]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ig700")
+theme_override_font_sizes/font_size = 25
+text = "0/0"
+vertical_alignment = 1
+
+[node name="CoinLabel" type="Label" parent="HBoxContainer/MarginContainer/QuestUI" unique_id=684991125]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ig700")
+theme_override_font_sizes/font_size = 25
+text = "💰 0"
+vertical_alignment = 1

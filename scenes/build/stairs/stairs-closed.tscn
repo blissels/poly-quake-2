@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://brxi56ioos160"]
 
-[ext_resource type="Script" uid="uid://m7d15ij520lb" path="res://scripts/object.gd" id="1_rw7mf"]
+[ext_resource type="Script" uid="uid://m7d15ij520lb" path="res://scripts/builds/object.gd" id="1_rw7mf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_foktl"]
 resource_name = "colormap"

@@ -1,8 +1,6 @@
 # res://scripts/pause_menu.gd
 extends Control
 
-@onready var options_panel = $PanelContainer/VBoxContainer/OptionsPanel
-
 func _ready() -> void:
 	add_to_group("pause_menu")
 	visible = false
@@ -11,9 +9,6 @@ func show_pause() -> void:
 	visible = true
 	get_tree().paused = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	# Refresh slider supaya nilai selalu up-to-date
-	if options_panel and options_panel.has_method("refresh"):
-		options_panel.refresh()
 
 func hide_pause() -> void:
 	visible = false

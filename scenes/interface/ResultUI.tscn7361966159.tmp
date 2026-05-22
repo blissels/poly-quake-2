@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bthmx4hloa6k1"]
 
-[ext_resource type="Script" uid="uid://683amaf1en6a" path="res://scripts/result_ui.gd" id="1_rakuf"]
+[ext_resource type="Script" uid="uid://683amaf1en6a" path="res://scripts/quest/result_ui.gd" id="1_rakuf"]
 [ext_resource type="FontFile" uid="uid://diqwofc7mut43" path="res://assets/font/Lilita_One/LilitaOne-Regular.ttf" id="2_oo6ls"]
 
-[node name="ResultUI" type="CanvasLayer" unique_id=127585451]
+[node name="result_ui" type="CanvasLayer" unique_id=127585451]
 script = ExtResource("1_rakuf")
 
 [node name="Panel" type="Panel" parent="." unique_id=1509135346]
@@ -64,6 +64,13 @@ text = "Status perbaikan (0/6)"
 horizontal_alignment = 1
 
 [node name="RestartBtn" type="Button" parent="Panel/VBoxContainer" unique_id=1764599858]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oo6ls")
+theme_override_font_sizes/font_size = 35
+text = "RESTART"
+
+[node name="NextBtn" type="Button" parent="Panel/VBoxContainer" unique_id=656279591]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_oo6ls")

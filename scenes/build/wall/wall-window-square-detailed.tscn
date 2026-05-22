@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://cgfvc7sdy3rio"]
 
-[ext_resource type="Script" uid="uid://m7d15ij520lb" path="res://scripts/object.gd" id="1_ylm37"]
+[ext_resource type="Script" uid="uid://m7d15ij520lb" path="res://scripts/builds/object.gd" id="1_ylm37"]
 [ext_resource type="Texture2D" uid="uid://cboxu6c4k4hym" path="res://assets/building_materials/walls/Textures/colormap.png" id="2_qsbcn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hq8p4"]
@@ -11,7 +11,7 @@ cull_mode = 2
 albedo_texture = ExtResource("2_qsbcn")
 texture_filter = 2
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_orkk6"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_hq8p4"]
 _surfaces = [{
 "aabb": AABB(-0.1, 0, -1, 0.2, 2.4, 2),
 "format": 34359742465,
@@ -43,7 +43,7 @@ _surfaces = [{
 "vertex_data": PackedByteArray("zczMvTIz8z9mZuY+zczMPTIz8z9mZuY+zczMPTIz8z9mZua+zczMvTIz8z9mZua+zczMvQAAAEAAAAC/zczMvTMzMz9mZua+zczMvWZmJj/NzAy/zczMvWZmJj/NzAw/zczMvTIz8z9mZua+zczMvTMzMz9mZuY+zczMvZmZ+T/NzAw/zczMvTIz8z9mZuY+zczMPWZmJj/NzAy/zczMPTIz8z9mZua+zczMPZmZ+T/NzAy/zczMPZmZ+T/NzAw/zczMPTMzMz9mZua+zczMPTIz8z9mZuY+zczMPZqZGT8AAAA/zczMPTMzMz9mZuY+zczMvTMzMz9mZua+zczMPTMzMz9mZua+zczMPTMzMz9mZuY+zczMvTMzMz9mZuY+zczMvTMzMz9mZuY+zczMPTMzMz9mZuY+zczMPTIz8z9mZuY+zczMvTIz8z9mZuY+zczMPTIz8z9mZua+zczMPTMzMz9mZua+zczMvTMzMz9mZua+zczMvTIz8z9mZua+zczMvWZmJj/NzAw/zczMvZmZ+T/NzAw/zcxMvZmZ+T/NzAw/zczMvQAAAEAAAAC/zcxMvWZmJj/NzAw/zcxMvZmZ+T/NzAy/zcxMvZqZGT8AAAC/zczMvWZmJj/NzAy/zczMPZmZ+T/NzAw/zczMPZqZGT8AAAA/zcxMPZmZ+T/NzAw/zcxMPQAAAEAAAAC/zcxMPWZmJj/NzAy/zczMPZmZ+T/NzAy/zczMPWZmJj/NzAy/zcxMvZqZGUAAAIC/zcxMvQAAAAAAAIC/zcxMPQAAAAAAAIC/zcxMPZqZGUAAAIC/zcxMPZqZGUAAAIA/zcxMPQAAAAAAAIA/zcxMvakTUCYAAIA/zcxMvZqZGUAAAIA/zcxMvZqZGUAAAIA/zcxMvZmZ+T/NzAw/zcxMvZmZ+T/NzAy/zcxMvZqZGUAAAIC/zcxMvakTUCYAAIA/zcxMvZqZGT8AAAC/zcxMvWZmJj/NzAw/zcxMvQAAAAAAAIC/zcxMPQAAAAAAAIA/zcxMPZmZ+T/NzAw/zcxMPWZmJj/NzAy/zcxMPZqZGUAAAIA/zcxMPQAAAAAAAIC/zcxMPQAAAEAAAAC/zcxMPZqZGUAAAIC/zcxMvZqZGUAAAIC/zcxMPZqZGUAAAIC/zcxMPZqZGUAAAIA/zcxMvZqZGUAAAIA/w8zMPM3MrD8zM7O+w8zMPM3MrD8zM7M+18zMvM3MrD8zM7M+18zMvM3MrD8zM7O+18zMvAAAoD8zM7M+18zMvAAAoD8zM7O+18zMvM3MrD8zM7O+18zMvM3MrD8zM7M+18zMvAAAoD8zM7M+w8zMPAAAoD8zM7M+w8zMPAAAoD8zM7O+18zMvAAAoD8zM7O+w8zMPM3MrD8zM7M+w8zMPM3MrD8zM7O+w8zMPAAAoD8zM7O+w8zMPAAAoD8zM7M+0sxMvWZm5j8zM7M+yMxMPWZm5j8zM7M+yMxMPWZm5j8zM7O+0sxMvWZm5j8zM7O+yMxMPWZm5j8zM7O+yMxMPc3MTD8zM7O+0sxMvc3MTD8zM7O+0sxMvWZm5j8zM7O+0sxMvc3MTD8zM7M+yMxMPc3MTD8zM7M+yMxMPWZm5j8zM7M+0sxMvWZm5j8zM7M+0sxMvc3MTD8zM7O+yMxMPc3MTD8zM7O+yMxMPc3MTD8zM7M+0sxMvc3MTD8zM7M+0sxMvc3MTD8zM7O+0sxMvc3MTD8zM7M+0sxMvTMzMz9mZuY+0sxMvWZm5j8zM7M+0sxMvTMzMz9mZua+0sxMvTQz8z9mZuY+0sxMvTQz8z9mZua+0sxMvWZm5j8zM7O+yMxMPWZm5j8zM7O+yMxMPWZm5j8zM7M+yMxMPTQz8z9mZuY+yMxMPc3MTD8zM7M+yMxMPTQz8z9mZua+yMxMPTMzMz9mZuY+yMxMPTMzMz9mZua+yMxMPc3MTD8zM7O+zczMvZqZGT8AAAC/zczMvZmZ+T/NzAy/zczMvZqZGT8AAAA/zczMvQAAAEAAAAA/zczMPQAAAEAAAAC/zczMPZqZGT8AAAC/zczMPQAAAEAAAAA/zczMPWZmJj/NzAw/zczMvQAAAEAAAAA/zcxMvQAAAEAAAAA/zczMvZqZGT8AAAA/zcxMvQAAAEAAAAC/zcxMvZqZGT8AAAA/zczMvZmZ+T/NzAy/zczMvZqZGT8AAAC/zcxMvWZmJj/NzAy/zcxMPQAAAEAAAAA/zcxMPWZmJj/NzAw/zczMPQAAAEAAAAA/zczMPWZmJj/NzAw/zczMPQAAAEAAAAC/zcxMPZqZGT8AAAA/zcxMPZmZ+T/NzAy/zcxMPZqZGT8AAAC/zczMPZqZGT8AAAC/zcxMvQAAAEAAAAA/zcxMvQAAAEAAAAC/zcxMvWZmJj/NzAy/zcxMvZqZGT8AAAA/zcxMPZqZGT8AAAA/zcxMPZqZGT8AAAC/zcxMPWZmJj/NzAw/zcxMPZmZ+T/NzAy/zcxMPQAAAEAAAAA//38AAAAA/7//fwAAAAD/v/9/AAAAAP+//38AAAAA/78AAP9/AAD/vwAA/38AAP+/AAD/fwAA/78AAP9/AAD/vwAA/38AAP+/AAD/fwAA/78AAP9/AAD/vwAA/38AAP+/////fwAA/7////9/AAD/v////38AAP+/////fwAA/7////9/AAD/v////38AAP+/////fwAA/7////9/AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//////wAA/7//////AAD/v/////8AAP+//////wAA/7//f/9/AAD/v/9//38AAP+//3//fwAA/7//f/9/AAD/v/9/gloAAP+//398pQAA/7//f3ylAAD/v3yl//8AAP+//3+CWgAA/7+B2v//AAD/v3ylAAAAAP+/gdoAAAAA/7//f3ylAAD/v/9/fSUAAP+//398pQAA/798pf//AAD/v4HaAAAAAP+/gdr//wAA/7+B2gAAAAD/v/////8AAP+//////wAA/7//////AAD/v/////8AAP+//3//f////7//f/9/////v/9//3////+//3//f////78AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//vwAA/3//f/+/////f/////////9//////////3//////////f/////////9//////////3//////////f///////f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+/AAD/fwAA/78AAP9/AAD/vwAA/38AAP+/AAD/fwAA/7//fwAAAAD/v/9/AAAAAP+//38AAAAA/7//fwAAAAD/v////38AAP+/////fwAA/7////9/AAD/v////38AAP+//38AAAAA/7//fwAAAAD/v/9/AAAAAP+//38AAAAA/7//f/9/AAD/v/9//38AAP+//3//fwAA/7//f/9/AAD/v/////8AAP+//////wAA/7//////AAD/v/////8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/78AAP9/AAD/vwAA/38AAP+/AAD/fwAA/78AAP9/AAD/vwAA/38AAP+/AAD/fwAA/78AAP9/AAD/vwAA/38AAP+/////fwAA/7////9/AAD/v////38AAP+/////fwAA/7////9/AAD/v////38AAP+/////fwAA/7////9/AAD/vwAA/38AAP+/AAD/fwAA/78AAP9/AAD/vwAA/38AAP+/////fwAA/7////9/AAD/v////38AAP+/////fwAA/7//f4HaAAD/v/9/gdoAAP+//399JQAA/798pf//AAD/v/9/fSUAAP+/gdr//wAA/798pQAAAAD/v4HaAAAAAP+//3+B2gAA/7//f4JaAAD/v/9/gdoAAP+//3+CWgAA/798pf//AAD/v/9/fSUAAP+/gdr//wAA/798pQAAAAD/v3ylAAAAAP+/AAD/f/9//78AAP9//3//vwAA/3//f/+/AAD/f/9//7////9//////////3//////////f/////////9//////////3//////")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_orkk6")
+shadow_mesh = SubResource("ArrayMesh_hq8p4")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ebct7"]
 resource_name = "glass"
@@ -54,7 +54,7 @@ roughness = 0.5
 emission_enabled = true
 emission = Color(0.4886081, 0.50175655, 0.56603783, 1)
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_kjukr"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_jbi2u"]
 _surfaces = [{
 "aabb": AABB(-7.219114e-16, 0, -0.35, 1e-05, 1, 0.7),
 "format": 34896613377,
@@ -84,7 +84,7 @@ _surfaces = [{
 "vertex_data": PackedByteArray("AAAAAP///78AAAAAAAD/vwAA//8AAP+/AAD//////78AAAAAAAAAAAAAAAD//wAAAAD//wAAAAAAAP////8AAP9/////f////3////9/////v/9//7//f/+//3//v/9/")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_kjukr")
+shadow_mesh = SubResource("ArrayMesh_jbi2u")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mtlrh"]
 points = PackedVector3Array(0.04999999, 2.4, 1, 0.1, 1.9498825, 0.54992175, 0.1, 1.9999217, 0.5, 0.04999999, 2.4, -1, -0.05, 2.4, 1, 0.04999999, 0, 1, 0.1, 0.64980423, 0.54992175, 0.1, 1.9999217, -0.5, -0.05, 2.4, -1, 0.1, 1.9498825, -0.5501175, 0.04999999, 0, -1, -0.1, 1.9999217, 0.5, -0.1, 1.9498825, 0.54992175, -0.05, 0, 1, 0.1, 0.6, 0.5, -0.1, 1.9498825, -0.5501175, -0.1, 1.9999217, -0.5, -0.05, 0, -1, 0.1, 0.64980423, -0.5501175, 0.1, 0.6, -0.5, -0.1, 0.64980423, 0.54992175, -0.1, 0.6, 0.5, -0.1, 0.64980423, -0.5501175, -0.1, 0.6, -0.5)

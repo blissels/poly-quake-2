@@ -19,6 +19,8 @@ config/features=PackedStringArray("4.6", "Mobile")
 EarthquakeManager="*uid://ccejkjaptgwu8"
 AudioManager="*uid://jb246rqs1v8c"
 SFXManager="*uid://bfdl0nu4bo81y"
+GameState="*uid://co4qyn2fkwea4"
+QuestManager="*uid://bd4jxhhj50mw6"
 
 [display]
 

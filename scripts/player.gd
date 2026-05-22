@@ -81,6 +81,8 @@ func _physics_process(delta):
 				ghost_block = null
 		else:
 			spawn_ghost_block()
+			QuestManager.trigger_build_mode_opened()
+
 			
 	# --- TOGGLE DESTROY MODE ---
 	elif Input.is_action_just_pressed("destroy_mode"):
