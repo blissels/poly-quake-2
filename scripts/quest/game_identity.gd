@@ -52,13 +52,14 @@ func _update_timer_display() -> void:
 		
 func _on_build_timer_timeout() -> void:
 	is_building_phase = false
-	timer_label.text = "0"
-	timer_label.modulate = Color.DARK_RED
-	
-	print("Fase Membangun selesai! Memulai Fase Gempa...")
+	# Tampilkan alert gempa di tengah atas layar sebelum dimulai
+	timer_label.text = "TERJADI GEMPA"
+	timer_label.modulate = Color.RED
+	print("Fase Membangun selesai! Menampilkan alert gempa dan memulai fase gempa...")
+	await get_tree().create_timer(1.1).timeout
 	EarthquakeManager.start_earthquake()
 	
 func _on_earthquake_ended(scale: float, survived: int) -> void:
-	timer_label.text     = "SR %.1f — %d blok selamat!" % [scale, survived]
+	timer_label.text     = "SR %.1f" % [scale]
 	timer_label.modulate = Color.WHITE  # ✅ reset warna
 	timer_label.visible  = true         # ✅ pastikan tidak ter-flash

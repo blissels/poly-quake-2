@@ -55,9 +55,10 @@ func building(delta):
 	if Input.is_action_just_pressed("left_click") and ghost_block.can_place:
 		var block_instance = objects[current_object_index].instantiate()
 		get_parent().add_child(block_instance)
-		block_instance.place()
+		# Place at snapped position/rotation before calling place() so sensors and distance checks work
 		block_instance.global_transform.origin = snap_to_grid(ghost_block.global_transform.origin, grid_size)
 		block_instance.global_rotation = ghost_block.global_rotation
+		block_instance.place()
 	
 func snap_to_grid(position: Vector3, grid_snap: float) -> Vector3:
 	var x = round(position.x / grid_snap) * grid_snap
@@ -127,15 +128,14 @@ func movement(delta):
 	var current_pos = global_position
 	var candidate_pos = current_pos + (currentvel * delta)
 	var map_rid = get_world_3d().navigation_map
-	
-	var closest_point = NavigationServer3D.map_get_closest_point(map_rid, candidate_pos)
-	
-	var candidate_pos_2d = Vector2(candidate_pos.x, candidate_pos.z)
-	var closest_point_2d = Vector2(closest_point.x, closest_point.z)
-	
-	if candidate_pos_2d.distance_to(closest_point_2d) > 0.2:
-		currentvel.x = 0
-		currentvel.z = 0
+	if map_rid:
+		var closest_point = NavigationServer3D.map_get_closest_point(map_rid, candidate_pos)
+		var candidate_pos_2d = Vector2(candidate_pos.x, candidate_pos.z)
+		var closest_point_2d = Vector2(closest_point.x, closest_point.z)
+		if candidate_pos_2d.distance_to(closest_point_2d) > 0.2:
+			currentvel.x = 0
+			currentvel.z = 0
+	# Jika map belum siap, lewati pemeriksaan navigasi untuk sementara
 	
 	velocity.x = currentvel.x
 	velocity.z = currentvel.z

@@ -47,7 +47,7 @@ shadow_mesh = SubResource("ArrayMesh_4sjte")
 points = PackedVector3Array(-1, 0, -1, -1, 0.1, -1, 1, 0, -1, -1, 0, 1, -1, 0.1, 1, 1, 0.1, -1, 1, 0, 1, 1, 0.1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4sjte"]
-size = Vector3(2.0002747, 0.04486084, 1.8882217)
+size = Vector3(1.2, 0.08, 1.2)
 
 [node name="floor" type="RigidBody3D" unique_id=754915825 groups=["Objects"]]
 physics_material_override = SubResource("PhysicsMaterial_fv62b")

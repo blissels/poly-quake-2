@@ -31,6 +31,14 @@ func start_earthquake() -> void:
 	camera_node = get_viewport().get_camera_3d()
 	if camera_node: cam_original_pos = camera_node.position
 
+	# Matikan build mode saat gempa dimulai agar player tidak bisa menempatkan blok
+	var player = get_tree().current_scene.find_child("player", true, false)
+	if player:
+		player.in_build_mode = false
+		if player.ghost_block != null:
+			player.ghost_block.queue_free()
+			player.ghost_block = null
+
 	for block in placed_blocks:
 		if is_instance_valid(block):
 			block_origins[block] = block.global_position
@@ -118,7 +126,7 @@ func _finish_earthquake() -> void:
 			var drop : float = (block_origins[block] as Vector3).y - block.global_position.y
 			if drop < FALL_THRESHOLD: survived += 1
 
-	var ui_node = get_tree().current_scene.find_child("ResultUI", true, false)
+	var ui_node = get_tree().current_scene.find_child("result_ui", true, false)
 	if ui_node and ui_node.has_method("show_result"):
 		ui_node.show_result(earthquake_scale, survived)
 

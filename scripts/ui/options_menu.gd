@@ -1,9 +1,9 @@
 # res://scripts/options_menu.gd
 extends Control
 
-@onready var volume_slider : HSlider = $PanelContainer/VBoxContainer/HBoxContainer/VolumeSlider
-@onready var mute_btn      : Button  = $PanelContainer/VBoxContainer/MuteBtn
-@onready var close_btn     : Button  = $PanelContainer/VBoxContainer/CloseBtn
+@onready var volume_slider : HSlider = $Panel/VBoxContainer/HBoxContainer/VolumeSlider
+@onready var mute_btn      : Button  = $Panel/VBoxContainer/MuteBtn
+@onready var close_btn     : Button  = $Panel/VBoxContainer/CloseBtn
 
 func _ready():
 	visible = false

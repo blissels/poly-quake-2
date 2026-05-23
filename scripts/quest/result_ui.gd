@@ -6,9 +6,11 @@ extends CanvasLayer
 @onready var objektif_label  = %ObjektifLabel
 @onready var restart_btn     = %RestartBtn
 
-var target_lubang  := 6
+var target_lubang  := 0
 var lubang_terisi  := 0
 var quest_completed := false
+var next_btn: Button = null
+const SUCCESS_THRESHOLD := 0.5
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -17,6 +19,14 @@ func _ready():
 	self.visible  = true
 	$Panel.visible = false
 
+	# Tentukan target berdasarkan data QuestManager agar selalu sinkron
+	var steps = QuestManager.QUEST_DATA.get(GameState.current_level, [])
+	for s in steps:
+		if s.get("trigger", "") == "slot_filled":
+			target_lubang += int(s.get("count", 0))
+	if target_lubang == 0:
+		# fallback default
+		target_lubang = 6
 	if objektif_label:
 		objektif_label.text = "🔧 Perbaiki Rumah: 0/" + str(target_lubang)
 
@@ -25,7 +35,7 @@ func _ready():
 
 	# Pastikan ada tombol "Lanjut Level" di Panel/VBoxContainer
 	var container := $Panel.get_node("VBoxContainer")
-	var next_btn := null
+	next_btn = null
 	if container.has_node("NextBtn"):
 		next_btn = container.get_node("NextBtn")
 	else:
@@ -84,9 +94,10 @@ func show_result(scale: float, survived_blocks: int) -> void:
 	else:
 		star_label.text = "⭐  Rumah runtuh!"
 
-	# Tampilkan tombol lanjut jika semua quest selesai
-	var next_btn := $Panel/VBoxContainer.get_node("NextBtn")
-	if quest_completed:
+	# Tampilkan tombol lanjut hanya jika semua quest selesai DAN level dianggap berhasil
+	next_btn = $Panel/VBoxContainer.get_node("NextBtn")
+	var level_succeeded := survival_rate >= SUCCESS_THRESHOLD
+	if quest_completed and level_succeeded:
 		next_btn.visible = true
 	else:
 		next_btn.visible = false
@@ -96,7 +107,7 @@ func _on_restart_pressed():
 	get_tree().reload_current_scene()
 
 func _on_next_pressed():
-	# Lanjut ke level berikutnya melalui GameState
+	# Lanjut ke level_01 ketika NextBtn ditekan
 	get_tree().paused = false
-	GameState.go_to_next_level()
+	GameState.go_to_level("level_01")
 	$Panel.visible = false

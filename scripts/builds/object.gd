@@ -1,10 +1,10 @@
 extends RigidBody3D
 
-@onready var model: MeshInstance3D = $model
-@onready var collision_shape: CollisionShape3D = $CollisionShape3D
-@onready var clipping_hitbox: Area3D = $clippingHitBox
-@onready var floating_hitbox: Area3D = $floatingHitBox
-@onready var animation: AnimationPlayer = $animation
+@onready var model: MeshInstance3D = get_node_or_null("model")
+@onready var collision_shape: CollisionShape3D = get_node_or_null("CollisionShape3D")
+@onready var clipping_hitbox: Area3D = get_node_or_null("clippingHitBox")
+@onready var floating_hitbox: Area3D = get_node_or_null("floatingHitBox")
+@onready var animation: AnimationPlayer = get_node_or_null("animation")
 
 var red_material: Material = load("res://assets/materials/red_material.tres")
 var blue_material: Material = load("res://assets/materials/blue_material.tres")
@@ -15,47 +15,59 @@ var is_ghost = true
 func _ready():
 	# Saat pertama kali muncul (sebagai ghost block), bekukan fisiknya
 	freeze = true
-	collision_shape.disabled = true
+	if collision_shape:
+		collision_shape.disabled = true
 
 func _process(delta: float) -> void:
 	# Hanya jalankan deteksi warna biru/merah JIKA masih berupa ghost block
-	if is_ghost and clipping_hitbox:
-		model.transparency = 0.6
-		can_place = clipping_hitbox.get_overlapping_bodies().is_empty() and not floating_hitbox.get_overlapping_bodies().is_empty()
+	if is_ghost:
+		if model:
+			model.transparency = 0.6
+		var clip_ok := true
+		if clipping_hitbox:
+			clip_ok = clipping_hitbox.get_overlapping_bodies().is_empty()
+		var float_ok := true
+		if floating_hitbox:
+			float_ok = not floating_hitbox.get_overlapping_bodies().is_empty()
+		can_place = clip_ok and float_ok
+		if model:
+			if can_place:
+				model.material_override = blue_material
+			else:
+				model.material_override = red_material
 		
-		if can_place:
-			model.material_override = blue_material
-		else:
-			model.material_override = red_material
-			
 	if self.scale.x == 0.01:
 		queue_free()
 
 func place():
 	SFXManager.play("place")
 	# 1. OBJEKTIF: Pengecekan Akurat Menggunakan Jarak!
-	var ui_node = get_tree().current_scene.find_child("ResultUI", true, false)
+	# Tambahkan ke group placed_blocks lebih awal supaya sensors & Area3D mendeteksi tubuh ini
+	add_to_group("placed_blocks")
+	var ui_node = get_tree().current_scene.find_child("result_ui", true, false)
 	var sensors = get_tree().get_nodes_in_group("sensor_lubang")
 	
 	for sensor in sensors:
 		if is_instance_valid(sensor):
 			# Jika blok ini ditaruh di dekat sensor (radius 3 meter)
 			if global_position.distance_to(sensor.global_position) < 3.0:
-				if ui_node and ui_node.has_method("tambah_objektif"):
-					ui_node.tambah_objektif()
-				sensor.queue_free() # Hilangkan sensornya
-				break
+				# Hapus sensor visual (slot_sensor akan meng-handle trigger quest)
+					sensor.queue_free()
+					break
 
 	is_ghost = false
-	animation.play("place")
+	if animation:
+		animation.play("place")
 	
 	if clipping_hitbox: clipping_hitbox.queue_free()
 	if floating_hitbox: floating_hitbox.queue_free()
 		
-	model.material_override = null
-	model.transparency = 0.0
+	if model:
+		model.material_override = null
+		model.transparency = 0.0
 	
-	collision_shape.disabled = false
+	if collision_shape:
+		collision_shape.disabled = false
 	freeze = true # Tahan gravitasi saat build mode
 	
 	# 3. SEMEN BESI (JARAK DIPERBESAR + ENGSEL KAKU)
@@ -69,8 +81,8 @@ func place():
 				joint.node_a = joint.get_path_to(self)
 				joint.node_b = joint.get_path_to(block)
 				
-	add_to_group("placed_blocks")
 
 func destroy():
 	SFXManager.play("destroy")
-	animation.play("destroy")
+	if animation:
+		animation.play("destroy")
