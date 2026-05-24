@@ -97,6 +97,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 [node name="wall2" parent="wall_second" unique_id=646357850 instance=ExtResource("2_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
+[node name="wall3" parent="wall_second" unique_id=288368923 instance=ExtResource("1_83vdy")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1, 0, 1)
+
 [node name="wall4" parent="wall_second" unique_id=74424618 instance=ExtResource("2_3gack")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3, 0, 1)
 
@@ -106,9 +109,6 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -5, 
 [node name="wall6" parent="wall_second" unique_id=1074877071 instance=ExtResource("3_fql8k")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0, 1)
 
-[node name="wall14" parent="wall_second" unique_id=1505012598 instance=ExtResource("3_fql8k")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1, 0, 1)
-
 [node name="wall7" parent="wall_second" unique_id=897383907 instance=ExtResource("2_3gack")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 0, 2)
 
@@ -116,7 +116,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 0, 4)
 
 [node name="wall9" parent="wall_second" unique_id=541691011 instance=ExtResource("3_fql8k")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 0, 6)
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -1, 0, 7)
 
 [node name="wall10" parent="wall_second" unique_id=2040879107 instance=ExtResource("3_fql8k")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -5, 0, 7)
@@ -288,7 +288,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0006402731, 1.1757278, 0.13
 mesh = SubResource("BoxMesh_gm6me")
 
 [node name="Slot02" type="Area3D" parent="sensor_lubang" unique_id=667356260 groups=["sensor_lubang"]]
-transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -1.161825, 2.4664814, 6.9969273)
+transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, -8.004849, 2.4664814, 5.8589096)
 collision_layer = 0
 script = ExtResource("9_4dtha")
 slot_id = "slot_02"
@@ -305,6 +305,7 @@ mesh = SubResource("BoxMesh_gm6me")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, 0, 1.8677177)
 collision_layer = 0
 script = ExtResource("9_4dtha")
+slot_id = "slot_03"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/Slot03" unique_id=1138331910]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100204945, 0.0466156, 0.1340797)
@@ -318,6 +319,7 @@ mesh = SubResource("BoxMesh_ngr1w")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9, 0, 3.8677177)
 collision_layer = 0
 script = ExtResource("9_4dtha")
+slot_id = "slot_04"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/Slot04" unique_id=915591619]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100204945, 0.0466156, 0.1340797)

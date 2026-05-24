@@ -360,6 +360,7 @@ mesh = SubResource("BoxMesh_nivaq")
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -7.8835793, 0.0393939, -0.8662639)
 collision_layer = 0
 script = ExtResource("10_w2b1m")
+slot_id = "slot_02"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/Slot02" unique_id=1596433936]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0006402731, 1.1757278, 0.1340797)
@@ -373,6 +374,7 @@ mesh = SubResource("BoxMesh_nivaq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, 0, 0.86771774)
 collision_layer = 0
 script = ExtResource("10_w2b1m")
+slot_id = "slot_03"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/Slot03" unique_id=1555737094]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100204945, 0.0466156, 0.1340797)
@@ -386,6 +388,7 @@ mesh = SubResource("BoxMesh_0dpta")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9, 0, -3.1322823)
 collision_layer = 0
 script = ExtResource("10_w2b1m")
+slot_id = "slot_04"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/Slot04" unique_id=1706938582]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100204945, 0.0466156, 0.1340797)
@@ -399,6 +402,7 @@ mesh = SubResource("BoxMesh_0dpta")
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -7.8835793, 2.4079547, 5.1211414)
 collision_layer = 0
 script = ExtResource("10_w2b1m")
+slot_id = "slot_05"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/Slot05" unique_id=591665095]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0006402731, 1.1757278, 0.1340797)
@@ -412,6 +416,7 @@ mesh = SubResource("BoxMesh_nivaq")
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.004806161, 2.4079547, -0.87885857)
 collision_layer = 0
 script = ExtResource("10_w2b1m")
+slot_id = "slot_06"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/Slot06" unique_id=642518401]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0006402731, 1.1757278, 0.1340797)

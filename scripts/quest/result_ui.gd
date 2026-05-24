@@ -53,6 +53,7 @@ func _ready():
 
 func tambah_objektif():
 	lubang_terisi += 1
+	print("[ResultUI] tambah_objektif called. lubang_terisi=%d, target=%d" % [lubang_terisi, target_lubang])
 	if objektif_label:
 		objektif_label.text = "🔧 Perbaiki Rumah: %d/%d" % [lubang_terisi, target_lubang]
 
@@ -63,10 +64,12 @@ func tambah_objektif():
 		objektif_label.modulate = Color.WHITE
 
 func _on_quest_step_updated(description: String, progress: int, total: int) -> void:
+	print("[ResultUI] quest_step_updated: '%s' %d/%d" % [description, progress, total])
 	if objektif_label:
 		objektif_label.text = "%s: %d/%d" % [description, progress, total]
 
 func _on_quest_step_done(description: String, coins_earned: int) -> void:
+	print("[ResultUI] quest_step_done: '%s' (+%d coins)" % [description, coins_earned])
 	# Berikan umpan balik singkat
 	if objektif_label:
 		objektif_label.modulate = Color(0.6, 1.0, 0.6)
@@ -77,9 +80,9 @@ func _on_all_quests_done() -> void:
 	quest_completed = true
 
 func show_result(scale: float, survived_blocks: int) -> void:
+	# Tampilkan panel hasil terlebih dahulu (jangan pause langsung jika akan auto-transition)
 	$Panel.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	get_tree().paused = true
 
 	var total_blocks = get_tree().get_nodes_in_group("placed_blocks").size()
 	if total_blocks == 0: total_blocks = 1
@@ -92,7 +95,7 @@ func show_result(scale: float, survived_blocks: int) -> void:
 	elif survival_rate >= 0.5:
 		star_label.text = "⭐⭐  Ada kerusakan."
 	else:
-		star_label.text = "⭐  Rumah runtuh!"
+		star_label.text = "⭐ Rumah tidak lengkap!"
 
 	# Tampilkan tombol lanjut hanya jika semua quest selesai DAN level dianggap berhasil
 	next_btn = $Panel/VBoxContainer.get_node("NextBtn")
@@ -101,6 +104,10 @@ func show_result(scale: float, survived_blocks: int) -> void:
 		next_btn.visible = true
 	else:
 		next_btn.visible = false
+
+	# Block UI: pause the game and require explicit player action (Next/Restart)
+	# This ensures the player is stuck on the Result UI until they click a button.
+	get_tree().paused = true
 
 func _on_restart_pressed():
 	get_tree().paused = false

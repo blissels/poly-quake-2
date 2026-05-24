@@ -37,6 +37,7 @@ func _ready():
 	objects.append(preload("res://scenes/build/wall/wall.tscn"))
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
+@warning_ignore("unused_parameter")
 func building(delta):
 	var snap_pos: Vector3 = snap_to_grid(hand_marker.global_position, grid_size)
 	ghost_block.global_position = lerp(ghost_block.global_position, snap_pos, 0.1)
@@ -60,6 +61,7 @@ func building(delta):
 		block_instance.global_rotation = ghost_block.global_rotation
 		block_instance.place()
 	
+@warning_ignore("shadowed_variable_base_class")
 func snap_to_grid(position: Vector3, grid_snap: float) -> Vector3:
 	var x = round(position.x / grid_snap) * grid_snap
 	var y = round(position.y / grid_snap) * grid_snap

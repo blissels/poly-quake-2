@@ -18,12 +18,13 @@ func _ready() -> void:
 
 func _on_all_quests_done() -> void:
 	if GameState.current_level == "tutorial":
-		# Tutorial selesai → tampilkan pesan lalu pindah ke level_01
-		timer_label.text     = "✅ Tutorial Selesai!"
+		# Semua objektif terpenuhi — jangan langsung pindah.
+		# Biarkan timer berjalan sampai habis supaya gempa tetap terjadi,
+		# lalu ResultUI yang akan memutuskan lanjut atau restart.
+		timer_label.text     = "✅ Objektif Selesai — Tunggu Gempa"
 		timer_label.modulate = Color.GREEN
-		build_timer.stop()
-		await get_tree().create_timer(2.5).timeout
-		_transition_to_level_01()
+		print("Semua objektif selesai. Menunggu akhir timer untuk memicu gempa...")
+		return
 	# Untuk level_01: biarkan timer jalan hingga gempa
 
 func _transition_to_level_01() -> void:

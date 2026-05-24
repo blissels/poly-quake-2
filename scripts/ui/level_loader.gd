@@ -42,6 +42,25 @@ func _on_level_changed(level_name: String) -> void:
 	load_level(level_name)
 
 func _setup_all_slots() -> void:
-	# Hubungkan semua slot sensor yang ada di level
-	var slots := get_tree().get_nodes_in_group("slot_sensor")
-	print("🔌 Slot ditemukan: %d" % slots.size())
+	# Pastikan semua sensor under the level's "sensor_lubang" node terdaftar di group
+	if current_instance == null:
+		print("🔌 current_instance null, skipping slot setup")
+		return
+	var parent = current_instance.get_node_or_null("sensor_lubang")
+	if parent:
+		var count := 0
+		for child in parent.get_children():
+			if child is Area3D:
+				if not child.is_in_group("sensor_lubang"):
+					child.add_to_group("sensor_lubang")
+				if not child.is_in_group("slot_sensor"):
+					child.add_to_group("slot_sensor")
+				# Connect slot signal to QuestManager if not already connected
+				var slot_cb := Callable(QuestManager, "trigger_slot_filled")
+				if not child.is_connected("slot_filled", slot_cb):
+					child.connect("slot_filled", slot_cb)
+				count += 1
+		print("🔌 Slot ditemukan (from parent): %d" % count)
+	else:
+		var slots := get_tree().get_nodes_in_group("sensor_lubang")
+		print("🔌 Slot ditemukan (group): %d" % slots.size())

@@ -44,16 +44,51 @@ func place():
 	# 1. OBJEKTIF: Pengecekan Akurat Menggunakan Jarak!
 	# Tambahkan ke group placed_blocks lebih awal supaya sensors & Area3D mendeteksi tubuh ini
 	add_to_group("placed_blocks")
+	# Aktifkan collision shape segera agar Area3D dapat mendeteksi jika perlu
+	if collision_shape:
+		collision_shape.disabled = false
+	freeze = true
+	# Tunggu satu frame agar physics/Area3D sinkron
+	await get_tree().process_frame
 	var ui_node = get_tree().current_scene.find_child("result_ui", true, false)
 	var sensors = get_tree().get_nodes_in_group("sensor_lubang")
-	
+	print("[Object] sensors found: %d" % sensors.size())
+	var notified := false
 	for sensor in sensors:
 		if is_instance_valid(sensor):
 			# Jika blok ini ditaruh di dekat sensor (radius 3 meter)
-			if global_position.distance_to(sensor.global_position) < 3.0:
-				# Hapus sensor visual (slot_sensor akan meng-handle trigger quest)
+			var dist = global_position.distance_to(sensor.global_position)
+			print("[Object] checking sensor %s at dist=%.3f" % [str(sensor), dist])
+			if dist < 3.0:
+				# Beri tahu sensor agar menangani trigger quest dan visual
+				if sensor.has_method("notify_block_placed"):
+					print("[Object] calling notify_block_placed on %s" % [str(sensor)])
+					sensor.notify_block_placed()
+					notified = true
+				else:
+					print("[Object] queue_free sensor %s (no method)" % [str(sensor)])
 					sensor.queue_free()
-					break
+					notified = true
+				break
+	# Fallback: jika tidak ada sensor dalam radius, panggil sensor terdekat jika cukup dekat (5m)
+	if not notified and sensors.size() > 0:
+		var nearest: Node = null
+		var min_dist := 1e9
+		for sensor in sensors:
+			if is_instance_valid(sensor):
+				var d = global_position.distance_to(sensor.global_position)
+				if d < min_dist:
+					min_dist = d
+					nearest = sensor
+		print("[Object] fallback nearest sensor dist=%.3f" % min_dist)
+		if nearest and min_dist <= 5.0:
+			if nearest.has_method("notify_block_placed"):
+				print("[Object] fallback calling notify_block_placed on nearest sensor")
+				nearest.notify_block_placed()
+			else:
+				print("[Object] fallback queue_free nearest sensor (no method)")
+				nearest.queue_free()
+			notified = true
 
 	is_ghost = false
 	if animation:
