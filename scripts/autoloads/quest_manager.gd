@@ -44,13 +44,15 @@ const QUEST_DATA := {
 var current_steps    : Array   = []
 var step_index       : int     = 0
 var step_progress    : int     = 0
-var slots_filled_total: int    = 0
+var slots_filled_total: int    = 0  # optional global counter
 
 # =============================================
 func start_quest(level_name: String) -> void:
+	# Prepare steps; progress is tracked per-step (not cumulative)
 	current_steps      = QUEST_DATA.get(level_name, [])
 	step_index         = 0
 	step_progress      = 0
+	# reset global slot counter for telemetry (not used for per-step progress)
 	slots_filled_total = 0
 	_emit_current_step()
 	print("📋 Quest dimulai: %s" % level_name)
@@ -62,27 +64,36 @@ func trigger_build_mode_opened() -> void:
 	_handle("build_mode_opened", 1)
 
 func trigger_slot_filled() -> void:
+	# Keep global count for telemetry/debug, but pass delta=1 to _handle
 	slots_filled_total += 1
-	# Cek step saat ini apakah minta "slot_filled"
-	_handle("slot_filled", slots_filled_total)
+	_handle("slot_filled", 1)
 
 # =============================================
-func _handle(trigger: String, cumulative_value: int) -> void:
+# Internal handler now accepts a delta (increment) instead of a cumulative value
+func _Handle(trigger: String, delta: int) -> void:
+	# Backwards compatibility: some callers might use lowercase _handle
+	_handle(trigger, delta)
+
+func _handle(trigger: String, delta: int) -> void:
 	if step_index >= current_steps.size(): return
 
 	var step : Dictionary = current_steps[step_index]
 	if step.get("trigger", "") != trigger: return
 
 	var required : int = step.get("count", 1)
-	step_progress = min(cumulative_value, required)
+	# Increment per-step progress by delta; clamp to required
+	step_progress = min(step_progress + delta, required)
 
 	if step_progress >= required:
+		# Emit current progress first so UI updates number (e.g., 3/3)
+		_emit_current_step()
 		# ✅ Step selesai
 		var coins : int = step.get("coins", 0)
 		GameState.add_coins(coins)
 		emit_signal("quest_step_done", step.get("desc", ""), coins)
 		SFXManager.play("success")
 		step_index += 1
+		# Reset per-step progress so next step starts from 0
 		step_progress = 0
 
 		if step_index >= current_steps.size():
