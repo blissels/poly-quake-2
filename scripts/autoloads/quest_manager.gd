@@ -45,6 +45,7 @@ var current_steps    : Array   = []
 var step_index       : int     = 0
 var step_progress    : int     = 0
 var slots_filled_total: int    = 0  # optional global counter
+var filled_slot_ids  : Array   = []
 
 # =============================================
 func start_quest(level_name: String) -> void:
@@ -54,6 +55,8 @@ func start_quest(level_name: String) -> void:
 	step_progress      = 0
 	# reset global slot counter for telemetry (not used for per-step progress)
 	slots_filled_total = 0
+	# clear per-quest tracked slot ids to avoid bleed-through between levels
+	filled_slot_ids.clear()
 	_emit_current_step()
 	print("📋 Quest dimulai: %s" % level_name)
 
@@ -63,7 +66,13 @@ func start_quest(level_name: String) -> void:
 func trigger_build_mode_opened() -> void:
 	_handle("build_mode_opened", 1)
 
-func trigger_slot_filled() -> void:
+func trigger_slot_filled(slot_id: String = "") -> void:
+	# Prevent counting the same slot twice for the same quest
+	if slot_id != "" and slot_id in filled_slot_ids:
+		print("[QuestManager] slot %s already counted for this quest" % slot_id)
+		return
+	if slot_id != "":
+		filled_slot_ids.append(slot_id)
 	# Keep global count for telemetry/debug, but pass delta=1 to _handle
 	slots_filled_total += 1
 	_handle("slot_filled", 1)

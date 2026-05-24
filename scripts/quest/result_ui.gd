@@ -50,6 +50,8 @@ func _ready():
 	QuestManager.quest_step_updated.connect(_on_quest_step_updated)
 	QuestManager.quest_step_done.connect(_on_quest_step_done)
 	QuestManager.all_quests_done.connect(_on_all_quests_done)
+	# Dengarkan pergantian level agar UI dapat direset ketika level berganti
+	GameState.level_changed.connect(_on_level_changed)
 
 func tambah_objektif():
 	lubang_terisi += 1
@@ -81,6 +83,25 @@ func _on_quest_step_done(description: String, coins_earned: int) -> void:
 
 func _on_all_quests_done() -> void:
 	quest_completed = true
+
+func _on_level_changed(level_name: String) -> void:
+	# Reset local UI counters when switching levels
+	lubang_terisi = 0
+	target_lubang = 0
+	quest_completed = false
+	# Recompute target based on new level
+	var steps = QuestManager.QUEST_DATA.get(level_name, [])
+	for s in steps:
+		if s.get("trigger", "") == "slot_filled":
+			target_lubang += int(s.get("count", 0))
+	if target_lubang == 0:
+		# fallback default
+		target_lubang = 6
+	if objektif_label:
+		objektif_label.text = "🔧 Perbaiki Rumah: 0/" + str(target_lubang)
+	# Ensure Next button hidden until conditions met
+	if next_btn:
+		next_btn.visible = false
 
 func show_result(scale: float, survived_blocks: int) -> void:
 	# Tampilkan panel hasil terlebih dahulu (jangan pause langsung jika akan auto-transition)
@@ -124,11 +145,9 @@ func show_result(scale: float, survived_blocks: int) -> void:
 			message_label.text = "Rumah tidak lengkap!"
 			level_ready = false
 
-	# Tampilkan tombol lanjut hanya jika semua quest selesai AND level dianggap berhasil
+	# Next button disabled — players must use Restart to retry the level
 	next_btn = $Panel/VBoxContainer.get_node("NextBtn")
-	if quest_completed and level_ready:
-		next_btn.visible = true
-	else:
+	if next_btn:
 		next_btn.visible = false
 
 	# Block UI: pause the game and require explicit player action (Next/Restart)

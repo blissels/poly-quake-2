@@ -4,7 +4,7 @@ extends Area3D
 
 @export var slot_id : String = "slot_01"
 
-signal slot_filled
+signal slot_filled(slot_id: String)
 
 var is_filled : bool = false
 
@@ -31,7 +31,7 @@ func notify_block_placed() -> void:
 func _fill_slot() -> void:
 	is_filled = true
 	_set_ghost_visible(false)
-	emit_signal("slot_filled")
+	emit_signal("slot_filled", slot_id)
 	print("✅ Slot %s terisi!" % slot_id)
 	# Efek partikel/visual bisa ditambah di sini
 
