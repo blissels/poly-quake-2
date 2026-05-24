@@ -64,7 +64,10 @@ func tambah_objektif():
 		objektif_label.modulate = Color.WHITE
 
 func _on_quest_step_updated(description: String, progress: int, total: int) -> void:
+	# Update internal counters from QuestManager so ResultUI always reflects final values
 	print("[ResultUI] quest_step_updated: '%s' %d/%d" % [description, progress, total])
+	lubang_terisi = progress
+	target_lubang = total
 	if objektif_label:
 		objektif_label.text = "%s: %d/%d" % [description, progress, total]
 
@@ -84,23 +87,46 @@ func show_result(scale: float, survived_blocks: int) -> void:
 	$Panel.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-	var total_blocks = get_tree().get_nodes_in_group("placed_blocks").size()
-	if total_blocks == 0: total_blocks = 1
-	var survival_rate : float = float(survived_blocks) / float(total_blocks)
+	# Pastikan objektif_label menampilkan nilai terakhir dari quest
+	if objektif_label:
+		objektif_label.text = "🔧 Perbaiki Rumah: %d/%d" % [lubang_terisi, target_lubang]
 
-	message_label.text = "Gempa %.1f SR!" % scale
-
-	if survival_rate >= 0.9:
-		star_label.text = "⭐⭐⭐  Sangat Kokoh!"
-	elif survival_rate >= 0.5:
-		star_label.text = "⭐⭐  Ada kerusakan."
+	# Tentukan bintang dan teks evaluasi berdasarkan jumlah objektif yang selesai
+	var level_ready := false
+	if target_lubang > 0:
+		if lubang_terisi >= target_lubang:
+			star_label.text = "⭐⭐⭐"
+			message_label.text = "Rumah lengkap!"
+			level_ready = true
+		elif lubang_terisi == target_lubang - 1:
+			star_label.text = "⭐⭐"
+			message_label.text = "Rumah tidak lengkap!"
+			level_ready = false
+		else:
+			star_label.text = "⭐"
+			message_label.text = "Rumah tidak lengkap!"
+			level_ready = false
 	else:
-		star_label.text = "⭐ Rumah tidak lengkap!"
+		# fallback jika target tidak diketahui: gunakan survival rate
+		var total_blocks = get_tree().get_nodes_in_group("placed_blocks").size()
+		if total_blocks == 0: total_blocks = 1
+		var survival_rate : float = float(survived_blocks) / float(total_blocks)
+		if survival_rate >= 0.9:
+			star_label.text = "⭐⭐⭐  Sangat Kokoh!"
+			message_label.text = "Rumah lengkap!"
+			level_ready = true
+		elif survival_rate >= 0.5:
+			star_label.text = "⭐⭐  Ada kerusakan."
+			message_label.text = "Rumah tidak lengkap!"
+			level_ready = false
+		else:
+			star_label.text = "⭐ Rumah tidak lengkap!"
+			message_label.text = "Rumah tidak lengkap!"
+			level_ready = false
 
-	# Tampilkan tombol lanjut hanya jika semua quest selesai DAN level dianggap berhasil
+	# Tampilkan tombol lanjut hanya jika semua quest selesai AND level dianggap berhasil
 	next_btn = $Panel/VBoxContainer.get_node("NextBtn")
-	var level_succeeded := survival_rate >= SUCCESS_THRESHOLD
-	if quest_completed and level_succeeded:
+	if quest_completed and level_ready:
 		next_btn.visible = true
 	else:
 		next_btn.visible = false
