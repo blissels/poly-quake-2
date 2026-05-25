@@ -10,11 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://d1qjqvm1sjhef" path="res://scenes/build/roof/roof-flat-side.tscn" id="7_ojvqm"]
 [ext_resource type="PackedScene" uid="uid://cmuafjg3jhq20" path="res://scenes/build/roof/roof-flat-center.tscn" id="8_w2b1m"]
 [ext_resource type="Script" uid="uid://ob8gfl1fbd04" path="res://scripts/builds/slot_sensor.gd" id="9_4dtha"]
+[ext_resource type="PackedScene" uid="uid://bxlel1tgl52vx" path="res://scenes/build/column/column-thin.tscn" id="11_gm6me"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ojvqm"]
 size = Vector3(0.088775635, 2.36174, 2.0033638)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dtha"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w2b1m"]
 transparency = 1
 blend_mode = 1
 cull_mode = 1
@@ -22,8 +23,15 @@ no_depth_test = true
 albedo_color = Color(1, 1, 0, 0.3137255)
 
 [sub_resource type="BoxMesh" id="BoxMesh_gm6me"]
-material = SubResource("StandardMaterial3D_4dtha")
+material = SubResource("StandardMaterial3D_w2b1m")
 size = Vector3(0.089, 2.362, 2.003)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ngr1w"]
+size = Vector3(0.12055969, 2.36174, 0.29705134)
+
+[sub_resource type="BoxMesh" id="BoxMesh_prvvl"]
+material = SubResource("StandardMaterial3D_w2b1m")
+size = Vector3(0.121, 2.362, 0.297)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4dtha"]
 size = Vector3(1.9984131, 0.103515625, 2.0033638)
@@ -129,6 +137,9 @@ transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -3, 
 
 [node name="wall13" parent="wall_second" unique_id=1460819479 instance=ExtResource("2_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="wall14" parent="wall_second" unique_id=434437918 instance=ExtResource("3_fql8k")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -8, 0, 6)
 
 [node name="floor_first" type="Node3D" parent="." unique_id=98235986]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.113682434, 0, 1.7628053)
@@ -288,18 +299,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0006402731, 1.1757278, 0.13
 mesh = SubResource("BoxMesh_gm6me")
 
 [node name="Slot02" type="Area3D" parent="sensor_lubang" unique_id=667356260 groups=["sensor_lubang"]]
-transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, -8.004849, 2.4664814, 5.8589096)
+transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, 0.08369261, 0.07257348, 0.8589096)
 collision_layer = 0
 script = ExtResource("9_4dtha")
 slot_id = "slot_02"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/Slot02" unique_id=43606928]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0012048483, 1.1791992, 0.13581586)
-shape = SubResource("BoxShape3D_ojvqm")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0146871805, 1.1049209, 0.14019018)
+shape = SubResource("BoxShape3D_ngr1w")
 
 [node name="GhostMesh" type="MeshInstance3D" parent="sensor_lubang/Slot02" unique_id=1274397469]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.0048710704, 1.1092465, 0.13753474)
-mesh = SubResource("BoxMesh_gm6me")
+mesh = SubResource("BoxMesh_prvvl")
 
 [node name="Slot03" type="Area3D" parent="sensor_lubang" unique_id=1786261843 groups=["sensor_lubang"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, 0, 1.8677177)
@@ -328,3 +339,36 @@ shape = SubResource("BoxShape3D_4dtha")
 [node name="GhostMesh" type="MeshInstance3D" parent="sensor_lubang/Slot04" unique_id=530691578]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.047, 0.134)
 mesh = SubResource("BoxMesh_ngr1w")
+
+[node name="Column" type="Node3D" parent="." unique_id=721868198]
+
+[node name="first-floor" type="Node3D" parent="Column" unique_id=600193775]
+
+[node name="ColumnThin" parent="Column/first-floor" unique_id=221634610 instance=ExtResource("11_gm6me")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+
+[node name="ColumnThin3" parent="Column/first-floor" unique_id=1333498444 instance=ExtResource("11_gm6me")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="ColumnThin4" parent="Column/first-floor" unique_id=1239637125 instance=ExtResource("11_gm6me")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -1)
+
+[node name="ColumnThin5" parent="Column/first-floor" unique_id=19362466 instance=ExtResource("11_gm6me")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 1)
+
+[node name="ColumnThin6" parent="Column/first-floor" unique_id=236003838 instance=ExtResource("11_gm6me")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 7)
+
+[node name="second-floor" type="Node3D" parent="Column" unique_id=1525785305]
+
+[node name="ColumnThin" parent="Column/second-floor" unique_id=1332979772 instance=ExtResource("11_gm6me")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3170397, 7)
+
+[node name="ColumnThin2" parent="Column/second-floor" unique_id=641319835 instance=ExtResource("11_gm6me")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3170397, 1)
+
+[node name="ColumnThin3" parent="Column/second-floor" unique_id=815687188 instance=ExtResource("11_gm6me")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.3170397, 1)
+
+[node name="ColumnThin4" parent="Column/second-floor" unique_id=1204822071 instance=ExtResource("11_gm6me")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.3170397, 7)

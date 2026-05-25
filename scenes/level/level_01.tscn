@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ds6adu2q2en60" path="res://scenes/build/roof/roof-flat-corner.tscn" id="6_je4tg"]
 [ext_resource type="PackedScene" uid="uid://d1qjqvm1sjhef" path="res://scenes/build/roof/roof-flat-side.tscn" id="7_ojvqm"]
 [ext_resource type="PackedScene" uid="uid://cmuafjg3jhq20" path="res://scenes/build/roof/roof-flat-center.tscn" id="8_w2b1m"]
+[ext_resource type="PackedScene" uid="uid://bxlel1tgl52vx" path="res://scenes/build/column/column-thin.tscn" id="9_ojvqm"]
 [ext_resource type="Script" uid="uid://ob8gfl1fbd04" path="res://scripts/builds/slot_sensor.gd" id="10_w2b1m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ojvqm"]
@@ -22,6 +23,20 @@ albedo_color = Color(1, 1, 0, 0.3137255)
 [sub_resource type="BoxMesh" id="BoxMesh_gm6me"]
 material = SubResource("StandardMaterial3D_4dtha")
 size = Vector3(0.089, 2.362, 2.003)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ngr1w"]
+size = Vector3(0.12055969, 2.36174, 0.29705134)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w2b1m"]
+transparency = 1
+blend_mode = 1
+cull_mode = 1
+no_depth_test = true
+albedo_color = Color(1, 1, 0, 0.3137255)
+
+[sub_resource type="BoxMesh" id="BoxMesh_prvvl"]
+material = SubResource("StandardMaterial3D_w2b1m")
+size = Vector3(0.121, 2.362, 0.297)
 
 [node name="Level01" unique_id=1193087281 instance=ExtResource("1_onnr2")]
 
@@ -42,6 +57,9 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -5, 
 
 [node name="wall9" parent="wall_first" parent_id_path=PackedInt32Array(320532451) index="8" unique_id=198915294]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3, 0, -1)
+
+[node name="wall10" parent="wall_first" parent_id_path=PackedInt32Array(320532451) index="9" unique_id=205953167]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 0, -2)
 
 [node name="wall13" parent="wall_first" parent_id_path=PackedInt32Array(320532451) index="12" unique_id=2035484929]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 0, -6)
@@ -106,8 +124,11 @@ transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -3, 
 [node name="wall13" parent="wall_second" parent_id_path=PackedInt32Array(2002180938) index="12" unique_id=1460819479]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="wall14" parent="wall_second" parent_id_path=PackedInt32Array(2002180938) index="13" unique_id=1323437026 instance=ExtResource("3_fql8k")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0, -3)
+[node name="wall14" parent="wall_second" parent_id_path=PackedInt32Array(2002180938) index="13" unique_id=434437918]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -7, 0, -3)
+
+[node name="wall15" parent="wall_second" parent_id_path=PackedInt32Array(2002180938) index="14" unique_id=1717956221 instance=ExtResource("3_fql8k")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -1, 0, -1)
 
 [node name="floor4" parent="floor_first" parent_id_path=PackedInt32Array(98235986) index="3" unique_id=1225124201]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8863177, 0, -3.7628055)
@@ -218,13 +239,13 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.13228226)
 
 [node name="Slot02" parent="sensor_lubang" parent_id_path=PackedInt32Array(1920164583) index="1" unique_id=667356260]
-transform = Transform3D(-2.1855695e-07, 0, -1, 0, 1, 0, 1, 0, -2.1855695e-07, -1.0168612, 2.4135883, -0.9486263)
+transform = Transform3D(-2.1855695e-07, 0, -1, 0, 1, 0, 1, 0, -2.1855695e-07, -4.016861, 2.4135883, -2.9486263)
 
 [node name="GhostMesh" parent="sensor_lubang/Slot02" index="1" unique_id=1274397469]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.06726742, 1.1767118, -0.016351223)
 
 [node name="Slot05" type="Area3D" parent="sensor_lubang" parent_id_path=PackedInt32Array(1920164583) index="4" unique_id=1361276754 groups=["sensor_lubang"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -2.1322823)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -0.13228226)
 collision_layer = 0
 script = ExtResource("10_w2b1m")
 slot_id = "slot_05"
@@ -250,3 +271,50 @@ shape = SubResource("BoxShape3D_ojvqm")
 [node name="GhostMesh" type="MeshInstance3D" parent="sensor_lubang/Slot06" index="1" unique_id=100291270]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.06726742, 1.1767118, -0.016351223)
 mesh = SubResource("BoxMesh_gm6me")
+
+[node name="Slot07" type="Area3D" parent="sensor_lubang" parent_id_path=PackedInt32Array(1920164583) index="6" unique_id=700888840 groups=["sensor_lubang"]]
+transform = Transform3D(-2.1855695e-07, 0, -1, 0, 1, 0, 1, 0, -2.1855695e-07, -0.016860962, 0.013588309, 5.0513735)
+collision_layer = 0
+script = ExtResource("10_w2b1m")
+slot_id = "slot_02"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sensor_lubang/Slot07" index="0" unique_id=664165307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0146871805, 1.1049209, 0.14019018)
+shape = SubResource("BoxShape3D_ngr1w")
+
+[node name="GhostMesh" type="MeshInstance3D" parent="sensor_lubang/Slot07" index="1" unique_id=1398385818]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.06726742, 1.1767118, -0.016351223)
+mesh = SubResource("BoxMesh_prvvl")
+
+[node name="ColumnThin" parent="Column/first-floor" parent_id_path=PackedInt32Array(600193775) index="0" unique_id=221634610]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+
+[node name="ColumnThin4" parent="Column/first-floor" parent_id_path=PackedInt32Array(600193775) index="2" unique_id=1239637125]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -7)
+
+[node name="ColumnThin5" parent="Column/first-floor" parent_id_path=PackedInt32Array(600193775) index="3" unique_id=19362466]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -3)
+
+[node name="ColumnThin6" parent="Column/first-floor" parent_id_path=PackedInt32Array(600193775) index="4" unique_id=236003838]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 5)
+
+[node name="ColumnThin7" parent="Column/first-floor" parent_id_path=PackedInt32Array(600193775) index="5" unique_id=650822238 instance=ExtResource("9_ojvqm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -3)
+
+[node name="ColumnThin8" parent="Column/first-floor" parent_id_path=PackedInt32Array(600193775) index="6" unique_id=1030777449 instance=ExtResource("9_ojvqm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+
+[node name="ColumnThin" parent="Column/second-floor" parent_id_path=PackedInt32Array(1525785305) index="0" unique_id=1332979772]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3170397, 5)
+
+[node name="ColumnThin2" parent="Column/second-floor" parent_id_path=PackedInt32Array(1525785305) index="1" unique_id=641319835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.3170397, -1)
+
+[node name="ColumnThin3" parent="Column/second-floor" parent_id_path=PackedInt32Array(1525785305) index="2" unique_id=815687188]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.3170397, -3)
+
+[node name="ColumnThin4" parent="Column/second-floor" parent_id_path=PackedInt32Array(1525785305) index="3" unique_id=1204822071]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.3170397, 5)
+
+[node name="ColumnThin5" parent="Column/second-floor" parent_id_path=PackedInt32Array(1525785305) index="4" unique_id=516712885 instance=ExtResource("9_ojvqm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3170397, -1)

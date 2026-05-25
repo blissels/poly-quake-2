@@ -48,6 +48,7 @@ var in_destroy_mode: bool = false
 func _ready():
 	objects.append(preload("res://scenes/build/floor/floor.tscn"))
 	objects.append(preload("res://scenes/build/wall/wall.tscn"))
+	objects.append(preload("res://scenes/build/column/column-thin.tscn"))
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 	# Initialize camera shake noise and base rotation

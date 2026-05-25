@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://ciu28ub3i45tw" path="res://scripts/ui/hotbar.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dacc1ex4fo7p5" path="res://assets/building_materials/floors/floor.png" id="2_fd3k3"]
 [ext_resource type="Texture2D" uid="uid://bg421tyeiqhfn" path="res://assets/building_materials/walls/wall.png" id="3_frn4j"]
+[ext_resource type="Texture2D" uid="uid://demuot0i0pal0" path="res://assets/building_materials/column/column-thin.png" id="4_fd3k3"]
 
 [node name="HotbarUI" type="CanvasLayer" unique_id=1189443597]
 script = ExtResource("1")
@@ -52,3 +53,19 @@ text = "Wall"
 horizontal_alignment = 1
 
 [node name="AnimPlayer" type="AnimationPlayer" parent="HotbarContainer/PanelLantai" unique_id=35357384]
+
+[node name="PanelColumn" type="PanelContainer" parent="HotbarContainer" unique_id=1105278779]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="HotbarContainer/PanelColumn" unique_id=1630147448]
+layout_mode = 2
+texture = ExtResource("4_fd3k3")
+stretch_mode = 2
+
+[node name="Name" type="Label" parent="HotbarContainer/PanelColumn" unique_id=814375968]
+visible = false
+layout_mode = 2
+text = "Wall"
+horizontal_alignment = 1
+
+[node name="AnimPlayer" type="AnimationPlayer" parent="HotbarContainer/PanelColumn" unique_id=152118577]
