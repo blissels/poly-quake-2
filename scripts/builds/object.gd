@@ -1,3 +1,4 @@
+class_name ObjectBlock
 extends RigidBody3D
 
 @onready var model: MeshInstance3D = get_node_or_null("model")
@@ -8,109 +9,122 @@ extends RigidBody3D
 
 var red_material: Material = load("res://assets/materials/red_material.tres")
 var blue_material: Material = load("res://assets/materials/blue_material.tres")
+var green_material: Material = load("res://assets/materials/green_material.tres")
 
-var can_place = true
-var is_ghost = true
+var can_place: bool = false
+var is_ghost: bool = true
 
-func _ready():
+var ghost_material_valid: StandardMaterial3D
+var ghost_material_invalid: StandardMaterial3D
+
+func _ready() -> void:
+	# Setup ghost materials
+	ghost_material_valid = StandardMaterial3D.new()
+	ghost_material_valid.albedo_color = Color(0.0, 0.8, 0.6, 0.4) # Cyan/Green-Blue
+	# ghost_material_valid.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	
+	ghost_material_invalid = StandardMaterial3D.new()
+	ghost_material_invalid.albedo_color = Color(1.0, 0.1, 0.1, 0.4) # Red
+	# ghost_material_invalid.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+
 	# Saat pertama kali muncul (sebagai ghost block), bekukan fisiknya
 	freeze = true
 	if collision_shape:
 		collision_shape.disabled = true
 
-func _process(delta: float) -> void:
-	# Hanya jalankan deteksi warna biru/merah JIKA masih berupa ghost block
+func _process(_delta: float) -> void:
 	if is_ghost:
 		if model:
-			model.transparency = 0.6
-		var clip_ok := true
-		if clipping_hitbox:
-			clip_ok = clipping_hitbox.get_overlapping_bodies().is_empty()
-		var float_ok := true
-		if floating_hitbox:
-			float_ok = not floating_hitbox.get_overlapping_bodies().is_empty()
-		can_place = clip_ok and float_ok
+			model.transparency = 0.5
+		
+		update_validation()
+		
 		if model:
 			if can_place:
-				model.material_override = blue_material
+				model.material_override = ghost_material_valid
 			else:
-				model.material_override = red_material
+				model.material_override = ghost_material_invalid
 		
 	if self.scale.x == 0.01:
 		queue_free()
 
-func place():
-	SFXManager.play("place")
-	# 1. OBJEKTIF: Pengecekan Akurat Menggunakan Jarak!
-	# Tambahkan ke group placed_blocks lebih awal supaya sensors & Area3D mendeteksi tubuh ini
-	add_to_group("placed_blocks")
-	# Aktifkan collision shape segera agar Area3D dapat mendeteksi jika perlu
-	if collision_shape:
-		collision_shape.disabled = false
-	freeze = true
-	# Tunggu satu frame agar physics/Area3D sinkron
-	await get_tree().process_frame
-	var ui_node = get_tree().current_scene.find_child("result_ui", true, false)
-	var sensors = get_tree().get_nodes_in_group("sensor_lubang")
-	print("[Object] sensors found: %d" % sensors.size())
-	var notified := false
+func update_validation() -> void:
+	# Validation logic: check distance to any sensor in the "sensor_lubang" group
+	var sensors: Array = get_tree().get_nodes_in_group("sensor_lubang")
+	var found_valid_sensor: bool = false
 	for sensor in sensors:
-		if is_instance_valid(sensor):
-			# Jika blok ini ditaruh di dekat sensor (radius 3 meter)
-			var dist = global_position.distance_to(sensor.global_position)
-			print("[Object] checking sensor %s at dist=%.3f" % [str(sensor), dist])
-			if dist < 3.0:
-				# Beri tahu sensor agar menangani trigger quest dan visual
-				if sensor.has_method("notify_block_placed"):
-					print("[Object] calling notify_block_placed on %s" % [str(sensor)])
-					sensor.notify_block_placed()
-					notified = true
-				else:
-					print("[Object] queue_free sensor %s (no method)" % [str(sensor)])
-					sensor.queue_free()
-					notified = true
+		if is_instance_valid(sensor) and sensor is Node3D:
+			if global_position.distance_to(sensor.global_position) < 3.0:
+				found_valid_sensor = true
 				break
-	# Fallback: jika tidak ada sensor dalam radius, panggil sensor terdekat jika cukup dekat (5m)
-	if not notified and sensors.size() > 0:
-		var nearest: Node = null
-		var min_dist := 1e9
-		for sensor in sensors:
-			if is_instance_valid(sensor):
-				var d = global_position.distance_to(sensor.global_position)
-				if d < min_dist:
-					min_dist = d
-					nearest = sensor
-		print("[Object] fallback nearest sensor dist=%.3f" % min_dist)
-		if nearest and min_dist <= 5.0:
-			if nearest.has_method("notify_block_placed"):
-				print("[Object] fallback calling notify_block_placed on nearest sensor")
-				nearest.notify_block_placed()
-			else:
-				print("[Object] fallback queue_free nearest sensor (no method)")
-				nearest.queue_free()
-			notified = true
-
-	is_ghost = false
-	if animation:
-		animation.play("place")
 	
-	if clipping_hitbox: clipping_hitbox.queue_free()
-	if floating_hitbox: floating_hitbox.queue_free()
-		
+	can_place = found_valid_sensor
+
+func place() -> void:
+	SFXManager.play("place")
+	is_ghost = false
+	
+	# Update validation one last time at current position before finalizing
+	update_validation()
+	
 	if model:
 		model.material_override = null
 		model.transparency = 0.0
 	
 	if collision_shape:
 		collision_shape.disabled = false
-	freeze = true # Tahan gravitasi saat build mode
 	
-	# 3. SEMEN BESI (JARAK DIPERBESAR + ENGSEL KAKU)
-	var placed_blocks = get_tree().get_nodes_in_group("placed_blocks")
+	# Structural Penalty Check
+	if not can_place:
+		print("[Object] Penalty: Improper structural placement!")
+		GameState.structural_failure = true
+		freeze = false # Falls to the ground immediately
+		# Remove from building group to ensure it doesn't count for welding or objectives
+		remove_from_group("placed_blocks")
+		return # Stop execution here so it's not welded
+	
+	# Valid placement logic
+	freeze = true
+	add_to_group("placed_blocks")
+	
+	# Notify sensors for quest/objective updates
+	var sensors: Array = get_tree().get_nodes_in_group("sensor_lubang")
+	var notified: bool = false
+	for sensor in sensors:
+		if is_instance_valid(sensor) and sensor is Node3D:
+			var dist: float = global_position.distance_to(sensor.global_position)
+			if dist < 3.0:
+				if sensor.has_method("notify_block_placed"):
+					sensor.notify_block_placed()
+					notified = true
+					break
+	
+	# Fallback sensor notification if not notified yet but close enough
+	if not notified:
+		var nearest: Node3D = null
+		var min_dist: float = 1e9
+		for sensor in sensors:
+			if is_instance_valid(sensor) and sensor is Node3D:
+				var d: float = global_position.distance_to(sensor.global_position)
+				if d < min_dist:
+					min_dist = d
+					nearest = sensor
+		if nearest and min_dist <= 5.0:
+			if nearest.has_method("notify_block_placed"):
+				nearest.notify_block_placed()
+	
+	if animation:
+		animation.play("place")
+	
+	if clipping_hitbox: clipping_hitbox.queue_free()
+	if floating_hitbox: floating_hitbox.queue_free()
+	
+	# Weld to other placed blocks
+	var placed_blocks: Array = get_tree().get_nodes_in_group("placed_blocks")
 	for block in placed_blocks:
 		if is_instance_valid(block) and block != self:
-			if global_position.distance_to(block.global_position) < 4.1: # Jarak diperlebar
-				var joint = Generic6DOFJoint3D.new() # Pakai engsel kaku!
+			if global_position.distance_to(block.global_position) < 4.1:
+				var joint: Generic6DOFJoint3D = Generic6DOFJoint3D.new()
 				joint.add_to_group("placed_joints")
 				get_parent().add_child(joint)
 				joint.global_position = (global_position + block.global_position) / 2.0

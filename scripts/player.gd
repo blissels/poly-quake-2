@@ -33,7 +33,7 @@ const BOB_AMP = 0.08
 var t_bob = 0.0
 
 var grid_size = 0.25
-var ghost_block: Node3D = null
+var ghost_block: ObjectBlock = null
 var objects = []
 var current_object_index = 0
 
@@ -98,7 +98,7 @@ func building(delta):
 			ghost_block.rotation.y = new_rot # Paskan posisinya persis di target
 			rotation_complete = true
 		
-	if Input.is_action_just_pressed("left_click") and ghost_block.can_place:
+	if Input.is_action_just_pressed("left_click"):
 		var block_instance = objects[current_object_index].instantiate()
 		get_parent().add_child(block_instance)
 		# Place at snapped position/rotation before calling place() so sensors and distance checks work
@@ -114,7 +114,7 @@ func snap_to_grid(position: Vector3, grid_snap: float) -> Vector3:
 	return Vector3(x, y, z)
 	
 func spawn_ghost_block():
-	ghost_block = objects[current_object_index].instantiate()
+	ghost_block = objects[current_object_index].instantiate() as ObjectBlock
 	get_parent().add_child(ghost_block)
 	ghost_block.global_position = self.global_position
 	ghost_block.global_position.y -= 1.0

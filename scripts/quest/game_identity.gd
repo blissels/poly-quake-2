@@ -83,7 +83,7 @@ func _on_build_timer_timeout() -> void:
 	await get_tree().create_timer(1.1).timeout
 	EarthquakeManager.start_earthquake()
 	
-func _on_earthquake_ended(scale: float, survived: int) -> void:
-	timer_label.text     = "SR %.1f" % [scale]
+func _on_earthquake_ended(shake_scale: float, _survived: int) -> void:
+	timer_label.text     = "SR %.1f" % [shake_scale]
 	timer_label.modulate = Color.WHITE  # ✅ reset warna
 	timer_label.visible  = true         # ✅ pastikan tidak ter-flash

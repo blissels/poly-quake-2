@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://ob8gfl1fbd04" path="res://scripts/builds/slot_sensor.gd" id="9_4dtha"]
 [ext_resource type="PackedScene" uid="uid://bxlel1tgl52vx" path="res://scenes/build/column/column-thin.tscn" id="11_gm6me"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fv62b"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ojvqm"]
 size = Vector3(0.088775635, 2.36174, 2.0033638)
 
@@ -67,7 +69,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1, 
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1, 0, 7)
 
 [node name="wall6" parent="wall_first" unique_id=1675903907 instance=ExtResource("3_fql8k")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3, 0, 7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
 [node name="wall7" parent="wall_first" unique_id=1361001110 instance=ExtResource("2_3gack")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3, 0, -1)
@@ -146,87 +148,114 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.113682434, 0, 1.7628053)
 
 [node name="floor" parent="floor_first" unique_id=754915825 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88631755, 0, -1.7628053)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor2" parent="floor_first" unique_id=267077963 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88631755, 0, 0.23719466)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor3" parent="floor_first" unique_id=335451325 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88631755, 0, 2.2371945)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor4" parent="floor_first" unique_id=1225124201 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88631755, 0, 4.2371945)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor5" parent="floor_first" unique_id=1838461435 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8863175, 0, -1.7628053)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor6" parent="floor_first" unique_id=1730447961 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8863175, 0, 2.2371945)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor7" parent="floor_first" unique_id=183141213 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8863175, 0, 4.2371945)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor8" parent="floor_first" unique_id=1244837518 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8863177, 0, -1.7628053)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor9" parent="floor_first" unique_id=1503057789 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8863177, 0, 0.23719466)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor10" parent="floor_first" unique_id=2012705901 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8863177, 0, 2.2371945)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor11" parent="floor_first" unique_id=1341759658 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8863177, 0, 4.2371945)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor12" parent="floor_first" unique_id=981074777 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8863177, 0, -1.7628053)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor13" parent="floor_first" unique_id=882824787 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8863177, 0, 0.23719466)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor14" parent="floor_first" unique_id=781577467 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8863177, 0, 4.2371945)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor_second" type="Node3D" parent="." unique_id=658390938]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.096, 2.3865383, 1.7628053)
 
 [node name="floor" parent="floor_second" unique_id=256358666 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88631755, 0, -1.7628053)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor2" parent="floor_second" unique_id=1918133468 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88631755, 0, 0.23719466)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor3" parent="floor_second" unique_id=22188557 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88631755, 0, 2.2371945)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor5" parent="floor_second" unique_id=597974807 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8863175, 0, -1.7628053)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor6" parent="floor_second" unique_id=885646292 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8863175, 0, 0.23719466)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor7" parent="floor_second" unique_id=1245265915 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8863175, 0, 2.2371945)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor9" parent="floor_second" unique_id=1087711122 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8863177, 0, -1.7628053)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor10" parent="floor_second" unique_id=515489534 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8863177, 0, 0.23719466)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor11" parent="floor_second" unique_id=712439311 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8863177, 0, 2.2371945)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor13" parent="floor_second" unique_id=1190645800 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8863177, 0, -1.7628053)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor14" parent="floor_second" unique_id=97161582 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8863177, 0, 0.23719466)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor15" parent="floor_second" unique_id=2052664038 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8863177, 0, 2.2371945)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="floor16" parent="floor_second" unique_id=1209836721 instance=ExtResource("4_3gack")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8863177, 0, 4.2371945)
+physics_material_override = SubResource("PhysicsMaterial_fv62b")
 
 [node name="roof" type="Node3D" parent="." unique_id=679599173]
 
@@ -286,7 +315,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4, 
 [node name="sensor_lubang" type="Node3D" parent="." unique_id=1920164583]
 
 [node name="Slot01" type="Area3D" parent="sensor_lubang" unique_id=2022707425 groups=["sensor_lubang"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.8677177)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3, 0, 7.0182905)
 collision_layer = 0
 script = ExtResource("9_4dtha")
 

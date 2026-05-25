@@ -7,7 +7,8 @@ func _ready():
 	
 	for block in all_blocks:
 		# Matikan mode ghost
-		block.is_ghost = false
+		if block.get("is_ghost") != null:
+			block.set("is_ghost", false)
 		if block.has_node("model"):
 			block.get_node("model").material_override = null
 			block.get_node("model").transparency = 0.0

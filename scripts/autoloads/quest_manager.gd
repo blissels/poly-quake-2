@@ -34,7 +34,7 @@ const QUEST_DATA := {
 		{
 			"desc"    : "Lengkapi semua 6 bagian rumah sebelum gempa!",
 			"trigger" : "slot_filled",
-			"count"   : 7,
+			"count"   : 6,
 			"coins"   : 50,
 		},
 	],

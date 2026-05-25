@@ -26,6 +26,8 @@ func go_to_next_level() -> void:
 
 # --- Coins ---
 var total_coins   : int = 0
+var has_structural_penalty : bool = false
+var structural_failure : bool = false
 
 signal coins_changed(new_total: int)
 signal level_changed(level_name: String)
@@ -37,4 +39,9 @@ func add_coins(amount: int) -> void:
 
 func go_to_level(level_name: String) -> void:
 	current_level = level_name
+	reset_level_state()
 	emit_signal("level_changed", level_name)
+
+func reset_level_state() -> void:
+	has_structural_penalty = false
+	structural_failure = false

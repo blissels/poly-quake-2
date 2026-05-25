@@ -23,7 +23,7 @@ func _on_quest_updated(description: String, progress: int, total: int) -> void:
 	quest_desc.text     = description
 	quest_progress.text = "%d / %d" % [progress, total]
 
-func _on_quest_step_done(description: String, coins_earned: int) -> void:
+func _on_quest_step_done(description: String, _coins_earned: int) -> void:
 	# Flash hijau saat step selesai
 	quest_desc.text     = "✅ " + description
 	quest_desc.modulate = Color.GREEN

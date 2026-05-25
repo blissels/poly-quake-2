@@ -62,7 +62,7 @@ func _on_quest_step_updated(description: String, progress: int, total: int) -> v
 	if objektif_label:
 		objektif_label.text = "%s: %d/%d" % [description, progress, total]
 
-func _on_quest_step_done(description: String, coins_earned: int) -> void:
+func _on_quest_step_done(_description: String, _coins_earned: int) -> void:
 	if objektif_label:
 		objektif_label.modulate = Color.GREEN
 		await get_tree().create_timer(0.4).timeout
@@ -94,7 +94,12 @@ func show_result(_scale: float, _survived_blocks: int) -> void:
 
 	# Logic for Stars and Next Level Button
 	var stars = 1
-	if lubang_terisi >= target_lubang:
+	
+	if GameState.structural_failure:
+		stars = 0
+		star_label.text = ""
+		message_label.text = "Failed: Improper structural placement"
+	elif lubang_terisi >= target_lubang:
 		stars = 3
 		star_label.text = "⭐⭐⭐"
 		message_label.text = "Rumah lengkap! Sempurna!"
@@ -117,6 +122,7 @@ func show_result(_scale: float, _survived_blocks: int) -> void:
 
 func _on_restart_pressed():
 	get_tree().paused = false
+	GameState.reset_level_state()
 	get_tree().reload_current_scene()
 
 func _on_next_pressed():
