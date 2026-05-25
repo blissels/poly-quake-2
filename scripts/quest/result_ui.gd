@@ -6,9 +6,9 @@ extends CanvasLayer
 @onready var objektif_label  = %ObjektifLabel
 @onready var restart_btn     = %RestartBtn
 
-var target_lubang  := 0
-var lubang_terisi  := 0
-var quest_completed := false
+var target_lubang: int = 0
+var lubang_terisi: int = 0
+var quest_completed: bool = false
 var next_btn: Button = null
 const SUCCESS_THRESHOLD := 0.5
 
@@ -104,7 +104,7 @@ func _on_level_changed(level_name: String) -> void:
 		next_btn.visible = false
 
 func show_result(scale: float, survived_blocks: int) -> void:
-	# Tampilkan panel hasil terlebih dahulu (jangan pause langsung jika akan auto-transition)
+	# Tampilkan panel hasil terlebih dahulu
 	$Panel.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -112,47 +112,53 @@ func show_result(scale: float, survived_blocks: int) -> void:
 	if objektif_label:
 		objektif_label.text = "🔧 Perbaiki Rumah: %d/%d" % [lubang_terisi, target_lubang]
 
-	# Tentukan bintang dan teks evaluasi berdasarkan jumlah objektif yang selesai
-	var level_ready := false
-	if target_lubang > 0:
-		if lubang_terisi >= target_lubang:
-			star_label.text = "⭐⭐⭐"
-			message_label.text = "Rumah lengkap!"
-			level_ready = true
-		elif lubang_terisi == target_lubang - 1:
-			star_label.text = "⭐⭐"
-			message_label.text = "Rumah tidak lengkap!"
-			level_ready = false
-		else:
-			star_label.text = "⭐"
-			message_label.text = "Rumah tidak lengkap!"
-			level_ready = false
+	# Hitung nilai 'progress' sensor (0..3) berdasarkan jumlah bagian yang ditempel
+	var progress: int = clamp(lubang_terisi, 0, 3)
+
+	# Sembunyikan tombol Next selalu (level selanjutnya dibatalkan)
+	var local_next := $Panel/VBoxContainer.get_node_or_null("NextBtn")
+	if local_next:
+		local_next.hide()
+
+	# Tampilkan bintang sesuai progress dan trigger collapse untuk 0 atau 1
+	if progress == 0:
+		# Bintang 0: pemain tidak melakukan objektif yang valid
+		star_label.text = ""  # tidak ada bintang
+		message_label.text = "Tidak ada bagian terpasang."
+		_trigger_collapse_level()
+	elif progress == 1:
+		# Bintang 1: setidaknya 1 bagian terpasang
+		star_label.text = "⭐"
+		message_label.text = "Hanya 1 bagian terpasang."
+		_trigger_collapse_level()
+	elif progress == 2:
+		# Bintang 2: dua bagian terpasang — tetap berdiri
+		star_label.text = "⭐⭐"
+		message_label.text = "Dua bagian terpasang."
 	else:
-		# fallback jika target tidak diketahui: gunakan survival rate
-		var total_blocks = get_tree().get_nodes_in_group("placed_blocks").size()
-		if total_blocks == 0: total_blocks = 1
-		var survival_rate : float = float(survived_blocks) / float(total_blocks)
-		if survival_rate >= 0.9:
-			star_label.text = "⭐⭐⭐  Sangat Kokoh!"
-			message_label.text = "Rumah lengkap!"
-			level_ready = true
-		elif survival_rate >= 0.5:
-			star_label.text = "⭐⭐  Ada kerusakan."
-			message_label.text = "Rumah tidak lengkap!"
-			level_ready = false
-		else:
-			star_label.text = "⭐ Rumah tidak lengkap!"
-			message_label.text = "Rumah tidak lengkap!"
-			level_ready = false
+		# Bintang 3: lengkap — tetap berdiri
+		star_label.text = "⭐⭐⭐"
+		message_label.text = "Rumah lengkap!"
 
-	# Next button disabled — players must use Restart to retry the level
-	next_btn = $Panel/VBoxContainer.get_node("NextBtn")
-	if next_btn:
-		next_btn.visible = false
-
-	# Block UI: pause the game and require explicit player action (Next/Restart)
-	# This ensures the player is stuck on the Result UI until they click a button.
+	# Block UI: pause the game and require explicit player action (Restart)
 	get_tree().paused = true
+
+
+func _trigger_collapse_level() -> void:
+	# Coba panggil trigger_collapse() pada node Level01 (root level_tutorial)
+	var root_scene = get_tree().get_current_scene()
+	if root_scene:
+		var lvl = root_scene.get_node_or_null("Level01")
+		if lvl and lvl.has_method("trigger_collapse"):
+			lvl.trigger_collapse()
+			return
+	# Fallback: cari node yang punya method trigger_collapse di seluruh tree
+	for n in get_tree().get_nodes_in_group("placed_blocks"):
+		# Jika parent scene mempunyai method, panggil saja
+		var parent_scene = n.get_owner()
+		if parent_scene and parent_scene.has_method("trigger_collapse"):
+			parent_scene.trigger_collapse()
+			return
 
 func _on_restart_pressed():
 	get_tree().paused = false

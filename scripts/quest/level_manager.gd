@@ -30,3 +30,33 @@ func _get_all_rigidbodies(node: Node, array: Array):
 		array.append(node)
 	for child in node.get_children():
 		_get_all_rigidbodies(child, array)
+
+
+func trigger_collapse() -> void:
+	# Cari semua RigidBody3D yang termasuk group "placed_blocks" (bagian bangunan)
+	var bodies := get_tree().get_nodes_in_group("placed_blocks")
+	# Jika tidak ada yang terdaftar, kumpulkan semua RigidBody di bawah level ini
+	if bodies.is_empty():
+		var all_blocks = []
+		_get_all_rigidbodies(self, all_blocks)
+		bodies = all_blocks
+
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	for b in bodies:
+		if not (b is RigidBody3D):
+			continue
+		# Unfreeze / aktifkan fisika sehingga benda bisa rubuh
+		# Properti 'freeze' digunakan di template — matikan agar physics aktif
+		if b.has_method("set_freeze"): # compatibility check
+			b.freeze = false
+		# Pastikan physics aktif: unfreeze dan bangunkan dari sleeping
+		b.freeze = false
+		b.sleeping = false
+		# Beri sedikit impuls acak supaya efek gempa/runtuh lebih nyata
+		var impulse = Vector3(
+			rng.randf_range(-1.0, 1.0),
+			rng.randf_range(0.5, 2.0),
+			rng.randf_range(-1.0, 1.0)
+		) * 5.0
+		b.apply_impulse(Vector3.ZERO, impulse)
