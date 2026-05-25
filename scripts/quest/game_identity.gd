@@ -19,6 +19,17 @@ func _ready() -> void:
 	
 	EarthquakeManager.earthquake_ended.connect(_on_earthquake_ended)
 	QuestManager.all_quests_done.connect(_on_all_quests_done)
+	GameState.level_changed.connect(_on_level_changed)
+
+func _on_level_changed(_level_name: String) -> void:
+	# Reset state untuk level baru
+	is_building_phase     = true
+	timer_label.modulate  = Color.WHITE
+	build_timer.wait_time = BUILD_DURATION
+	build_timer.start()
+	if skip_button:
+		skip_button.visible = true
+	print("⏰ Timer direset untuk level baru: ", _level_name)
 
 func _on_skip_button_pressed() -> void:
 	if is_building_phase:

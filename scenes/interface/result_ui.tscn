@@ -63,16 +63,29 @@ theme_override_font_sizes/font_size = 35
 text = "Status perbaikan (0/6)"
 horizontal_alignment = 1
 
-[node name="RestartBtn" type="Button" parent="Panel/VBoxContainer" unique_id=1764599858]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MessageContainer" unique_id=1363220559]
+layout_mode = 2
+alignment = 1
+
+[node name="RestartBtn" type="Button" parent="Panel/VBoxContainer/MessageContainer/HBoxContainer" unique_id=1764599858]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_wc7pk")
 theme_override_font_sizes/font_size = 35
 text = "RESTART"
 
-[node name="NextBtn" type="Button" parent="Panel/VBoxContainer" unique_id=1399009787]
+[node name="NextBtn" type="Button" parent="Panel/VBoxContainer/MessageContainer/HBoxContainer" unique_id=1399009787]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_wc7pk")
+theme_override_font_sizes/font_size = 35
+text = "NEXT LEVEL"
+
+[node name="MainMenuBtn" type="Button" parent="Panel/VBoxContainer" unique_id=1916070535]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_wc7pk")
 theme_override_font_sizes/font_size = 35
-text = "NEXT LEVEL"
+text = "MAIN MENU"

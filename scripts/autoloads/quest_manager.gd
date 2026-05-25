@@ -91,9 +91,9 @@ func _handle(trigger: String, delta: int) -> void:
 
 	var required : int = step.get("count", 1)
 	
-	# Jika trigger adalah slot_filled, kita gunakan slots_filled_total agar kumulatif
+	# Jika trigger adalah slot_filled, kita gunakan delta agar tiap step mulai dari 0
 	if trigger == "slot_filled":
-		step_progress = slots_filled_total
+		step_progress += delta
 	else:
 		# Increment per-step progress by delta; clamp to required
 		step_progress = min(step_progress + delta, required)

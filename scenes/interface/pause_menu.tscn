@@ -3,9 +3,6 @@
 [ext_resource type="Script" uid="uid://dft1klkvjn3hx" path="res://scripts/ui/pause_menu.gd" id="1_1rdxg"]
 [ext_resource type="FontFile" uid="uid://diqwofc7mut43" path="res://assets/font/Lilita_One/LilitaOne-Regular.ttf" id="2_pqqti"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mj702"]
-bg_color = Color(0.40832946, 0.40832946, 0.40832946, 0.078431375)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6wt7b"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_35s3h"]
@@ -20,22 +17,25 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1rdxg")
 
-[node name="Control" type="PanelContainer" parent="." unique_id=1372500399]
+[node name="Panel" type="Panel" parent="." unique_id=1091871747]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_mj702")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=1481487329]
-layout_mode = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1481487329]
+layout_mode = 0
+offset_left = 493.0
+offset_top = 243.0
+offset_right = 658.0
+offset_bottom = 404.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 25
 
-[node name="PauseMenu" type="Label" parent="Control/VBoxContainer" unique_id=103286350]
+[node name="PauseMenu" type="Label" parent="Panel/VBoxContainer" unique_id=103286350]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9999786, 0.2237089, 0.3229505, 1)
 theme_override_fonts/font = ExtResource("2_pqqti")
@@ -44,19 +44,19 @@ text = "PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ResumeBtn" type="Button" parent="Control/VBoxContainer" unique_id=2138311208]
+[node name="ResumeBtn" type="Button" parent="Panel/VBoxContainer" unique_id=2138311208]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_pqqti")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6wt7b")
 text = "RESUME"
 
-[node name="MainMenuBtn" type="Button" parent="Control/VBoxContainer" unique_id=1363482852]
+[node name="MainMenuBtn" type="Button" parent="Panel/VBoxContainer" unique_id=1363482852]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_pqqti")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_35s3h")
 text = "MAIN MENU"
 
-[connection signal="pressed" from="Control/VBoxContainer/ResumeBtn" to="." method="_on_resume_btn_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer/MainMenuBtn" to="." method="_on_main_menu_btn_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ResumeBtn" to="." method="_on_resume_btn_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/MainMenuBtn" to="." method="_on_main_menu_btn_pressed"]
