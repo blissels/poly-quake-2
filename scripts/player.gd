@@ -6,6 +6,19 @@ extends CharacterBody3D
 @onready var hand_marker: Marker3D = $head/hand_marker
 @onready var raycast: RayCast3D = $head/raycast
 
+# Camera shake (Trauma + FastNoiseLite)
+@export var trauma_reduction_rate: float = 0.8
+@export var frequency: float = 1.5
+@export var max_x: float = 4.0
+@export var max_y: float = 6.0
+@export var max_z: float = 2.5
+@export var noise_seed: int = 1337
+
+var trauma: float = 0.0
+var time_acc: float = 0.0
+var noise: FastNoiseLite = null
+var initial_camera_rotation_degrees: Vector3 = Vector3.ZERO
+
 const MOUSE_SENSITIVITY = 0.4
 const GRAVITY = 10
 const JUMMP_SPEED = 4.0
@@ -35,7 +48,14 @@ var in_destroy_mode: bool = false
 func _ready():
 	objects.append(preload("res://scenes/build/floor/floor.tscn"))
 	objects.append(preload("res://scenes/build/wall/wall.tscn"))
+	objects.append(preload("res://scenes/build/stairs/stairs-closed.tscn"))
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+	# Initialize camera shake noise and base rotation
+	initial_camera_rotation_degrees = camera.rotation_degrees
+	noise = FastNoiseLite.new()
+	noise.seed = noise_seed
+	noise.frequency = 1.0
 	
 @warning_ignore("unused_parameter")
 func building(delta):
@@ -176,3 +196,33 @@ func headbob(speed) -> Vector3:
 	return pos
 	 
 	
+# Process: update trauma and apply rotational camera shake (uses FastNoiseLite)
+func _process(delta: float) -> void:
+	# advance time
+	time_acc += delta
+
+	# reduce trauma
+	trauma = clamp(trauma - trauma_reduction_rate * delta, 0.0, 1.0)
+
+	# compute intensity squared
+	var intensity: float = trauma * trauma
+
+	if intensity <= 0.0:
+		# restore exact initial rotation
+		camera.rotation_degrees = initial_camera_rotation_degrees
+		return
+
+	# sample noise for each axis
+	var nx: float = noise.get_noise_1d(time_acc * frequency + 11.1)
+	var ny: float = noise.get_noise_1d(time_acc * frequency + 22.2)
+	var nz: float = noise.get_noise_1d(time_acc * frequency + 33.3)
+
+	# apply rotation only (degrees)
+	var x_rot: float = initial_camera_rotation_degrees.x + nx * intensity * max_x
+	var y_rot: float = initial_camera_rotation_degrees.y + ny * intensity * max_y
+	var z_rot: float = initial_camera_rotation_degrees.z + nz * intensity * max_z
+
+	camera.rotation_degrees = Vector3(x_rot, y_rot, z_rot)
+
+func add_trauma(amount: float) -> void:
+	trauma = clamp(trauma + amount, 0.0, 1.0)

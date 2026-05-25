@@ -88,6 +88,7 @@ text = "Build Mode : B (ON/OFF)
 Previous Item  : Q
 Next Item   : E
 Rotate Item	 : R
+Place Item : LMB
 "
 horizontal_alignment = 3
 

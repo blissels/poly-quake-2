@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dy005eoy2m8d7" path="res://scenes/interface/main_level.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://dky40vxtw6jfd" path="res://scenes/interface/pause_menu.tscn" id="5_71j4m"]
 [ext_resource type="PackedScene" uid="uid://dnvhwl33llket" path="res://scenes/interface/trees.tscn" id="6_i7141"]
+[ext_resource type="PackedScene" uid="uid://pasm1w1fqq08" path="res://scenes/interface/hotbar.tscn" id="10_w7kh3"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_4mrxx"]
 vertices = PackedVector3Array(-49.5, 0.5, -49.5, -49.5, 0.5, 49.5, 49.5, 0.5, 49.5, 49.5, 0.5, -49.5)
@@ -91,6 +92,8 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 0
 [node name="MainLevel" parent="map" unique_id=29119180 instance=ExtResource("4_k0juu")]
 
 [node name="PauseMenu" parent="map" unique_id=2128580778 instance=ExtResource("5_71j4m")]
+
+[node name="HotbarUI" parent="map" unique_id=1189443597 instance=ExtResource("10_w7kh3")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=64976081]
 stream = SubResource("AudioStreamOggVorbis_7r4gi")
