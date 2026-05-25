@@ -4,7 +4,7 @@ extends VBoxContainer
 @onready var timer_label: Label = $TimerLabel
 @onready var skip_button: Button = $"../Button"
 
-const BUILD_DURATION := 60.0
+const BUILD_DURATION := 90.0
 var is_building_phase := true
 
 func _ready() -> void:
