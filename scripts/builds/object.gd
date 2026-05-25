@@ -111,6 +111,7 @@ func place():
 		if is_instance_valid(block) and block != self:
 			if global_position.distance_to(block.global_position) < 4.1: # Jarak diperlebar
 				var joint = Generic6DOFJoint3D.new() # Pakai engsel kaku!
+				joint.add_to_group("placed_joints")
 				get_parent().add_child(joint)
 				joint.global_position = (global_position + block.global_position) / 2.0
 				joint.node_a = joint.get_path_to(self)

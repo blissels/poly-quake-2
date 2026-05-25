@@ -15,6 +15,9 @@ func _ready() -> void:
 	load_level(GameState.current_level)
 
 func load_level(level_name: String) -> void:
+	# Bersihkan objek yang ditempatkan player di level sebelumnya
+	_clear_placed_objects()
+
 	# Hapus level lama
 	if current_instance and is_instance_valid(current_instance):
 		current_instance.queue_free()
@@ -40,6 +43,29 @@ func load_level(level_name: String) -> void:
 
 func _on_level_changed(level_name: String) -> void:
 	load_level(level_name)
+
+func _clear_placed_objects() -> void:
+	# 1. Hapus berdasarkan Group (Metode Utama)
+	var blocks := get_tree().get_nodes_in_group("placed_blocks")
+	for block in blocks:
+		if is_instance_valid(block):
+			block.queue_free()
+	
+	var joints := get_tree().get_nodes_in_group("placed_joints")
+	for joint in joints:
+		if is_instance_valid(joint):
+			joint.queue_free()
+	
+	# 2. Pembersihan Agresif (Fallback)
+	# Cari semua RigidBody3D dan Joint yang merupakan sibling dari LevelLoader (anak dari 'map')
+	var parent = get_parent()
+	if parent:
+		for child in parent.get_children():
+			if child is RigidBody3D or child is Joint3D:
+				# Jangan hapus jika itu adalah player atau level_loader sendiri (tapi tipenya beda, jadi aman)
+				child.queue_free()
+	
+	print("🧹 LevelLoader: Cleanup complete (Groups + Siblings)")
 
 func _setup_all_slots() -> void:
 	# Pastikan semua sensor under the level's "sensor_lubang" node terdaftar di group

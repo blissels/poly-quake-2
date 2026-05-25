@@ -21,12 +21,15 @@ func _ready():
 
 	# Tentukan target berdasarkan data QuestManager agar selalu sinkron
 	var steps = QuestManager.QUEST_DATA.get(GameState.current_level, [])
+	target_lubang = 0
 	for s in steps:
 		if s.get("trigger", "") == "slot_filled":
-			target_lubang += int(s.get("count", 0))
+			# Ambil nilai count tertinggi untuk trigger slot_filled
+			target_lubang = max(target_lubang, int(s.get("count", 0)))
+	
 	if target_lubang == 0:
-		# fallback default
-		target_lubang = 6
+		target_lubang = 3 # Default tutorial
+	
 	if objektif_label:
 		objektif_label.text = "🔧 Perbaiki Rumah: 0/" + str(target_lubang)
 
@@ -93,7 +96,7 @@ func _on_level_changed(level_name: String) -> void:
 	var steps = QuestManager.QUEST_DATA.get(level_name, [])
 	for s in steps:
 		if s.get("trigger", "") == "slot_filled":
-			target_lubang += int(s.get("count", 0))
+			target_lubang = max(target_lubang, int(s.get("count", 0)))
 	if target_lubang == 0:
 		# fallback default
 		target_lubang = 6
@@ -103,7 +106,7 @@ func _on_level_changed(level_name: String) -> void:
 	if next_btn:
 		next_btn.visible = false
 
-func show_result(scale: float, survived_blocks: int) -> void:
+func show_result(_scale: float, _survived_blocks: int) -> void:
 	# Tampilkan panel hasil terlebih dahulu
 	$Panel.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -112,35 +115,35 @@ func show_result(scale: float, survived_blocks: int) -> void:
 	if objektif_label:
 		objektif_label.text = "🔧 Perbaiki Rumah: %d/%d" % [lubang_terisi, target_lubang]
 
-	# Hitung nilai 'progress' sensor (0..3) berdasarkan jumlah bagian yang ditempel
-	var progress: int = clamp(lubang_terisi, 0, 3)
-
-	# Sembunyikan tombol Next selalu (level selanjutnya dibatalkan)
 	var local_next := $Panel/VBoxContainer.get_node_or_null("NextBtn")
-	if local_next:
-		local_next.hide()
-
-	# Tampilkan bintang sesuai progress dan trigger collapse untuk 0 atau 1
-	if progress == 0:
-		# Bintang 0: pemain tidak melakukan objektif yang valid
-		star_label.text = ""  # tidak ada bintang
-		message_label.text = "Tidak ada bagian terpasang."
-		_trigger_collapse_level()
-	elif progress == 1:
-		# Bintang 1: setidaknya 1 bagian terpasang
-		star_label.text = "⭐"
-		message_label.text = "Hanya 1 bagian terpasang."
-		_trigger_collapse_level()
-	elif progress == 2:
-		# Bintang 2: dua bagian terpasang — tetap berdiri
-		star_label.text = "⭐⭐"
-		message_label.text = "Dua bagian terpasang."
-	else:
-		# Bintang 3: lengkap — tetap berdiri
+	
+	# Bintang dan Pesan berdasarkan jumlah slot terisi
+	# 3 bintang: 100% (3/3 -> 3)
+	# 2 bintang: >= 66% (2/3 -> 2)
+	# 1 bintang: < 66% (0/3 atau 1/3 -> 1)
+	if lubang_terisi >= target_lubang:
+		# Bintang 3: lengkap
 		star_label.text = "⭐⭐⭐"
-		message_label.text = "Rumah lengkap!"
+		message_label.text = "Rumah lengkap! Sempurna!"
+		if local_next:
+			local_next.show()
+	elif lubang_terisi >= ceil(target_lubang * 0.6):
+		# Bintang 2: minimal 2/3 terpenuhi
+		star_label.text = "⭐⭐"
+		message_label.text = "Rumah hampir lengkap. Teruskan!"
+		if local_next:
+			local_next.hide()
+	else:
+		# Bintang 1: 0 atau 1 bagian terpasang
+		star_label.text = "⭐"
+		message_label.text = "Rumah belum lengkap. Coba lagi!"
+		if local_next:
+			local_next.hide()
+		# Jika sangat kurang, bisa trigger collapse (opsional, tapi tetap dipertahankan jika diinginkan)
+		if lubang_terisi < 2:
+			_trigger_collapse_level()
 
-	# Block UI: pause the game and require explicit player action (Restart)
+	# Block UI: pause the game
 	get_tree().paused = true
 
 

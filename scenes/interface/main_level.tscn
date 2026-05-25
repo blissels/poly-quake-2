@@ -63,6 +63,7 @@ vertical_alignment = 1
 [node name="LevelGuide" type="VBoxContainer" parent="HBoxContainer/MarginContainer" unique_id=552472291]
 layout_mode = 2
 size_flags_horizontal = 8
+size_flags_vertical = 4
 alignment = 1
 
 [node name="GuideLabel" type="Label" parent="HBoxContainer/MarginContainer/LevelGuide" unique_id=366546332]
@@ -95,6 +96,7 @@ horizontal_alignment = 3
 [node name="QuestUI" type="VBoxContainer" parent="HBoxContainer/MarginContainer" unique_id=555426561]
 layout_direction = 2
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_constants/separation = 5
 alignment = 1
 script = ExtResource("3_3ebi4")
@@ -126,3 +128,11 @@ theme_override_fonts/font = ExtResource("3_ig700")
 theme_override_font_sizes/font_size = 25
 text = "💰 0"
 vertical_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/MarginContainer" unique_id=1920959479]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_ig700")
+theme_override_font_sizes/font_size = 25
+text = "Skip Timer"

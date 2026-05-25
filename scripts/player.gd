@@ -48,7 +48,6 @@ var in_destroy_mode: bool = false
 func _ready():
 	objects.append(preload("res://scenes/build/floor/floor.tscn"))
 	objects.append(preload("res://scenes/build/wall/wall.tscn"))
-	objects.append(preload("res://scenes/build/stairs/stairs-closed.tscn"))
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 	# Initialize camera shake noise and base rotation
@@ -57,6 +56,31 @@ func _ready():
 	noise.seed = noise_seed
 	noise.frequency = 1.0
 	
+	# Connect to level change signal to reset player state
+	if GameState.has_signal("level_changed"):
+		GameState.level_changed.connect(_on_level_changed)
+
+func _on_level_changed(_level_name: String) -> void:
+	# Reset build mode and destroy mode
+	in_build_mode = false
+	in_destroy_mode = false
+	
+	# Clean up ghost block
+	if ghost_block:
+		ghost_block.queue_free()
+		ghost_block = null
+	
+	# Reset internal state
+	current_object_index = 0
+	rotation_complete = true
+	
+	# Optional: Reset velocity and trauma
+	velocity = Vector3.ZERO
+	currentvel = Vector3.ZERO
+	velocity_y = 0
+	trauma = 0.0
+	
+	print("👤 Player: Reset state for new level")
 @warning_ignore("unused_parameter")
 func building(delta):
 	var snap_pos: Vector3 = snap_to_grid(hand_marker.global_position, grid_size)
@@ -115,6 +139,12 @@ func _physics_process(delta):
 			if ghost_block != null:
 				ghost_block.queue_free()
 				ghost_block = null
+	
+	if Input.is_action_just_pressed("unlock_mouse"):
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
 	if ghost_block:
 		building(delta)
@@ -176,7 +206,7 @@ func movement(delta):
 	move_and_slide()
 	
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		head.rotate_x(deg_to_rad(event.relative.y * -MOUSE_SENSITIVITY))
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, -90, 60)
 		self.rotate_y(deg_to_rad(event.relative.x * -MOUSE_SENSITIVITY))

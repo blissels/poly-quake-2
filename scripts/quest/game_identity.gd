@@ -2,6 +2,7 @@ extends VBoxContainer
 
 @onready var build_timer: Timer = $BuildTimer
 @onready var timer_label: Label = $TimerLabel
+@onready var skip_button: Button = $"../Button"
 
 const BUILD_DURATION := 60.0
 var is_building_phase := true
@@ -11,10 +12,19 @@ func _ready() -> void:
 	build_timer.one_shot  = true
 	build_timer.timeout.connect(_on_build_timer_timeout)
 	build_timer.start()
+	
+	if skip_button:
+		skip_button.pressed.connect(_on_skip_button_pressed)
+		skip_button.visible = true
+	
 	EarthquakeManager.earthquake_ended.connect(_on_earthquake_ended)
-
-	# ✅ Sambungkan quest selesai → level transition
 	QuestManager.all_quests_done.connect(_on_all_quests_done)
+
+func _on_skip_button_pressed() -> void:
+	if is_building_phase:
+		print("Skip button pressed. Skipping building phase...")
+		build_timer.stop()
+		_on_build_timer_timeout()
 
 func _on_all_quests_done() -> void:
 	if GameState.current_level == "tutorial":
@@ -53,6 +63,8 @@ func _update_timer_display() -> void:
 		
 func _on_build_timer_timeout() -> void:
 	is_building_phase = false
+	if skip_button:
+		skip_button.visible = false
 	# Tampilkan alert gempa di tengah atas layar sebelum dimulai
 	timer_label.text = "TERJADI GEMPA"
 	timer_label.modulate = Color.RED
