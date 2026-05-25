@@ -39,7 +39,7 @@ albedo_color = Color(1, 1, 0, 0.3137255)
 material = SubResource("StandardMaterial3D_gm6me")
 size = Vector3(1.998, 0.104, 2.003)
 
-[node name="Level01" type="Node3D" unique_id=1193087281]
+[node name="LevelTutorial" type="Node3D" unique_id=1193087281]
 script = ExtResource("1_ojvqm")
 
 [node name="wall_first" type="Node3D" parent="." unique_id=320532451]
