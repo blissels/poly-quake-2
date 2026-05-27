@@ -1,7 +1,19 @@
 class_name ObjectBlock
 extends RigidBody3D
 
-@onready var model: MeshInstance3D = get_node_or_null("model")
+@export var block_type: String = "Wall" # Default type, should be set in inspector for each block tscn
+
+@onready var model: MeshInstance3D = _find_mesh()
+
+func _find_mesh(node: Node = self) -> MeshInstance3D:
+	if node != self and node is MeshInstance3D:
+		return node
+	for child in node.get_children():
+		var found = _find_mesh(child)
+		if found:
+			return found
+	return null
+
 @onready var collision_shape: CollisionShape3D = get_node_or_null("CollisionShape3D")
 @onready var clipping_hitbox: Area3D = get_node_or_null("clippingHitBox")
 @onready var floating_hitbox: Area3D = get_node_or_null("floatingHitBox")
@@ -12,20 +24,25 @@ var blue_material: Material = load("res://assets/materials/blue_material.tres")
 var green_material: Material = load("res://assets/materials/green_material.tres")
 
 var can_place: bool = false
+var was_successfully_placed: bool = false
 var is_ghost: bool = true
 
 var ghost_material_valid: StandardMaterial3D
 var ghost_material_invalid: StandardMaterial3D
 
 func _ready() -> void:
-	# Setup ghost materials
+	# Attempt to find model early
+	if not model:
+		model = _find_mesh()
+	
+	# Setup ghost materials with transparency enabled
 	ghost_material_valid = StandardMaterial3D.new()
 	ghost_material_valid.albedo_color = Color(0.0, 0.8, 0.6, 0.4) # Cyan/Green-Blue
-	# ghost_material_valid.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	ghost_material_valid.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	
 	ghost_material_invalid = StandardMaterial3D.new()
 	ghost_material_invalid.albedo_color = Color(1.0, 0.1, 0.1, 0.4) # Red
-	# ghost_material_invalid.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	ghost_material_invalid.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 
 	# Saat pertama kali muncul (sebagai ghost block), bekukan fisiknya
 	freeze = true
@@ -34,18 +51,21 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if is_ghost:
-		if model:
-			model.transparency = 0.5
-		
 		update_validation()
 		
+		# Ensure model is found (for columns or newly added objects)
+		if not model:
+			model = _find_mesh()
+			
 		if model:
+			# Ensure transparency is applied for ghost mode
+			model.transparency = 0.5
 			if can_place:
 				model.material_override = ghost_material_valid
 			else:
 				model.material_override = ghost_material_invalid
 		
-	if self.scale.x == 0.01:
+	if self.scale.x <= 0.05:
 		queue_free()
 
 func update_validation() -> void:
@@ -86,6 +106,7 @@ func place() -> void:
 	# Valid placement logic
 	freeze = true
 	add_to_group("placed_blocks")
+	was_successfully_placed = true
 	
 	# Notify sensors for quest/objective updates
 	var sensors: Array = get_tree().get_nodes_in_group("sensor_lubang")
@@ -95,7 +116,7 @@ func place() -> void:
 			var dist: float = global_position.distance_to(sensor.global_position)
 			if dist < 3.0:
 				if sensor.has_method("notify_block_placed"):
-					sensor.notify_block_placed()
+					sensor.notify_block_placed(block_type)
 					notified = true
 					break
 	
@@ -134,5 +155,11 @@ func place() -> void:
 
 func destroy():
 	SFXManager.play("destroy")
-	if animation:
+	if was_successfully_placed:
+		QuestManager.kurangi_objektif()
+	
+	if animation and animation.has_animation("destroy"):
 		animation.play("destroy")
+	else:
+		# If no animation, just vanish
+		queue_free()

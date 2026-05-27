@@ -155,8 +155,13 @@ func _physics_process(delta):
 			object_change(-1)
 	elif raycast.is_colliding():
 		if Input.is_action_just_pressed("right_click"):
-			if raycast.get_collider().is_in_group("Object"):
-				raycast.get_collider().destroy()
+			var collider = raycast.get_collider()
+			if collider.is_in_group("Object") or collider.is_in_group("placed_blocks"):
+				if collider.has_method("destroy"):
+					collider.destroy()
+				else:
+					# Fallback for objects without custom destroy logic
+					collider.queue_free()
 	movement(delta)
 	
 func object_change(direction):

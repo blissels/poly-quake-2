@@ -18,15 +18,17 @@ const QUEST_DATA := {
 			"coins"   : 5,
 		},
 		{
-			"desc"    : "Letakkan 1 dinding di slot kosong",
+			"desc"    : "Letakkan 1 Dinding di Slot A",
 			"trigger" : "slot_filled",
 			"count"   : 1,
 			"coins"   : 10,
+			"required_slot": "slot_01", # Strict check
+			"required_block": "Wall"    # Strict check
 		},
 		{
 			"desc"    : "Lengkapi semua bagian rumah (3/3)",
 			"trigger" : "slot_filled",
-			"count"   : 3,   # Total kumulatif slot untuk tutorial
+			"count"   : 3,
 			"coins"   : 20,
 		},
 	],
@@ -44,44 +46,60 @@ const QUEST_DATA := {
 var current_steps    : Array   = []
 var step_index       : int     = 0
 var step_progress    : int     = 0
-var slots_filled_total: int    = 0  # optional global counter
+var slots_filled_total: int    = 0
 var filled_slot_ids  : Array   = []
 
-# =============================================
 func start_quest(level_name: String) -> void:
-	# Prepare steps; progress is tracked per-step (not cumulative)
 	current_steps      = QUEST_DATA.get(level_name, [])
 	step_index         = 0
 	step_progress      = 0
-	# reset global slot counter for telemetry (not used for per-step progress)
 	slots_filled_total = 0
-	# clear per-quest tracked slot ids to avoid bleed-through between levels
 	filled_slot_ids.clear()
 	_emit_current_step()
 	print("📋 Quest dimulai: %s" % level_name)
 
-# =============================================
-# TRIGGER FUNCTIONS — dipanggil dari script lain
-# =============================================
 func trigger_build_mode_opened() -> void:
 	_handle("build_mode_opened", 1)
 
-func trigger_slot_filled(slot_id: String = "") -> void:
-	# Prevent counting the same slot twice for the same quest
+func trigger_slot_filled(slot_id: String = "", block_type: String = "Unknown") -> void:
+	# 1. Validation for current step requirements
+	if step_index < current_steps.size():
+		var step: Dictionary = current_steps[step_index]
+		if step.get("trigger") == "slot_filled":
+			var req_slot: String = step.get("required_slot", "")
+			var req_block: String = step.get("required_block", "")
+			
+			# Strict check: If requirements exist, they must match
+			if req_slot != "" and slot_id != req_slot:
+				print("[QuestManager] Strict Failure: Wrong slot! Expected %s, got %s" % [req_slot, slot_id])
+				return
+			if req_block != "" and block_type != req_block:
+				print("[QuestManager] Strict Failure: Wrong block! Expected %s, got %s" % [req_block, block_type])
+				return
+
+	# 2. Prevent counting the same slot twice
 	if slot_id != "" and slot_id in filled_slot_ids:
-		print("[QuestManager] slot %s already counted for this quest" % slot_id)
+		print("[QuestManager] slot %s already counted" % slot_id)
 		return
+		
 	if slot_id != "":
 		filled_slot_ids.append(slot_id)
-	# Keep global count for telemetry/debug, but pass delta=1 to _handle
+		
 	slots_filled_total += 1
 	_handle("slot_filled", 1)
 
-# =============================================
-# Internal handler now accepts a delta (increment) instead of a cumulative value
-func _Handle(trigger: String, delta: int) -> void:
-	# Backwards compatibility: some callers might use lowercase _handle
-	_handle(trigger, delta)
+func is_building_complete() -> bool:
+	# Returns true if the last step of the current quest sequence is reached or finished
+	return step_index >= current_steps.size()
+
+func kurangi_objektif() -> void:
+	if step_index < current_steps.size():
+		var step : Dictionary = current_steps[step_index]
+		if step.get("trigger", "") == "slot_filled":
+			step_progress = max(0, step_progress - 1)
+			slots_filled_total = max(0, slots_filled_total - 1)
+			_emit_current_step()
+			print("📉 Objective reduced: %d" % step_progress)
 
 func _handle(trigger: String, delta: int) -> void:
 	if step_index >= current_steps.size(): return
@@ -91,27 +109,22 @@ func _handle(trigger: String, delta: int) -> void:
 
 	var required : int = step.get("count", 1)
 	
-	# Jika trigger adalah slot_filled, kita gunakan delta agar tiap step mulai dari 0
 	if trigger == "slot_filled":
 		step_progress += delta
 	else:
-		# Increment per-step progress by delta; clamp to required
 		step_progress = min(step_progress + delta, required)
 
 	if step_progress >= required:
-		# Emit current progress first so UI updates number (e.g., 3/3)
 		_emit_current_step()
-		# ✅ Step selesai
 		var coins : int = step.get("coins", 0)
 		GameState.add_coins(coins)
 		emit_signal("quest_step_done", step.get("desc", ""), coins)
-		SFXManager.play("success")
+		if has_node("/root/SFXManager"):
+			get_node("/root/SFXManager").play("success")
 		step_index += 1
-		# Reset per-step progress so next step starts from 0
 		step_progress = 0
 
 		if step_index >= current_steps.size():
-			# ✅ Semua quest selesai
 			emit_signal("all_quests_done")
 		else:
 			_emit_current_step()

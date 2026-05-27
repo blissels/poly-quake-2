@@ -93,23 +93,31 @@ func show_result(_scale: float, _survived_blocks: int) -> void:
 	main_menu_btn.show()
 
 	# Logic for Stars and Next Level Button
-	var stars = 1
+	var stars = 0
 	
 	if GameState.structural_failure:
 		stars = 0
-		star_label.text = ""
-		message_label.text = "Failed: Improper structural placement"
+		star_label.text = "0 Stars"
+		# Tentukan pesan berdasarkan penyebab failure
+		if lubang_terisi < target_lubang:
+			message_label.text = "Failed: Incomplete structural integrity"
+		else:
+			message_label.text = "Failed: Improper structural placement"
+		star_label.modulate = Color.RED
 	elif lubang_terisi >= target_lubang:
 		stars = 3
 		star_label.text = "⭐⭐⭐"
+		star_label.modulate = Color.YELLOW
 		message_label.text = "Rumah lengkap! Sempurna!"
-	elif lubang_terisi >= 2: # 2 stars for 2 or more (but not all)
+	elif lubang_terisi >= 2:
 		stars = 2
 		star_label.text = "⭐⭐"
+		star_label.modulate = Color.YELLOW
 		message_label.text = "Rumah hampir lengkap. Teruskan!"
 	else:
 		stars = 1
 		star_label.text = "⭐"
+		star_label.modulate = Color.YELLOW
 		message_label.text = "Rumah belum lengkap. Coba lagi!"
 
 	# Button Visibility Logic:
