@@ -61,6 +61,9 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3, 
 [node name="wall10" parent="wall_first" parent_id_path=PackedInt32Array(320532451) index="9" unique_id=205953167]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 0, -2)
 
+[node name="wall11" parent="wall_first" parent_id_path=PackedInt32Array(320532451) index="10" unique_id=331334789]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 0, 0)
+
 [node name="wall13" parent="wall_first" parent_id_path=PackedInt32Array(320532451) index="12" unique_id=2035484929]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 0, -6)
 
@@ -107,7 +110,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -5, 
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3, 0, -1)
 
 [node name="wall6" parent="wall_second" parent_id_path=PackedInt32Array(2002180938) index="5" unique_id=1074877071]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 0, -2)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 0, 0)
 
 [node name="wall9" parent="wall_second" parent_id_path=PackedInt32Array(2002180938) index="8" unique_id=541691011]
 transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -1, 0, 5)
@@ -245,7 +248,7 @@ transform = Transform3D(-2.1855695e-07, 0, -1, 0, 1, 0, 1, 0, -2.1855695e-07, -4
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.06726742, 1.1767118, -0.016351223)
 
 [node name="Slot05" type="Area3D" parent="sensor_lubang" parent_id_path=PackedInt32Array(1920164583) index="4" unique_id=1361276754 groups=["sensor_lubang"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -0.13228226)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 1.8677177)
 collision_layer = 0
 script = ExtResource("10_w2b1m")
 slot_id = "slot_05"
@@ -259,7 +262,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0006402731, 1.1757278, 0.13
 mesh = SubResource("BoxMesh_gm6me")
 
 [node name="Slot06" type="Area3D" parent="sensor_lubang" parent_id_path=PackedInt32Array(1920164583) index="5" unique_id=1506016350 groups=["sensor_lubang"]]
-transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, -7.9455643, 2.4135883, 0.05137372)
+transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, -7.9455643, 2.4135883, -1.9486263)
 collision_layer = 0
 script = ExtResource("10_w2b1m")
 slot_id = "slot_06"
