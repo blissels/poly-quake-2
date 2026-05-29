@@ -1,4 +1,3 @@
-# res://scripts/earthquake_manager.gd
 extends Node
 
 signal earthquake_ended(scale: float, blocks_survived: int)
@@ -18,7 +17,7 @@ var cam_shake_time     : float = 0.0
 
 func start_earthquake() -> void:
 	var placed_blocks = get_tree().get_nodes_in_group("placed_blocks")
-	if placed_blocks.is_empty(): return
+	var template_blocks = get_tree().get_nodes_in_group("template_blocks")
 
 	earthquake_scale = randf_range(4.0, 7.5)
 	is_shaking       = true
@@ -27,24 +26,69 @@ func start_earthquake() -> void:
 	cam_shake_time   = 0.0
 	block_origins.clear()
 
+	# 1. Hitung Persentase Quest
+	var total_required = 0
+	for step in QuestManager.current_steps:
+		if step.get("trigger", "") == "slot_filled":
+			total_required += int(step.get("count", 0))
+
+	var completion_ratio = 1.0
+	if total_required > 0:
+		completion_ratio = float(QuestManager.slots_filled_total) / float(total_required)
+
+	# 2. Cek Keberadaan Tiang Penyangga
+	var has_column = false
+	for block in placed_blocks:
+		if block.get("block_type") == "Column":
+			has_column = true
+			break
+
+	# Simpan titik awal template untuk evaluasi nanti
+	for block in template_blocks:
+		if is_instance_valid(block):
+			block_origins[block] = block.global_position
+
+	# 3. EKSEKUSI HUKUMAN: AMBRUK TOTAL!
+	if completion_ratio < 0.5 or not has_column:
+		print("⚠️ STRUKTUR GAGAL! Bangunan akan rubuh total.")
+		GameState.structural_failure = true
+
+		# Hancurkan semua joint (Semen)
+		var joints = get_tree().get_nodes_in_group("placed_joints")
+		for joint in joints:
+			if is_instance_valid(joint):
+				joint.queue_free()
+
+		# LEPAS SEGEL SEMUA BLOK (PLAYER + TEMPLATE) AGAR JATUH!
+		var all_blocks = placed_blocks + template_blocks
+		for block in all_blocks:
+			if is_instance_valid(block) and block is RigidBody3D:
+				block.freeze = false
+				block.linear_damp = 0.0
+				block.angular_damp = 0.0
+	else:
+		print("🏗️ STRUKTUR AMAN! Bangunan siap menahan gempa.")
+		GameState.structural_failure = false
+		
+		# Lepas segel HANYA untuk blok player (Template tetap kokoh)
+		for block in placed_blocks:
+			if is_instance_valid(block) and not block.is_in_group("template_blocks"):
+				block.freeze = false
+				block_origins[block] = block.global_position
+
 	# Setup kamera
 	camera_node = get_viewport().get_camera_3d()
-	if camera_node: cam_original_pos = camera_node.position
+	if camera_node: 
+		cam_original_pos = camera_node.position
+		if camera_node.has_method("add_trauma"):
+			camera_node.add_trauma(0.8)
 
-	# Matikan build mode saat gempa dimulai agar player tidak bisa menempatkan blok
 	var player = get_tree().current_scene.find_child("player", true, false)
 	if player:
 		player.in_build_mode = false
 		if player.ghost_block != null:
 			player.ghost_block.queue_free()
 			player.ghost_block = null
-
-	for block in placed_blocks:
-		if is_instance_valid(block):
-			block_origins[block] = block.global_position
-			# Hanya player blocks yang dapat fisika
-			if not block.is_in_group("template_blocks"):
-				block.freeze = false
 
 	print("🌍 GEMPA! Skala: %.1f SR" % earthquake_scale)
 
@@ -57,28 +101,32 @@ func _process(delta: float) -> void:
 
 	# Guncang kamera
 	if camera_node:
-		var intensity : float = earthquake_scale / 15.0
-		camera_node.position = cam_original_pos + Vector3(
-			sin(cam_shake_time * 13.7) * intensity,
-			sin(cam_shake_time * 9.3)  * intensity * 0.5,
-			sin(cam_shake_time * 11.1) * intensity * 0.3
-		)
+		if camera_node.has_method("add_trauma"):
+			camera_node.add_trauma(delta * (earthquake_scale / 5.0))
+		else:
+			var intensity : float = earthquake_scale / 15.0
+			camera_node.position = cam_original_pos + Vector3(
+				sin(cam_shake_time * 13.7) * intensity,
+				sin(cam_shake_time * 9.3)  * intensity * 0.5,
+				sin(cam_shake_time * 11.1) * intensity * 0.3
+			)
 
 	if shake_timer <= 0.0:
 		_finish_earthquake()
 		return
 
-	# Guncang template blocks via Tween (bukan fisika)
 	if impulse_timer <= 0.0:
 		impulse_timer = IMPULSE_INTERVAL
-		_shake_template_blocks()
+		# HANYA getarkan template pakai Tween kalau bangunannya AMAN!
+		# Kalau gagal, biarkan gravitasi yang menghancurkannya.
+		if not GameState.structural_failure:
+			_shake_template_blocks()
 
 func _shake_template_blocks() -> void:
 	var template_blocks = get_tree().get_nodes_in_group("template_blocks")
 	var intensity    : float = clamp((earthquake_scale - 4.0) / 3.5, 0.0, 1.0)
 	var pos_strength : float = lerp(0.03, 0.18, intensity)
 
-	# Satu arah bersama agar terasa mengikat
 	var base := Vector3(
 		randf_range(-pos_strength, pos_strength),
 		randf_range(-pos_strength * 0.1, 0.0),
@@ -102,17 +150,17 @@ func _shake_template_blocks() -> void:
 func _finish_earthquake() -> void:
 	is_shaking = false
 
-	# Reset kamera smooth
 	if camera_node:
 		var tw = create_tween()
 		tw.tween_property(camera_node, "position", cam_original_pos, 0.4)
 		camera_node = null
 
-	# Reset template blocks ke posisi awal
-	for block in get_tree().get_nodes_in_group("template_blocks"):
-		if is_instance_valid(block) and block_origins.has(block):
-			var tw = create_tween()
-			tw.tween_property(block, "global_position", block_origins[block] as Vector3, 0.5)
+	# Reset template blocks ke posisi awal HANYA JIKA TIDAK RUBUH
+	if not GameState.structural_failure:
+		for block in get_tree().get_nodes_in_group("template_blocks"):
+			if is_instance_valid(block) and block_origins.has(block):
+				var tw = create_tween()
+				tw.tween_property(block, "global_position", block_origins[block] as Vector3, 0.5)
 
 	# Hitung blok player yang selamat
 	var player_blocks = []
